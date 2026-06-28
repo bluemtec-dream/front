@@ -1,0 +1,362 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary)}
+.wrap{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
+.topbar{background:#1B4F8A;padding:8px 14px;display:flex;align-items:center;gap:6px}
+.topbar-logo{color:#fff;font-size:13px;font-weight:500}
+.ttab{color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px}
+.ttab.on{background:rgba(255,255,255,.18);color:#fff;font-weight:500}
+.fbar{background:#EBF3FB;border-bottom:0.5px solid #C5D9EC;padding:6px 14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.fsel{background:#fff;border:0.5px solid #B5D4F4;border-radius:6px;padding:3px 8px;font-size:11px;color:#0C447C;display:flex;align-items:center;gap:4px}
+.kbar{background:#fff;border-bottom:0.5px solid var(--color-border-tertiary);padding:7px 14px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.kc{background:#F4F8FD;border-radius:6px;padding:6px 8px;text-align:center}
+.kl{font-size:10px;color:#185FA5;margin-bottom:2px}.kv{font-size:13px;font-weight:500;color:#0C447C}.kd{font-size:10px;margin-top:1px}
+.ku{color:#1D9E75}.kdn{color:#E24B4A}.kn{color:#888780}
+.body{padding:10px 14px;background:var(--color-background-tertiary)}
+.r2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin-bottom:8px}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px}
+.ct{font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:4px;flex-wrap:wrap}
+.sdiv{font-size:11px;font-weight:500;color:#185FA5;padding:5px 0 4px;display:flex;align-items:center;gap:6px;border-bottom:1.5px solid #B5D4F4;margin-bottom:8px}
+.nb{background:#E1F5EE;border-top:0.5px solid #9FE1CB;padding:5px 14px;font-size:10px;color:#085041;display:flex;align-items:center;gap:4px;font-weight:500}
+.ptab{padding:3px 9px;border-radius:4px;border:0.5px solid #B5D4F4;font-size:10px;color:#185FA5;cursor:pointer;background:#fff}
+.ptab.on{background:#185FA5;color:#fff;border-color:#185FA5}
+.srow{display:flex;align-items:center;gap:5px;margin-bottom:5px}
+.swrap{flex:1;background:var(--color-background-secondary);border-radius:3px;height:16px;overflow:hidden}
+.sbar{height:100%;border-radius:3px;display:flex;align-items:center;padding:0 6px;font-size:9px;font-weight:500;color:#fff}
+.fstep{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.flabel{font-size:11px;color:var(--color-text-secondary);width:54px;text-align:right;flex-shrink:0}
+.fbwrap{flex:1;background:var(--color-background-secondary);border-radius:3px;height:22px;overflow:hidden}
+.fbar2{height:100%;display:flex;align-items:center;padding-left:10px;font-size:11px;font-weight:500;color:#fff;border-radius:3px}
+.farr{font-size:10px;color:var(--color-text-secondary);margin-bottom:3px;padding-left:62px;display:flex;align-items:center;gap:5px}
+.cok{background:#EAF3DE;color:#27500A;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:500}
+.cbad{background:#FCEBEB;color:#A32D2D;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:500}
+.wbox{background:#FCEBEB;border-radius:5px;padding:6px 10px;font-size:10px;color:#A32D2D;display:flex;align-items:center;gap:5px;margin-top:8px}
+.rcard{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px}
+.rct{font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:7px;display:flex;align-items:center;justify-content:space-between}
+.tbl{width:100%;table-layout:fixed;font-size:11px;border-collapse:collapse}
+.tbl th{padding:4px 3px;color:var(--color-text-secondary);font-size:10px;font-weight:400;border-bottom:0.5px solid var(--color-border-tertiary);text-align:left}
+.tbl td{padding:5px 3px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.tbl tr:last-child td{border-bottom:none}
+.cn{background:#FCEBEB;color:#A32D2D;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:500;display:inline-block}
+.cp{background:#EAF3DE;color:#27500A;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:500;display:inline-block}
+.arow{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:11px}
+.arow:last-child{border-bottom:none}
+.ai-link{background:#E6F1FB;border:0.5px solid #B5D4F4;border-radius:var(--border-radius-md);padding:8px 12px;font-size:11px;color:#0C447C;display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer}
+</style>
+
+<h2 class="sr-only">블루팜코리아 탭2 구매처 분석 최종 — 이탈위험 거래처 리스트 제거, AI 인사이트 탭 링크 추가</h2>
+
+<div class="wrap">
+  <div class="topbar">
+    <span class="topbar-logo"><i class="ti ti-chart-dots-3" aria-hidden="true" style="font-size:15px;margin-right:4px"></i>블루팜코리아 SID</span>
+    <div style="display:flex;gap:2px;margin-left:10px">
+      <div class="ttab">매출 대시보드</div>
+      <div class="ttab on">구매처 분석</div>
+      <div class="ttab">캠페인 성과</div>
+      <div class="ttab">AI 인사이트</div>
+      <div class="ttab">파트너 히스토리</div>
+    </div>
+  </div>
+
+  <div class="fbar">
+    <div class="fsel"><i class="ti ti-calendar" aria-hidden="true"></i>2025.11</div>
+    <div class="fsel" style="border-color:#1B4F8A"><i class="ti ti-building-hospital" aria-hidden="true"></i>MSD</div>
+    <div class="fsel"><i class="ti ti-pill" aria-hidden="true"></i>전체 제품</div>
+    <div class="fsel"><i class="ti ti-map-pin" aria-hidden="true"></i>전체 지역</div>
+    <div class="fsel" style="border-color:#0F6E56"><i class="ti ti-truck-delivery" aria-hidden="true"></i>병의원+도매</div>
+    <div style="margin-left:auto;display:flex;gap:4px">
+      <button style="background:#fff;border:0.5px solid #B5D4F4;border-radius:6px;padding:3px 8px;font-size:11px;color:#0C447C"><i class="ti ti-refresh" aria-hidden="true" style="font-size:12px"></i></button>
+      <div style="background:#1B4F8A;color:#fff;border-radius:6px;padding:3px 9px;font-size:11px;display:flex;align-items:center;gap:3px"><i class="ti ti-download" aria-hidden="true" style="font-size:12px"></i>PDF/PPT</div>
+    </div>
+  </div>
+
+  <div class="kbar">
+    <div class="kc"><div class="kl">총 매출</div><div class="kv">₩24.1억</div><div class="kd ku">▲ 8.4%</div></div>
+    <div class="kc"><div class="kl">판매수량</div><div class="kv">12,480</div><div class="kd ku">▲ 5.2%</div></div>
+    <div class="kc"><div class="kl">구매처 수</div><div class="kv">1,204</div><div class="kd ku">▲ 3.1%</div></div>
+    <div class="kc"><div class="kl">신규 구매처</div><div class="kv">142</div><div class="kd ku">▲ 22</div></div>
+    <div class="kc"><div class="kl">재구매율</div><div class="kv">68.4%</div><div class="kd kdn">▼ 1.2%p</div></div>
+    <div class="kc"><div class="kl">휴면 전환율</div><div class="kv">11.7%</div><div class="kd kdn">▼ 0.8%p</div></div>
+    <div class="kc"><div class="kl">전월 성장률</div><div class="kv">+8.4%</div><div class="kd kn">MoM</div></div>
+  </div>
+
+  <div class="body">
+
+    <!-- ═══ A. 구매처 분석 ═══ -->
+    <div class="sdiv"><i class="ti ti-users" aria-hidden="true" style="font-size:14px"></i>A. 구매처 분석</div>
+
+    <!-- A-1 추이 + RFM -->
+    <div class="r2">
+      <div class="card">
+        <div class="ct">
+          <span><i class="ti ti-chart-line" aria-hidden="true" style="margin-right:3px"></i>구매처 월별 추이 — 신규 / 재구매 / 휴면</span>
+          <div style="display:flex;gap:2px" id="trendTabs">
+            <div class="ptab on" onclick="swT(this,'6')">6개월</div>
+            <div class="ptab" onclick="swT(this,'12')">12개월</div>
+          </div>
+        </div>
+        <svg id="tSvg" width="100%" height="106" style="overflow:visible"></svg>
+        <div style="display:flex;gap:10px;margin-top:5px;font-size:10px;color:var(--color-text-secondary)">
+          <span style="display:flex;align-items:center;gap:3px"><span style="width:12px;height:2.5px;background:#378ADD;display:inline-block;border-radius:2px"></span>신규</span>
+          <span style="display:flex;align-items:center;gap:3px"><span style="width:12px;height:2.5px;background:#1D9E75;display:inline-block;border-radius:2px"></span>재구매</span>
+          <span style="display:flex;align-items:center;gap:3px"><span style="width:12px;height:2.5px;background:#888780;display:inline-block;border-radius:2px"></span>휴면</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ct"><span><i class="ti ti-filter" aria-hidden="true" style="margin-right:3px"></i>RFM 세그먼트</span><span style="font-size:9px;color:var(--color-text-secondary)">전월 대비 이동</span></div>
+        <div>
+          <div class="srow"><span style="font-size:10px;font-weight:500;color:#27500A;width:48px">충성</span><div class="swrap"><div class="sbar" style="width:85%;background:#639922">324명 (27%)</div></div><span style="font-size:10px;color:#888780;margin-left:4px">―</span></div>
+          <div class="srow"><span style="font-size:10px;font-weight:500;color:#0C447C;width:48px">일반</span><div class="swrap"><div class="sbar" style="width:72%;background:#85B7EB;color:#0C447C">382명 (32%)</div></div><span style="font-size:10px;color:#E24B4A;margin-left:4px">▼8</span></div>
+          <div class="srow"><span style="font-size:10px;font-weight:500;color:#412402;width:48px">단발</span><div class="swrap"><div class="sbar" style="width:52%;background:#FAC775;color:#412402">210명 (17%)</div></div><span style="font-size:10px;color:#1D9E75;margin-left:4px">▲5</span></div>
+          <div class="srow"><span style="font-size:10px;font-weight:500;color:#854F0B;width:48px">관심</span><div class="swrap"><div class="sbar" style="width:34%;background:#EF9F27;color:#412402">144명 (12%)</div></div><span style="font-size:10px;color:#1D9E75;margin-left:4px">▲3</span></div>
+          <div class="srow"><span style="font-size:10px;font-weight:500;color:#A32D2D;width:48px">이탈위험</span><div class="swrap"><div class="sbar" style="width:28%;background:#E24B4A">144명 (12%)</div></div><span style="font-size:10px;color:#E24B4A;font-weight:500;margin-left:4px">▲22</span></div>
+        </div>
+        <div style="margin-top:7px;padding:4px 8px;background:#FCEBEB;border-radius:5px;font-size:10px;color:#A32D2D;display:flex;align-items:center;gap:4px">
+          <i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:12px"></i>이탈위험 전월 대비 +22명 급증
+        </div>
+      </div>
+    </div>
+
+    <!-- A-2 히트맵 -->
+    <div class="card" style="margin-bottom:8px">
+      <div class="ct">
+        <span><i class="ti ti-grid-dots" aria-hidden="true" style="margin-right:3px"></i>구매 패턴 히트맵 — 세그먼트별 월평균 구매 빈도 &amp; 평균 구매 주기</span>
+        <div style="display:flex;align-items:center;gap:5px">
+          <span style="font-size:9px;color:#A32D2D;background:#FCEBEB;padding:2px 7px;border-radius:4px">구매주기 TBD — 판매데이터 확인 후 확정</span>
+          <div style="display:flex;gap:2px" id="hmTabs">
+            <div class="ptab on" onclick="swH(this,'6')">6개월</div>
+            <div class="ptab" onclick="swH(this,'12')">12개월</div>
+          </div>
+        </div>
+      </div>
+      <div id="hmWrap" style="overflow-x:auto"></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:6px;flex-wrap:wrap;font-size:10px;color:var(--color-text-secondary)">
+        <span>구매 빈도</span>
+        <div style="display:flex;gap:2px">
+          <span style="width:12px;height:10px;background:#E6F1FB;border-radius:2px;display:inline-block"></span>
+          <span style="width:12px;height:10px;background:#85B7EB;border-radius:2px;display:inline-block"></span>
+          <span style="width:12px;height:10px;background:#378ADD;border-radius:2px;display:inline-block"></span>
+          <span style="width:12px;height:10px;background:#185FA5;border-radius:2px;display:inline-block"></span>
+          <span style="width:12px;height:10px;background:#0C447C;border-radius:2px;display:inline-block"></span>
+        </div>
+        <span>낮음 → 높음</span>
+        <span style="display:flex;align-items:center;gap:3px"><span style="width:12px;height:10px;background:#D3D1C7;border-radius:2px;display:inline-block"></span>미구매</span>
+        <span style="display:flex;align-items:center;gap:3px;color:#A32D2D"><span style="width:12px;height:10px;border:1.5px dashed #E24B4A;border-radius:2px;display:inline-block"></span>이탈 신호</span>
+      </div>
+    </div>
+
+    <!-- 이탈위험 거래처 → AI 인사이트 탭 안내 링크 -->
+    <div class="ai-link" style="margin-bottom:8px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:16px;color:#E24B4A"></i>
+        <div>
+          <div style="font-size:11px;font-weight:500;color:#0C447C">이탈 위험 거래처 상세 리스트 &amp; CSV 다운로드</div>
+          <div style="font-size:10px;color:#185FA5;margin-top:2px">AI 인사이트 탭에서 RFM 근거 데이터, 위험 점수, AI 추천 액션과 함께 확인할 수 있어요</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+        <span style="background:#FCEBEB;color:#A32D2D;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:500">총 144개처 · H44 M58 L42</span>
+        <span style="font-size:11px;color:#185FA5;display:flex;align-items:center;gap:3px;font-weight:500">AI 인사이트 탭으로 이동 <i class="ti ti-arrow-right" aria-hidden="true" style="font-size:13px"></i></span>
+      </div>
+    </div>
+
+    <!-- ═══ B. 구매 퍼널 분석 ═══ -->
+    <div class="sdiv">
+      <i class="ti ti-filter-cog" aria-hidden="true" style="font-size:14px"></i>B. 구매 퍼널 분석
+      <span style="font-size:10px;font-weight:400;color:#888780">로그 설계 완료 후 데이터 연동 예정</span>
+    </div>
+
+    <div class="card" style="margin-bottom:8px">
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px">
+        <div>
+          <div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:10px;display:flex;align-items:center;gap:5px">
+            <i class="ti ti-filter" aria-hidden="true" style="font-size:13px"></i>구매 퍼널 전환율 — A백신
+          </div>
+          <div class="fstep"><span class="flabel">검색</span><div class="fbwrap"><div class="fbar2" style="width:100%;background:#185FA5">8,420회</div></div></div>
+          <div class="farr"><span>↓</span><span class="cok">62.4%</span></div>
+          <div class="fstep"><span class="flabel">제품 조회</span><div class="fbwrap"><div class="fbar2" style="width:63%;background:#378ADD">5,254회</div></div></div>
+          <div class="farr"><span>↓</span><span class="cok">44.1%</span></div>
+          <div class="fstep"><span class="flabel">장바구니</span><div class="fbwrap"><div class="fbar2" style="width:28%;background:#85B7EB;color:#0C447C">2,317건</div></div></div>
+          <div class="farr"><span>↓</span><span class="cbad">36.8% <strong>▼7.3%p</strong></span></div>
+          <div class="fstep"><span class="flabel">결제 완료</span><div class="fbwrap"><div class="fbar2" style="width:10%;background:#1D9E75;min-width:32px"> </div></div></div>
+          <div class="wbox"><i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:13px;flex-shrink:0"></i>장바구니→결제 전환율 7.3%p 하락 병목 감지</div>
+          <div style="font-size:10px;color:var(--color-text-secondary);margin:9px 0 4px">전환율 시계열 추이</div>
+          <svg id="cvSvg" width="100%" height="52" style="overflow:visible"></svg>
+          <div style="display:flex;gap:10px;margin-top:4px;font-size:9.5px;color:var(--color-text-secondary)">
+            <span style="display:flex;align-items:center;gap:3px"><span style="width:12px;height:2px;background:#E24B4A;display:inline-block;border-radius:2px"></span>장바구니→결제</span>
+            <span style="display:flex;align-items:center;gap:3px"><span style="width:12px;height:2px;background:#B5D4F4;display:inline-block;border-radius:2px"></span>검색→조회</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="rcard">
+            <div class="rct">
+              <span style="display:flex;align-items:center;gap:4px"><i class="ti ti-alert-circle" aria-hidden="true" style="font-size:13px;color:#E24B4A"></i>병목 제품 리스트</span>
+              <span style="font-size:10px;color:var(--color-text-secondary)">조회 대비 전환율↓</span>
+            </div>
+            <table class="tbl">
+              <thead><tr><th>제품명</th><th style="text-align:right">조회</th><th style="text-align:right">전환율</th></tr></thead>
+              <tbody>
+                <tr><td>B백신</td><td style="text-align:right;color:var(--color-text-secondary)">5,254</td><td style="text-align:right"><span class="cn">5.9%</span></td></tr>
+                <tr><td>D수두백신</td><td style="text-align:right;color:var(--color-text-secondary)">1,840</td><td style="text-align:right"><span class="cn">5.3%</span></td></tr>
+                <tr><td>C독감백신</td><td style="text-align:right;color:var(--color-text-secondary)">3,100</td><td style="text-align:right"><span class="cp">9.4%</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="rcard">
+            <div class="rct"><span style="display:flex;align-items:center;gap:4px"><i class="ti ti-shopping-cart" aria-hidden="true" style="font-size:13px"></i>연관 구매 상품 Top 3</span></div>
+            <div class="arow"><span>A백신 + C독감백신</span><span style="color:#185FA5;font-weight:500">38.2%</span></div>
+            <div class="arow"><span>A백신 + 주사기SET</span><span style="color:#185FA5;font-weight:500">24.7%</span></div>
+            <div class="arow"><span>B백신 + 보관용기</span><span style="color:#185FA5;font-weight:500">18.1%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ C. AI 분석 요약 ═══ -->
+    <div class="sdiv"><i class="ti ti-sparkles" aria-hidden="true" style="font-size:14px"></i>C. 구매처 분석 AI 요약</div>
+    <div class="card" style="border-left:3px solid #378ADD;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+        <div>
+          <div style="font-size:10px;font-weight:500;color:#A32D2D;margin-bottom:4px;display:flex;align-items:center;gap:4px"><i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:12px"></i>이탈 리스크</div>
+          <div style="font-size:11px;line-height:1.5">경기·인천 이탈위험 <strong>144개처</strong> (+22). 예상 방어 매출 <strong>₩38M</strong> — 즉시 CRM 실행 권장.</div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:500;color:#854F0B;margin-bottom:4px;display:flex;align-items:center;gap:4px"><i class="ti ti-trending-down" aria-hidden="true" style="font-size:12px"></i>퍼널 병목</div>
+          <div style="font-size:11px;line-height:1.5">B백신 장바구니→결제 <strong>–7.3%p</strong> 급락 — 번들 프로모션 검토 필요.</div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:500;color:#1D9E75;margin-bottom:4px;display:flex;align-items:center;gap:4px"><i class="ti ti-bulb" aria-hidden="true" style="font-size:12px"></i>추천 실행과제</div>
+          <div style="font-size:11px;line-height:1.5">2차 미구매 <strong>132개처</strong> 리마인더 발송 → 전환율 +18% 예측.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="nb"><i class="ti ti-clock" aria-hidden="true"></i>출고완료 기준 · 전일 기준 새벽 03:00 업데이트 · MSD · 2025.11</div>
+</div>
+
+<script>
+const CC=['#D3D1C7','#E6F1FB','#B5D4F4','#378ADD','#185FA5','#0C447C'];
+const tD={
+  '6':{lb:['6월','7월','8월','9월','10월','11월'],n:[98,105,112,108,120,142],r:[720,740,760,755,790,824],d:[210,218,225,230,232,238]},
+  '12':{lb:['12월','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월'],n:[82,88,90,94,100,96,98,105,112,108,120,142],r:[680,690,705,718,728,732,720,740,760,755,790,824],d:[190,195,200,205,208,212,210,218,225,230,232,238]}
+};
+let tM='6',hM='6';
+
+const hS=[
+  {lb:'충성',    co:'#27500A',bg:'#EAF3DE',v12:[5,5,5,5,5,4,5,5,5,5,5,5],v6:[5,5,5,5,5,5]},
+  {lb:'일반',    co:'#0C447C',bg:'#E6F1FB',v12:[3,4,3,4,4,3,4,3,4,4,3,4],v6:[4,3,4,4,3,4]},
+  {lb:'단발',    co:'#412402',bg:'#FAEEDA',v12:[2,2,1,2,2,1,2,1,2,1,2,2],v6:[2,1,2,1,2,2]},
+  {lb:'관심',    co:'#633806',bg:'#FEF9E7',v12:[1,2,1,1,2,1,1,1,2,1,1,1],v6:[1,1,2,1,1,1]},
+  {lb:'이탈위험', co:'#791F1F',bg:'#FCEBEB',v12:[3,3,2,2,2,1,1,2,1,1,0,0],v6:[1,2,1,1,0,0]},
+];
+const hL={'6':['6월','7월','8월','9월','10월','11월'],'12':['12월','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월']};
+const hCnt={충성:324,일반:382,단발:210,관심:144,이탈위험:144};
+
+function drawTrend(){
+  const svg=document.getElementById('tSvg');
+  const W=svg.parentElement.offsetWidth||380,H=106;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  const d=tD[tM],n=d.lb.length;
+  const PL=36,PR=44,PT=10,PB=20,cw=W-PL-PR,ch=H-PT-PB;
+  const maxV=Math.max(...d.n,...d.r,...d.d)*1.15;
+  const px=i=>PL+i*(cw/(n-1)),py=v=>PT+ch-(v/maxV)*ch;
+  let h='';
+  [0,.33,.66,1].forEach(r=>{
+    const y=PT+ch*(1-r);
+    h+=`<line x1="${PL}" y1="${y.toFixed(1)}" x2="${W-PR}" y2="${y.toFixed(1)}" stroke="var(--color-border-tertiary)" stroke-width="0.5" ${r>0?'stroke-dasharray="3 3"':''}/>`;
+    h+=`<text x="${PL-3}" y="${(y+3.5).toFixed(1)}" font-size="7.5" fill="var(--color-text-secondary)" text-anchor="end">${Math.round(maxV*r)}</text>`;
+  });
+  const lx=px(n-1);
+  h+=`<rect x="${(lx-cw/(n-1)*0.45).toFixed(1)}" y="${PT}" width="${(cw/(n-1)*0.9).toFixed(1)}" height="${ch}" fill="#E6F1FB" rx="2" opacity="0.4"/>`;
+  [[d.n,'#378ADD',false],[d.r,'#1D9E75',false],[d.d,'#888780',true]].forEach(([data,col,dash])=>{
+    h+=`<polyline points="${data.map((v,i)=>`${px(i).toFixed(1)},${py(v).toFixed(1)}`).join(' ')}" fill="none" stroke="${col}" stroke-width="${dash?1.5:2}" stroke-linecap="round" ${dash?'stroke-dasharray="5 3"':''}/>`;
+    data.forEach((v,i)=>{
+      const isL=i===n-1;
+      h+=`<circle cx="${px(i).toFixed(1)}" cy="${py(v).toFixed(1)}" r="${isL?4:2.5}" fill="${col}" ${isL?'stroke="#fff" stroke-width="1.5"':''}/>`;
+      if(isL) h+=`<text x="${(px(i)+5).toFixed(1)}" y="${(py(v)+3.5).toFixed(1)}" font-size="9" fill="${col}" font-weight="500">${v}</text>`;
+    });
+  });
+  d.lb.forEach((mo,i)=>{
+    const isL=i===n-1;
+    if(n>6&&i%2!==0&&!isL) return;
+    h+=`<text x="${px(i).toFixed(1)}" y="${H-1}" font-size="${isL?9:8}" fill="${isL?'#0C447C':'var(--color-text-secondary)'}" text-anchor="middle" font-weight="${isL?'500':'400'}">${mo}</text>`;
+  });
+  svg.innerHTML=h;
+}
+
+function swT(el,m){document.querySelectorAll('#trendTabs .ptab').forEach(t=>t.classList.remove('on'));el.classList.add('on');tM=m;drawTrend();}
+
+function drawHm(){
+  const wrap=document.getElementById('hmWrap');
+  const W=Math.max(wrap.parentElement.offsetWidth-22,300);
+  const lbs=hL[hM],n=lbs.length;
+  const LC=58,CC2=44,CYC=88,CELL=Math.max(Math.floor((W-LC-CC2-CYC)/n),22);
+  const RH=38,HH=20,tW=LC+CC2+n*CELL+CYC,tH=HH+hS.length*RH+4;
+  let h=`<svg width="${tW}" height="${tH}" viewBox="0 0 ${tW} ${tH}" style="display:block">`;
+  h+=`<text x="${LC+CC2/2}" y="${HH-4}" font-size="8" fill="var(--color-text-secondary)" text-anchor="middle">거래처수</text>`;
+  lbs.forEach((mo,j)=>{
+    const x=LC+CC2+j*CELL+CELL/2,isL=j===n-1;
+    h+=`<text x="${x.toFixed(1)}" y="${HH-4}" font-size="8.5" fill="${isL?'#0C447C':'var(--color-text-secondary)'}" text-anchor="middle" font-weight="${isL?'500':'400'}">${mo}</text>`;
+    if(isL) h+=`<text x="${x.toFixed(1)}" y="${HH+1}" font-size="7" fill="#185FA5" text-anchor="middle">▼</text>`;
+  });
+  h+=`<text x="${LC+CC2+n*CELL+CYC/2}" y="${HH-4}" font-size="8.5" fill="#185FA5" text-anchor="middle" font-weight="500">평균 구매주기</text>`;
+  h+=`<line x1="0" y1="${HH+2}" x2="${tW}" y2="${HH+2}" stroke="var(--color-border-tertiary)" stroke-width="0.5"/>`;
+  hS.forEach((seg,i)=>{
+    const vals=hM==='6'?seg.v6:seg.v12,y=HH+4+i*RH,isR=seg.lb==='이탈위험';
+    if(i%2===0) h+=`<rect x="0" y="${y}" width="${tW}" height="${RH}" fill="var(--color-background-secondary)" opacity="0.4"/>`;
+    h+=`<rect x="2" y="${y+4}" width="${LC-5}" height="${RH-8}" fill="${seg.bg}" rx="3"/>`;
+    h+=`<text x="${LC/2}" y="${y+RH/2+4}" font-size="9" fill="${seg.co}" text-anchor="middle" font-weight="500">${seg.lb}</text>`;
+    h+=`<text x="${LC+CC2/2}" y="${y+RH/2+1}" font-size="11" fill="var(--color-text-primary)" text-anchor="middle" font-weight="500">${hCnt[seg.lb]}</text>`;
+    h+=`<text x="${LC+CC2/2}" y="${y+RH/2+11}" font-size="7.5" fill="var(--color-text-secondary)" text-anchor="middle">개처</text>`;
+    vals.forEach((v,j)=>{
+      const cx=LC+CC2+j*CELL,isL=j===n-1,isRR=isR&&j>=n-2;
+      h+=`<rect x="${cx+1}" y="${y+3}" width="${CELL-2}" height="${RH-6}" fill="${CC[v]}" rx="3"/>`;
+      if(isRR) h+=`<rect x="${cx+1}" y="${y+3}" width="${CELL-2}" height="${RH-6}" fill="none" stroke="#E24B4A" stroke-width="1.2" stroke-dasharray="3 2" rx="3"/>`;
+      if(isL&&!isRR) h+=`<rect x="${cx+1}" y="${y+3}" width="${CELL-2}" height="${RH-6}" fill="none" stroke="#185FA5" stroke-width="1" rx="3"/>`;
+      h+=v>0?`<text x="${(cx+CELL/2).toFixed(1)}" y="${y+RH/2+4}" font-size="9" fill="${v>=3?'#fff':'#185FA5'}" text-anchor="middle" font-weight="500">${v}회</text>`:`<text x="${(cx+CELL/2).toFixed(1)}" y="${y+RH/2+4}" font-size="9" fill="var(--color-text-secondary)" text-anchor="middle">–</text>`;
+    });
+    const cX=LC+CC2+n*CELL;
+    h+=`<rect x="${cX+2}" y="${y+3}" width="${CYC-6}" height="${RH-6}" fill="${seg.bg}" rx="4"/>`;
+    h+=`<text x="${(cX+CYC/2).toFixed(1)}" y="${y+RH/2+1}" font-size="12" fill="${seg.co}" text-anchor="middle" font-weight="500">TBD</text>`;
+    h+=`<text x="${(cX+CYC/2).toFixed(1)}" y="${y+RH/2+11}" font-size="7" fill="${seg.co}" text-anchor="middle" opacity="0.7">확인 후 확정</text>`;
+    h+=`<line x1="0" y1="${y+RH}" x2="${tW}" y2="${y+RH}" stroke="var(--color-border-tertiary)" stroke-width="0.5"/>`;
+  });
+  h+=`</svg>`;
+  wrap.innerHTML=h;
+}
+
+function swH(el,m){document.querySelectorAll('#hmTabs .ptab').forEach(t=>t.classList.remove('on'));el.classList.add('on');hM=m;drawHm();}
+
+function drawCv(){
+  const svg=document.getElementById('cvSvg');
+  const W=svg.parentElement.offsetWidth||240,H=52;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  const mos=['5월','6월','7월','8월','9월','10월','11월'];
+  const cart=[42,41,43,40,38,35,33],srch=[62,63,61,63,62,62,62];
+  const n=mos.length,PL=0,PR=0,PT=5,PB=15,cw=W-PL-PR,ch=H-PT-PB;
+  const minV=28,maxV=70,rng=maxV-minV;
+  const px=i=>PL+i*(cw/(n-1)),py=v=>PT+ch-(v-minV)/rng*ch;
+  let h='';
+  [30,40,50,60].forEach(v=>{
+    h+=`<line x1="0" y1="${py(v).toFixed(1)}" x2="${W}" y2="${py(v).toFixed(1)}" stroke="var(--color-border-tertiary)" stroke-width="0.5" stroke-dasharray="3 3"/>`;
+    h+=`<text x="0" y="${(py(v)-1).toFixed(1)}" font-size="6.5" fill="var(--color-text-secondary)">${v}%</text>`;
+  });
+  h+=`<polyline points="${srch.map((v,i)=>`${px(i).toFixed(1)},${py(v).toFixed(1)}`).join(' ')}" fill="none" stroke="#B5D4F4" stroke-width="1.5" stroke-dasharray="5 3"/>`;
+  h+=`<polyline points="${cart.map((v,i)=>`${px(i).toFixed(1)},${py(v).toFixed(1)}`).join(' ')}" fill="none" stroke="#E24B4A" stroke-width="2" stroke-linecap="round"/>`;
+  cart.forEach((v,i)=>{
+    const isL=i===n-1;
+    h+=`<circle cx="${px(i).toFixed(1)}" cy="${py(v).toFixed(1)}" r="${isL?3.5:2}" fill="#E24B4A" ${isL?'stroke="#fff" stroke-width="1.5"':''}/>`;
+    if(isL) h+=`<text x="${(px(i)+4).toFixed(1)}" y="${(py(v)+3.5).toFixed(1)}" font-size="8.5" fill="#A32D2D" font-weight="500">${v}%</text>`;
+  });
+  mos.forEach((mo,i)=>{
+    const isL=i===n-1;
+    h+=`<text x="${px(i).toFixed(1)}" y="${H}" font-size="8" fill="${isL?'#A32D2D':'var(--color-text-secondary)'}" text-anchor="middle" font-weight="${isL?'500':'400'}">${mo}</text>`;
+  });
+  svg.innerHTML=h;
+}
+
+drawTrend(); drawHm(); drawCv();
+window.addEventListener('resize',()=>{drawTrend();drawHm();drawCv();});
+</script>

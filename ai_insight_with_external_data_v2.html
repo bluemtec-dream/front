@@ -1,0 +1,279 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary)}
+.s{font-size:11px;color:var(--color-text-secondary)}
+.col{display:flex;flex-direction:column;gap:10px}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rowt{display:flex;align-items:flex-start;gap:8px}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:10px 12px}
+.sec-lbl{font-size:12px;font-weight:500;display:flex;align-items:center;gap:6px;margin-bottom:7px}
+.ins-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:10px}
+.ins-card{border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);padding:10px;background:var(--color-background-primary)}
+.ins-type{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;display:inline-flex;align-items:center;gap:4px;margin-bottom:5px}
+.ins-body{font-size:11px;line-height:1.5;margin-bottom:5px}
+.ins-action{font-size:10px;padding-top:5px;border-top:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;gap:3px}
+.action-num{width:20px;height:20px;border-radius:50%;background:#1B4F8A;color:#fff;font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.arow{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.arow:last-child{border-bottom:none;padding-bottom:0}
+.rh{background:#FCEBEB;color:#A32D2D;border-radius:4px;padding:2px 5px;font-size:10px;font-weight:500}
+.rm{background:#FAEEDA;color:#854F0B;border-radius:4px;padding:2px 5px;font-size:10px;font-weight:500}
+.rt{width:100%;font-size:11px;border-collapse:collapse;table-layout:fixed}
+.rt th{padding:5px 6px;color:var(--color-text-secondary);font-size:10px;font-weight:400;border-bottom:0.5px solid var(--color-border-tertiary);text-align:left}
+.rt td{padding:5px 6px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.rt tr:last-child td{border-bottom:none}
+.fsel{background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:6px;padding:3px 8px;font-size:11px;color:var(--color-text-primary);display:inline-flex;align-items:center;gap:4px}
+
+/* 칩 — 기존 vs 외부데이터 구분 */
+.chip{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;border:0.5px solid var(--color-border-secondary);font-size:11px;color:var(--color-text-secondary);background:var(--color-background-secondary)}
+.chip-ext{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;border:0.5px solid #FAC775;font-size:11px;color:#633806;background:#FEF9E7}
+
+/* 데이터 소스 태그 */
+.src-tag{display:inline-flex;align-items:center;gap:3px;padding:1px 7px;border-radius:4px;font-size:10px;font-weight:500}
+.src-iqvia{background:#EAF3DE;color:#27500A}
+.src-sims{background:#E6F1FB;color:#0C447C}
+.src-gov{background:#FAEEDA;color:#633806}
+.src-new{background:#FCEBEB;color:#A32D2D}
+
+/* 변경 표시 */
+.changed{border:2px solid #378ADD !important;position:relative}
+.changed-lbl{position:absolute;top:-10px;left:10px;background:#378ADD;color:#fff;font-size:9px;font-weight:500;padding:1px 7px;border-radius:10px}
+</style>
+
+<h2 class="sr-only">블루팜코리아 AI 인사이트 탭 — 외부 데이터 연동 반영 최종 화면. 상단 탑바·파일럿 안내·필터·KPI, Executive Summary, 인사이트 카드 2×3(경쟁품 카드 외부데이터 반영), 추천 실행과제, 이탈위험 테이블, 하단 추가 정보 입력 패널(외부 데이터 전용 칩 추가)</h2>
+
+<div class="col" style="gap:0">
+
+  <!-- 탑바 -->
+  <div style="background:#1B4F8A;padding:8px 14px;display:flex;align-items:center;gap:6px;border-radius:var(--border-radius-lg) var(--border-radius-lg) 0 0">
+    <span style="color:#fff;font-size:13px;font-weight:500;display:flex;align-items:center;gap:5px">
+      <i class="ti ti-chart-dots-3" aria-hidden="true" style="font-size:15px"></i>블루팜코리아 SID
+    </span>
+    <div style="display:flex;gap:2px;margin-left:10px">
+      <div style="color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px">매출 대시보드</div>
+      <div style="color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px">구매처 분석</div>
+      <div style="color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px">캠페인 성과</div>
+      <div style="background:rgba(255,255,255,.18);color:#fff;font-weight:500;font-size:11px;padding:5px 10px;border-radius:4px">AI 인사이트</div>
+      <div style="color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px">파트너 히스토리</div>
+    </div>
+  </div>
+
+  <!-- 파일럿 안내 -->
+  <div style="background:#FEF9E7;border-bottom:0.5px solid #FAC775;padding:6px 14px;display:flex;align-items:center;gap:6px">
+    <i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:13px;color:#854F0B"></i>
+    <span style="font-size:11px;color:#633806"><strong>MSD 파일럿 전용</strong> — AI 인사이트는 MSD 코리아 파일럿으로 운영 중입니다.</span>
+    <span style="margin-left:auto;font-size:10px;color:#854F0B">2025.11 ~ 2026.01</span>
+  </div>
+
+  <!-- 필터 바 -->
+  <div style="background:#EBF3FB;border-bottom:0.5px solid #C5D9EC;padding:6px 14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+    <div class="fsel"><i class="ti ti-calendar" aria-hidden="true" style="font-size:12px;color:#185FA5"></i>2025.11</div>
+    <div class="fsel"><i class="ti ti-building-hospital" aria-hidden="true" style="font-size:12px;color:#185FA5"></i>MSD</div>
+    <div class="fsel"><i class="ti ti-pill" aria-hidden="true" style="font-size:12px;color:var(--color-text-secondary)"></i>엠엠알·박타</div>
+    <div class="fsel"><i class="ti ti-map-pin" aria-hidden="true" style="font-size:12px;color:var(--color-text-secondary)"></i>전체 지역</div>
+    <div class="fsel" style="border-color:#0F6E56"><i class="ti ti-truck-delivery" aria-hidden="true" style="font-size:12px;color:#0F6E56"></i>병의원+도매</div>
+    <div style="margin-left:auto;display:flex;gap:5px">
+      <button style="background:#fff;border:0.5px solid #B5D4F4;border-radius:6px;padding:3px 10px;font-size:11px;color:#0C447C;display:flex;align-items:center;gap:4px;cursor:pointer"><i class="ti ti-refresh" aria-hidden="true" style="font-size:12px"></i>재생성</button>
+      <div style="background:#1B4F8A;color:#fff;border-radius:6px;padding:3px 11px;font-size:11px;display:flex;align-items:center;gap:4px;font-weight:500"><i class="ti ti-download" aria-hidden="true" style="font-size:12px"></i>PDF/PPT</div>
+    </div>
+  </div>
+
+  <!-- 본문 -->
+  <div style="padding:10px 14px;background:var(--color-background-tertiary);border-radius:0 0 var(--border-radius-lg) var(--border-radius-lg);display:flex;flex-direction:column;gap:10px">
+
+    <!-- Executive Summary (동일) -->
+    <div style="background:#E6F1FB;border:0.5px solid #B5D4F4;border-radius:var(--border-radius-lg);padding:12px 14px">
+      <div class="row" style="justify-content:space-between;margin-bottom:8px">
+        <div class="row" style="gap:6px">
+          <i class="ti ti-sparkles" aria-hidden="true" style="font-size:15px;color:#185FA5"></i>
+          <span style="font-size:12px;font-weight:500;color:#0C447C">Executive Summary</span>
+        </div>
+        <span style="font-size:10px;color:#185FA5;display:flex;align-items:center;gap:4px"><i class="ti ti-clock" aria-hidden="true" style="font-size:12px"></i>2025.11.30 · 03:00 업데이트</span>
+      </div>
+      <div class="rowt" style="margin-bottom:5px;font-size:11px;line-height:1.55">
+        <span style="color:#1D9E75;font-weight:500;font-size:14px;flex-shrink:0;margin-top:1px">↑</span>
+        <span style="color:#0C447C">서울 지역 내과·소아과 신규 구매처 <strong>+22개처</strong> 유입, 전월 대비 매출 <strong>+24.6%</strong> 급성장. A백신 판매수량 전년 동기 대비 <strong>+31%</strong> 증가.</span>
+      </div>
+      <div class="rowt" style="margin-bottom:5px;font-size:11px;line-height:1.55">
+        <span style="color:#E24B4A;font-weight:500;font-size:14px;flex-shrink:0;margin-top:1px">↓</span>
+        <span style="color:#0C447C">경기·인천 권역 기존 거래처 <strong>144개처</strong> 90일 이상 미구매 이탈 신호. 예상 방어 매출 <strong>₩38M</strong> — 즉각 CRM 실행 권장.</span>
+      </div>
+      <div class="rowt" style="font-size:11px;line-height:1.55">
+        <span style="color:#BA7517;font-weight:500;font-size:14px;flex-shrink:0;margin-top:1px">→</span>
+        <span style="color:#0C447C">도매 채널 비중 <strong>3%p 상승</strong>(37%→40%). 병의원 직접 채널 방어를 위한 프로모션 전략 재설계 필요 시점.</span>
+      </div>
+    </div>
+
+    <!-- ① 인사이트 카드 2×3 — 경쟁품 카드 변경 -->
+    <div>
+      <div class="sec-lbl"><i class="ti ti-cards" aria-hidden="true" style="font-size:14px;color:#185FA5"></i>AI 인사이트 카드<span class="s">중요도 순 자동 정렬</span></div>
+      <div class="ins-grid">
+        <!-- Growth -->
+        <div class="ins-card" style="border-left:3px solid #1D9E75;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0">
+          <span class="ins-type" style="background:#EAF3DE;color:#27500A"><i class="ti ti-trending-up" aria-hidden="true" style="font-size:11px"></i>Growth</span>
+          <div class="ins-body">서울 내과·소아과 매출 <strong>+31%</strong>. 신규 18개처 유입 주도. A백신 집중 노출 강화 권장.</div>
+          <div class="ins-action" style="color:#1D9E75"><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i>서울 확장 프로모션 기획</div>
+        </div>
+        <!-- Risk -->
+        <div class="ins-card" style="border-left:3px solid #E24B4A;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0">
+          <span class="ins-type" style="background:#FCEBEB;color:#791F1F"><i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:11px"></i>Risk</span>
+          <div class="ins-body">경기·인천 매출 <strong>–15.4%</strong>. 이탈위험 144개처 즉시 CRM 실행 시 방어 <strong>₩38M</strong>.</div>
+          <div class="ins-action" style="color:#E24B4A"><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i>이탈 위험 CRM 즉시 실행</div>
+        </div>
+        <!-- Product -->
+        <div class="ins-card" style="border-left:3px solid #BA7517;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0">
+          <span class="ins-type" style="background:#FAEEDA;color:#633806"><i class="ti ti-pill" aria-hidden="true" style="font-size:11px"></i>Product</span>
+          <div class="ins-body">B백신 전환율 <strong>–7.3%p</strong>. 가격 저항 탐지. 번들 프로모션 검토 필요.</div>
+          <div class="ins-action" style="color:#BA7517"><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i>B백신 전환율 개선 방안</div>
+        </div>
+        <!-- Customer -->
+        <div class="ins-card" style="border-left:3px solid #378ADD;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0">
+          <span class="ins-type" style="background:#E6F1FB;color:#0C447C"><i class="ti ti-user-plus" aria-hidden="true" style="font-size:11px"></i>Customer</span>
+          <div class="ins-body">2차 미구매 <strong>132개처</strong>. 30일 이내 리마인더 발송 시 전환율 <strong>+18%</strong> 예측.</div>
+          <div class="ins-action" style="color:#378ADD"><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i>2차 구매 유도 캠페인</div>
+        </div>
+        <!-- Channel -->
+        <div class="ins-card" style="border-left:3px solid #7F77DD;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0">
+          <span class="ins-type" style="background:#EEEDFE;color:#3C3489"><i class="ti ti-truck-delivery" aria-hidden="true" style="font-size:11px"></i>Channel</span>
+          <div class="ins-body">도매 비중 <strong>40%</strong>로 상승. 병의원 전용 할인 패키지 및 MR 접촉 강화 필요.</div>
+          <div class="ins-action" style="color:#7F77DD"><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i>병의원 채널 방어 기획</div>
+        </div>
+
+        <!-- ★ 경쟁품 카드 — 외부 데이터 반영으로 내용 변경 -->
+        <div class="ins-card changed" style="border-left:3px solid #E24B4A;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;position:relative">
+          <div class="changed-lbl">외부 데이터 반영</div>
+          <!-- 데이터 소스 태그 -->
+          <div style="display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap">
+            <span class="src-tag src-iqvia"><i class="ti ti-file-spreadsheet" aria-hidden="true" style="font-size:10px"></i>IQVIA Q4</span>
+            <span class="src-tag src-gov"><i class="ti ti-building-government" aria-hidden="true" style="font-size:10px"></i>국가출하승인</span>
+            <span class="src-tag src-sims"><i class="ti ti-database" aria-hidden="true" style="font-size:10px"></i>출고 데이터</span>
+          </div>
+          <span class="ins-type" style="background:#FCEBEB;color:#791F1F"><i class="ti ti-replace" aria-hidden="true" style="font-size:11px"></i>경쟁품</span>
+          <div class="ins-body">
+            <strong>프리오릭스 26년 공급 재개</strong> — IQVIA Q4 데이터 기준 엠엠알 M/S <strong>–8.2%p</strong> 하락 감지. 25년 4Q 출고 <strong>33,640 Vial</strong>(1Q 대비 –63%). 국가출하승인 통과 시 추가 물량 유입 위험.
+          </div>
+          <div class="ins-action" style="color:#E24B4A"><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i>프리오릭스 대응 — 병의원 락인 전략 강화</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 추천 실행과제 (동일 구조, 1번 내용 업데이트) -->
+    <div>
+      <div class="sec-lbl"><i class="ti ti-list-check" aria-hidden="true" style="font-size:14px;color:#185FA5"></i>추천 실행과제</div>
+      <div class="card">
+        <div class="arow">
+          <div class="action-num">1</div>
+          <div style="flex:1"><div style="font-size:11px;line-height:1.5;margin-bottom:2px">경기·인천 이탈 위험 <strong>Top 10 거래처</strong> 즉시 접촉 — 재구매 쿠폰 발행</div><div style="font-size:10px;color:#1D9E75;display:flex;align-items:center;gap:3px"><i class="ti ti-trending-up" aria-hidden="true" style="font-size:11px"></i>예상 방어 매출 ₩12M · 즉시 실행</div></div>
+          <div style="display:flex;gap:4px;flex-shrink:0"><button style="font-size:10px;padding:3px 9px;border-radius:4px;border:0.5px solid #1D9E75;background:#EAF3DE;color:#27500A;cursor:pointer">실행</button><button style="font-size:10px;padding:3px 9px;border-radius:4px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);cursor:pointer">완료</button></div>
+        </div>
+        <div class="arow">
+          <div class="action-num">2</div>
+          <div style="flex:1"><div style="font-size:11px;line-height:1.5;margin-bottom:2px">2차 미구매 <strong>132개처</strong> 30일 리마인더 캠페인 발송</div><div style="font-size:10px;color:#1D9E75;display:flex;align-items:center;gap:3px"><i class="ti ti-trending-up" aria-hidden="true" style="font-size:11px"></i>전환율 +18% 예측</div></div>
+          <div style="display:flex;gap:4px;flex-shrink:0"><button style="font-size:10px;padding:3px 9px;border-radius:4px;border:0.5px solid #1D9E75;background:#EAF3DE;color:#27500A;cursor:pointer">실행</button><button style="font-size:10px;padding:3px 9px;border-radius:4px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);cursor:pointer">완료</button></div>
+        </div>
+        <div class="arow" style="background:var(--color-background-info);border-radius:var(--border-radius-md);padding:8px;margin-top:4px;border-bottom:none">
+          <div class="action-num" style="background:#E24B4A">3</div>
+          <div style="flex:1">
+            <div style="display:flex;align-items:center;gap:5px;margin-bottom:3px">
+              <div style="font-size:11px;line-height:1.5"><strong>프리오릭스 공급 재개 대응</strong> — 엠엠알 기존 구매처 병의원 전용 락인 프로모션 설계</div>
+              <span class="src-tag src-gov" style="flex-shrink:0"><i class="ti ti-building-government" aria-hidden="true" style="font-size:10px"></i>국검 데이터</span>
+              <span class="src-tag src-iqvia" style="flex-shrink:0"><i class="ti ti-file-spreadsheet" aria-hidden="true" style="font-size:10px"></i>IQVIA</span>
+            </div>
+            <div style="font-size:10px;color:#E24B4A;display:flex;align-items:center;gap:3px"><i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:11px"></i>25년 4Q 출고 –63% / 프리오릭스 국검 통과 모니터링 중</div>
+          </div>
+          <div style="display:flex;gap:4px;flex-shrink:0"><button style="font-size:10px;padding:3px 9px;border-radius:4px;border:0.5px solid #E24B4A;background:#FCEBEB;color:#A32D2D;cursor:pointer">실행</button><button style="font-size:10px;padding:3px 9px;border-radius:4px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);cursor:pointer">완료</button></div>
+        </div>
+        <div class="arow">
+          <div class="action-num">4</div>
+          <div style="flex:1"><div style="font-size:11px;line-height:1.5;margin-bottom:2px">병의원 전용 <strong>즉시할인 패키지</strong> 프로모션 설계 — 12월 적용</div><div style="font-size:10px;color:#185FA5;display:flex;align-items:center;gap:3px"><i class="ti ti-calendar" aria-hidden="true" style="font-size:11px"></i>채널 비중 방어</div></div>
+          <div style="display:flex;gap:4px;flex-shrink:0"><button style="font-size:10px;padding:3px 9px;border-radius:4px;border:0.5px solid #B5D4F4;background:#E6F1FB;color:#0C447C;cursor:pointer">검토</button><button style="font-size:10px;padding:3px 9px;border-radius:4px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);cursor:pointer">완료</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 이탈위험 근거 테이블 (동일) -->
+    <div>
+      <div class="sec-lbl" style="justify-content:space-between">
+        <span style="display:flex;align-items:center;gap:6px"><i class="ti ti-table" aria-hidden="true" style="font-size:14px;color:#185FA5"></i>이탈위험 거래처 상세 근거</span>
+        <button style="font-size:10px;padding:3px 9px;border-radius:4px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);cursor:pointer;display:flex;align-items:center;gap:3px"><i class="ti ti-download" aria-hidden="true" style="font-size:11px"></i>CSV</button>
+      </div>
+      <div class="card">
+        <table class="rt">
+          <thead><tr><th style="width:86px">기관명</th><th style="width:40px">지역</th><th>마지막 구매(R)</th><th>빈도 감소(F)</th><th>금액 감소(M)</th><th style="width:44px;text-align:center">점수</th><th style="width:38px;text-align:center">등급</th><th>AI 추천</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:500">강남연세의원</td><td class="s">서울</td><td style="color:#A32D2D">92일전</td><td style="color:#A32D2D">–62%</td><td style="color:#A32D2D">–71%</td><td style="text-align:center;font-weight:500;color:#A32D2D">92</td><td style="text-align:center"><span class="rh">H</span></td><td style="font-size:10px;color:#185FA5">쿠폰 즉시 발송</td></tr>
+            <tr><td style="font-weight:500">인천미래소아과</td><td class="s">인천</td><td style="color:#A32D2D">85일전</td><td style="color:#A32D2D">–58%</td><td style="color:#A32D2D">–64%</td><td style="text-align:center;font-weight:500;color:#A32D2D">87</td><td style="text-align:center"><span class="rh">H</span></td><td style="font-size:10px;color:#185FA5">MR 즉시 접촉</td></tr>
+            <tr><td style="font-weight:500">수원중앙의원</td><td class="s">경기</td><td style="color:#854F0B">74일전</td><td style="color:#854F0B">–38%</td><td style="color:#854F0B">–44%</td><td style="text-align:center;font-weight:500;color:#854F0B">68</td><td style="text-align:center"><span class="rm">M</span></td><td style="font-size:10px;color:#185FA5">번들 안내</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:7px;padding:5px 8px;background:#E6F1FB;border-radius:5px;font-size:10px;color:#185FA5;display:flex;align-items:center;gap:4px"><i class="ti ti-info-circle" aria-hidden="true" style="font-size:12px;flex-shrink:0"></i>위험 점수 = Recency 40% + Frequency 35% + Monetary 25% 가중 합산</div>
+      </div>
+    </div>
+
+    <!-- ② 추가 정보 입력 패널 — 외부 데이터 칩 추가 -->
+    <div style="border-top:1.5px solid var(--color-border-tertiary);padding-top:10px">
+      <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:10px 12px;position:relative" class="changed">
+        <div class="changed-lbl">외부 데이터 칩 추가</div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px">
+          <div style="display:flex;align-items:center;gap:7px">
+            <i class="ti ti-message-bolt" aria-hidden="true" style="font-size:16px;color:#185FA5"></i>
+            <span style="font-size:12px;font-weight:500">추가 정보 입력</span>
+            <span class="s">— 시장 정보·프로모션·경쟁사 동향 또는 파일 첨부 시 인사이트 카드와 추천 실행과제에 반영</span>
+          </div>
+        </div>
+
+        <!-- 칩 2줄: 일반 + 외부 데이터 전용 -->
+        <div style="margin-bottom:8px">
+          <!-- 1줄: 기존 일반 칩 -->
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:5px;align-items:center">
+            <span class="s" style="align-self:center;flex-shrink:0;min-width:60px">일반 정보:</span>
+            <div class="chip"><i class="ti ti-virus" aria-hidden="true" style="font-size:12px"></i>독감 시즌</div>
+            <div class="chip"><i class="ti ti-speakerphone" aria-hidden="true" style="font-size:12px"></i>신규 프로모션</div>
+            <div class="chip"><i class="ti ti-building-hospital" aria-hidden="true" style="font-size:12px"></i>신규 의원 오픈</div>
+            <div class="chip"><i class="ti ti-file-text" aria-hidden="true" style="font-size:12px"></i>정책 변화</div>
+          </div>
+          <!-- 2줄: 외부 데이터 전용 칩 (노란 계열) -->
+          <div style="display:flex;flex-wrap:wrap;gap:5px;align-items:center">
+            <span class="s" style="align-self:center;flex-shrink:0;min-width:60px">외부 데이터:</span>
+            <div class="chip-ext"><i class="ti ti-building-government" aria-hidden="true" style="font-size:12px"></i>프리오릭스 국검 현황</div>
+            <div class="chip-ext"><i class="ti ti-currency-won" aria-hidden="true" style="font-size:12px"></i>NIP 가격 변경</div>
+            <div class="chip-ext"><i class="ti ti-file-spreadsheet" aria-hidden="true" style="font-size:12px"></i>IQVIA 데이터 업로드</div>
+            <div class="chip-ext"><i class="ti ti-heart-rate-monitor" aria-hidden="true" style="font-size:12px"></i>홍역 접종 추세</div>
+            <div class="chip-ext"><i class="ti ti-chart-bar" aria-hidden="true" style="font-size:12px"></i>경쟁품 M/S 조회</div>
+          </div>
+        </div>
+
+        <!-- 파일 첨부 버튼 + 지원 파일 힌트 -->
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:7px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);flex-wrap:wrap">
+          <button style="display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-info);background:var(--color-background-info);color:var(--color-text-info);font-size:11px;cursor:pointer;white-space:nowrap">
+            <i class="ti ti-paperclip" aria-hidden="true" style="font-size:13px"></i>파일 첨부
+          </button>
+          <span class="s">지원 파일:</span>
+          <span class="src-tag src-iqvia">IQVIA .xlsb</span>
+          <span class="src-tag src-sims">출고 데이터 .xlsx</span>
+          <span class="src-tag src-gov">시장조사 .pdf</span>
+          <span style="font-size:10px;color:var(--color-text-secondary)">.png · .jpg · .docx</span>
+          <span style="font-size:10px;color:var(--color-text-secondary);margin-left:auto">최대 10MB</span>
+        </div>
+
+        <!-- 텍스트 입력 + 전송 -->
+        <div style="display:flex;gap:7px;align-items:flex-end">
+          <div style="flex:1;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:8px 11px;min-height:48px;font-size:11px;line-height:1.5;color:var(--color-text-secondary)">
+            예) 프리오릭스 국가출하승인 X월 통과 — 도매 채널 일부 공급 시작 예정...
+          </div>
+          <button style="background:#1B4F8A;color:#fff;border:none;border-radius:var(--border-radius-md);padding:8px 14px;font-size:11px;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;min-height:36px;align-self:flex-end">
+            <i class="ti ti-send" aria-hidden="true" style="font-size:13px"></i>인사이트에 반영
+          </button>
+        </div>
+
+        <div style="margin-top:7px;padding:5px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);font-size:10px;color:var(--color-text-secondary);display:flex;align-items:center;gap:4px">
+          <i class="ti ti-info-circle" aria-hidden="true" style="font-size:12px;flex-shrink:0"></i>
+          입력한 내용은 현재 필터(MSD · 2025.11)의 판매 데이터와 결합되어 위 인사이트 카드와 추천 실행과제를 업데이트합니다.
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div style="background:#E1F5EE;border-top:0.5px solid #9FE1CB;padding:5px 14px;font-size:10px;color:#085041;display:flex;align-items:center;gap:4px;font-weight:500;border-radius:0 0 var(--border-radius-lg) var(--border-radius-lg)"><i class="ti ti-clock" aria-hidden="true"></i>출고완료 기준 · 전일 기준 새벽 03:00 업데이트 · MSD 파일럿 전용</div>
+</div>

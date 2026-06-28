@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>블루팜코리아 SID</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css">
+<style>
+:root{
+  --font-sans:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;
+  --color-text-primary:#1A2B3C;
+  --color-text-secondary:#6B7785;
+  --color-text-info:#185FA5;
+  --color-background-primary:#FFFFFF;
+  --color-background-secondary:#F1F4F8;
+  --color-background-tertiary:#F7F9FC;
+  --color-background-info:#E6F1FB;
+  --color-border-tertiary:#E2E8F0;
+  --color-border-secondary:#CBD5E1;
+  --color-border-info:#B5D4F4;
+  --border-radius-md:8px;
+  --border-radius-lg:12px;
+}
+
+/* ===== 공용 리셋 / 셸 ===== */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary);background:var(--color-background-tertiary);padding:16px;line-height:1.4}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.ttab{cursor:pointer}
+.tabpanel{display:none}
+.tabpanel.active{display:block}
+.shell-topbar{background:#1B4F8A;padding:8px 14px;display:flex;align-items:center;gap:6px;border-radius:var(--border-radius-lg) var(--border-radius-lg) 0 0}
+.shell-topbar .topbar-logo{color:#fff;font-size:13px;font-weight:500}
+.shell-topbar .ttab{color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px}
+.shell-topbar .ttab.on{background:rgba(255,255,255,.18);color:#fff;font-weight:500}
+.stub-wrap{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;background:var(--color-background-primary)}
+.stub-body{padding:60px 20px;text-align:center;color:var(--color-text-secondary);background:var(--color-background-tertiary)}
+.stub-body i{font-size:34px;color:var(--color-border-info);display:block;margin-bottom:10px}
+.stub-body .t{font-size:15px;font-weight:500;color:#0C447C;margin-bottom:4px}
+.stub-body .d{font-size:12px}
+
+/* ===== 매출 대시보드 (scoped) ===== */
+#panel-sales{
+  .wrap{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;background:var(--color-background-primary)}
+  .topbar{background:#1B4F8A;padding:8px 14px;display:flex;align-items:center;gap:6px}
+  .topbar-logo{color:#fff;font-size:13px;font-weight:500}
+  .ttab{color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px}
+  .ttab.on{background:rgba(255,255,255,.18);color:#fff;font-weight:500}
+  .filter-bar{background:#EBF3FB;border-bottom:0.5px solid #C5D9EC;padding:6px 14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .f-sel{background:#fff;border:0.5px solid #B5D4F4;border-radius:6px;padding:3px 8px;font-size:11px;color:#0C447C;display:flex;align-items:center;gap:4px}
+  .kpi-bar{background:#fff;border-bottom:0.5px solid var(--color-border-tertiary);padding:7px 14px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+  .kc{background:#F4F8FD;border-radius:6px;padding:6px 8px;text-align:center}
+  .kl{font-size:10px;color:#185FA5;margin-bottom:2px}
+  .kv{font-size:13px;font-weight:500;color:#0C447C}
+  .kd{font-size:10px;margin-top:1px}
+  .ku{color:#1D9E75}.kdn{color:#E24B4A}.kn{color:#888780}
+  .ai-strip{background:#E6F1FB;border-bottom:0.5px solid #B5D4F4;padding:6px 14px;display:flex;gap:6px}
+  .ac{background:#fff;border:0.5px solid #85B7EB;border-radius:8px;padding:6px 10px;flex:1}
+  .at{font-size:11px;font-weight:500;color:#0C447C;margin-bottom:2px;display:flex;align-items:center;gap:4px}
+  .ab{font-size:10px;color:#185FA5}
+  .body{padding:10px 14px;background:var(--color-background-tertiary)}
+  .r2{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:8px;margin-bottom:8px}
+  .r3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px}
+  .r2b{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+  .card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px}
+  .ct{font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:4px;flex-wrap:wrap}
+  .cb-row{display:flex;gap:4px}
+  .cb{display:flex;align-items:center;gap:3px;font-size:10px;padding:2px 7px;border-radius:4px;border:0.5px solid var(--color-border-tertiary);cursor:pointer}
+  .cb.on{background:#E6F1FB;border-color:#378ADD}
+  .notebar{background:#E1F5EE;border-top:0.5px solid #9FE1CB;padding:5px 14px;font-size:10px;color:#085041;display:flex;align-items:center;gap:4px;font-weight:500}
+}
+
+/* ===== 구매처 분석 (scoped) ===== */
+#panel-buyers{
+  .wrap{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
+  .topbar{background:#1B4F8A;padding:8px 14px;display:flex;align-items:center;gap:6px}
+  .topbar-logo{color:#fff;font-size:13px;font-weight:500}
+  .ttab{color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px}
+  .ttab.on{background:rgba(255,255,255,.18);color:#fff;font-weight:500}
+  .fbar{background:#EBF3FB;border-bottom:0.5px solid #C5D9EC;padding:6px 14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .fsel{background:#fff;border:0.5px solid #B5D4F4;border-radius:6px;padding:3px 8px;font-size:11px;color:#0C447C;display:flex;align-items:center;gap:4px}
+  .kbar{background:#fff;border-bottom:0.5px solid var(--color-border-tertiary);padding:7px 14px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+  .kc{background:#F4F8FD;border-radius:6px;padding:6px 8px;text-align:center}
+  .kl{font-size:10px;color:#185FA5;margin-bottom:2px}.kv{font-size:13px;font-weight:500;color:#0C447C}.kd{font-size:10px;margin-top:1px}
+  .ku{color:#1D9E75}.kdn{color:#E24B4A}.kn{color:#888780}
+  .body{padding:10px 14px;background:var(--color-background-tertiary)}
+  .r2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin-bottom:8px}
+  .card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px}
+  .ct{font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:4px;flex-wrap:wrap}
+  .sdiv{font-size:11px;font-weight:500;color:#185FA5;padding:5px 0 4px;display:flex;align-items:center;gap:6px;border-bottom:1.5px solid #B5D4F4;margin-bottom:8px}
+  .nb{background:#E1F5EE;border-top:0.5px solid #9FE1CB;padding:5px 14px;font-size:10px;color:#085041;display:flex;align-items:center;gap:4px;font-weight:500}
+  .ptab{padding:3px 9px;border-radius:4px;border:0.5px solid #B5D4F4;font-size:10px;color:#185FA5;cursor:pointer;background:#fff}
+  .ptab.on{background:#185FA5;color:#fff;border-color:#185FA5}
+  .srow{display:flex;align-items:center;gap:5px;margin-bottom:5px}
+  .swrap{flex:1;background:var(--color-background-secondary);border-radius:3px;height:16px;overflow:hidden}
+  .sbar{height:100%;border-radius:3px;display:flex;align-items:center;padding:0 6px;font-size:9px;font-weight:500;color:#fff}
+  .fstep{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+  .flabel{font-size:11px;color:var(--color-text-secondary);width:54px;text-align:right;flex-shrink:0}
+  .fbwrap{flex:1;background:var(--color-background-secondary);border-radius:3px;height:22px;overflow:hidden}
+  .fbar2{height:100%;display:flex;align-items:center;padding-left:10px;font-size:11px;font-weight:500;color:#fff;border-radius:3px}
+  .farr{font-size:10px;color:var(--color-text-secondary);margin-bottom:3px;padding-left:62px;display:flex;align-items:center;gap:5px}
+  .cok{background:#EAF3DE;color:#27500A;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:500}
+  .cbad{background:#FCEBEB;color:#A32D2D;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:500}
+  .wbox{background:#FCEBEB;border-radius:5px;padding:6px 10px;font-size:10px;color:#A32D2D;display:flex;align-items:center;gap:5px;margin-top:8px}
+  .rcard{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px}
+  .rct{font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:7px;display:flex;align-items:center;justify-content:space-between}
+  .tbl{width:100%;table-layout:fixed;font-size:11px;border-collapse:collapse}
+  .tbl th{padding:4px 3px;color:var(--color-text-secondary);font-size:10px;font-weight:400;border-bottom:0.5px solid var(--color-border-tertiary);text-align:left}
+  .tbl td{padding:5px 3px;border-bottom:0.5px solid var(--color-border-tertiary)}
+  .tbl tr:last-child td{border-bottom:none}
+  .cn{background:#FCEBEB;color:#A32D2D;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:500;display:inline-block}
+  .cp{background:#EAF3DE;color:#27500A;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:500;display:inline-block}
+  .arow{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:11px}
+  .arow:last-child{border-bottom:none}
+  .ai-link{background:#E6F1FB;border:0.5px solid #B5D4F4;border-radius:var(--border-radius-md);padding:8px 12px;font-size:11px;color:#0C447C;display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer}
+}
+
+/* ===== AI 인사이트 (scoped) ===== */
+#panel-ai{
+  .s{font-size:11px;color:var(--color-text-secondary)}
+  .col{display:flex;flex-direction:column;gap:10px}
+  .row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .rowt{display:flex;align-items:flex-start;gap:8px}
+  .card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:10px 12px}
+  .sec-lbl{font-size:12px;font-weight:500;display:flex;align-items:center;gap:6px;margin-bottom:7px}
+  .ins-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:10px}
+  .ins-card{border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);padding:10px;background:var(--color-background-primary)}
+  .ins-type{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;display:inline-flex;align-items:center;gap:4px;margin-bottom:5px}
+  .ins-body{font-size:11px;line-height:1.5;margin-bottom:5px}
+  .ins-action{font-size:10px;padding-top:5px;border-top:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;gap:3px}
+  .action-num{width:20px;height:20px;border-radius:50%;background:#1B4F8A;color:#fff;font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .arow{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+  .arow:last-child{border-bottom:none;padding-bottom:0}
+  .rh{background:#FCEBEB;color:#A32D2D;border-radius:4px;padding:2px 5px;font-size:10px;font-weight:500}
+  .rm{background:#FAEEDA;color:#854F0B;border-radius:4px;padding:2px 5px;font-size:10px;font-weight:500}
+  .rt{width:100%;font-size:11px;border-collapse:collapse;table-layout:fixed}
+  .rt th{padding:5px 6px;color:var(--color-text-secondary);font-size:10px;font-weight:400;border-bottom:0.5px solid var(--color-border-tertiary);text-align:left}
+  .rt td{padding:5px 6px;border-bottom:0.5px solid var(--color-border-tertiary)}
+  .rt tr:last-child td{border-bottom:none}
+  .fsel{background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:6px;padding:3px 8px;font-size:11px;color:var(--color-text-primary);display:inline-flex;align-items:center;gap:4px}
+  .chip{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;border:0.5px solid var(--color-border-secondary);font-size:11px;color:var(--color-text-secondary);background:var(--color-background-secondary)}
+  .chip-ext{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;border:0.5px solid #FAC775;font-size:11px;color:#633806;background:#FEF9E7}
+  .src-tag{display:inline-flex;align-items:center;gap:3px;padding:1px 7px;border-radius:4px;font-size:10px;font-weight:500}
+  .src-iqvia{background:#EAF3DE;color:#27500A}
+  .src-sims{background:#E6F1FB;color:#0C447C}
+  .src-gov{background:#FAEEDA;color:#633806}
+  .changed{border:2px solid #378ADD !important;position:relative}
+  .changed-lbl{position:absolute;top:-10px;left:10px;background:#378ADD;color:#fff;font-size:9px;font-weight:500;padding:1px 7px;border-radius:10px}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════ 매출 대시보드 ════════════════ -->
+<section id="panel-sales" class="tabpanel active">
+<h2 class="sr-only">블루팜코리아 매출 대시보드 전체 — KPI 시계열(데이터 레이블), 매출유형 월별 누적 바 차트 포함</h2>
+
+<div class="wrap">
+  <div class="topbar">
+    <span class="topbar-logo"><i class="ti ti-chart-dots-3" aria-hidden="true" style="font-size:15px;margin-right:4px"></i>블루팜코리아 SID</span>
+    <div style="display:flex;gap:2px;margin-left:10px">
+      <div class="ttab on">매출 대시보드</div>
+      <div class="ttab">구매처 분석</div>
+      <div class="ttab">퍼널 분석</div>
+      <div class="ttab">캠페인 성과</div>
+      <div class="ttab">AI 인사이트</div>
+      <div class="ttab">파트너 히스토리</div>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <div class="f-sel"><i class="ti ti-calendar" aria-hidden="true"></i>2024.01 ~ 현재</div>
+    <div class="f-sel" style="border-color:#1B4F8A"><i class="ti ti-building-hospital" aria-hidden="true"></i>MSD <span style="background:#185FA5;color:#fff;border-radius:3px;padding:1px 5px;font-size:9px">필수1</span></div>
+    <div class="f-sel"><i class="ti ti-pill" aria-hidden="true"></i>전체 제품</div>
+    <div class="f-sel"><i class="ti ti-map-pin" aria-hidden="true"></i>전체 지역</div>
+    <div class="f-sel"><i class="ti ti-stethoscope" aria-hidden="true"></i>전체 진료과</div>
+    <div class="f-sel" style="border-color:#0F6E56"><i class="ti ti-truck-delivery" aria-hidden="true"></i>병의원+도매 <span style="background:#0F6E56;color:#fff;border-radius:3px;padding:1px 5px;font-size:9px">필수2</span></div>
+    <div style="margin-left:auto;display:flex;gap:4px">
+      <button style="background:#fff;border:0.5px solid #B5D4F4;border-radius:6px;padding:3px 8px;font-size:11px;color:#0C447C;cursor:pointer"><i class="ti ti-refresh" aria-hidden="true" style="font-size:12px"></i></button>
+      <div style="background:#1B4F8A;color:#fff;border-radius:6px;padding:3px 9px;font-size:11px;display:flex;align-items:center;gap:3px"><i class="ti ti-download" aria-hidden="true" style="font-size:12px"></i>PDF/PPT</div>
+    </div>
+  </div>
+
+  <div class="kpi-bar">
+    <div class="kc"><div class="kl">총 매출</div><div class="kv">₩24.1억</div><div class="kd ku">▲ 8.4%</div></div>
+    <div class="kc"><div class="kl">판매수량</div><div class="kv">12,480</div><div class="kd ku">▲ 5.2%</div></div>
+    <div class="kc"><div class="kl">구매처 수</div><div class="kv">1,204</div><div class="kd ku">▲ 3.1%</div></div>
+    <div class="kc"><div class="kl">신규 구매처</div><div class="kv">142</div><div class="kd ku">▲ 22</div></div>
+    <div class="kc"><div class="kl">재구매율</div><div class="kv">68.4%</div><div class="kd kdn">▼ 1.2%p</div></div>
+    <div class="kc"><div class="kl">휴면 전환율</div><div class="kv">11.7%</div><div class="kd kdn">▼ 0.8%p</div></div>
+    <div class="kc"><div class="kl">전월 성장률</div><div class="kv">+8.4%</div><div class="kd kn">MoM</div></div>
+  </div>
+
+  <div class="ai-strip">
+    <div class="ac"><div class="at"><i class="ti ti-sparkles" aria-hidden="true" style="font-size:13px"></i>이번 달 매출 변화</div><div class="ab">서울 +24.6% 급성장 — 신규 거래처 유입 주도</div></div>
+    <div class="ac"><div class="at"><i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:13px"></i>이탈 위험 거래처</div><div class="ab">High 위험 142개처 (+22) — 즉시 대응 필요</div></div>
+    <div class="ac"><div class="at"><i class="ti ti-bulb" aria-hidden="true" style="font-size:13px"></i>추천 실행과제</div><div class="ab">경기 이탈 위험 Top10 즉시 접촉 → 예상 방어 ₩12M</div></div>
+  </div>
+
+  <div class="body">
+
+    <div class="r2">
+      <div class="card">
+        <div class="ct">
+          <span><i class="ti ti-chart-line" aria-hidden="true" style="margin-right:4px"></i>KPI 시계열 — 라인 차트 (전년 비교)</span>
+          <div class="cb-row">
+            <div class="cb on" onclick="switchKpi(this,'sales')"><span style="width:8px;height:8px;border-radius:50%;background:#378ADD;display:inline-block"></span>매출</div>
+            <div class="cb" onclick="switchKpi(this,'qty')"><span style="width:8px;height:8px;border-radius:50%;background:#1D9E75;display:inline-block"></span>수량</div>
+            <div class="cb" onclick="switchKpi(this,'buyer')"><span style="width:8px;height:8px;border-radius:50%;background:#BA7517;display:inline-block"></span>구매처수</div>
+          </div>
+        </div>
+        <svg id="kpiSvg" width="100%" height="140" style="overflow:visible"></svg>
+        <div style="margin-top:7px;padding:6px 8px;background:#E6F1FB;border-radius:6px;font-size:10px;color:#0C447C;display:flex;gap:5px;align-items:flex-start">
+          <i class="ti ti-info-circle" aria-hidden="true" style="font-size:13px;flex-shrink:0;margin-top:1px"></i>
+          데이터 레이블은 체크박스 선택 기준으로 표시 (매출: ₩억 / 수량: 건 / 구매처수: 개처). 최신 월은 말풍선 형태로 강조. 전년도 라인은 레이블 미표시.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ct">
+          <span style="display:flex;align-items:center;gap:4px">
+            <i class="ti ti-chart-bar-popular" aria-hidden="true" style="font-size:14px"></i>
+            매출유형 비중 — 월별 병의원 / 도매
+          </span>
+          <div style="display:flex;gap:6px">
+            <span style="display:flex;align-items:center;gap:3px;font-size:10px;color:var(--color-text-secondary)"><span style="width:8px;height:8px;border-radius:2px;background:#378ADD;display:inline-block"></span>병의원</span>
+            <span style="display:flex;align-items:center;gap:3px;font-size:10px;color:var(--color-text-secondary)"><span style="width:8px;height:8px;border-radius:2px;background:#1D9E75;display:inline-block"></span>도매</span>
+          </div>
+        </div>
+        <svg id="salesTypeSvg" width="100%" height="140" style="overflow:visible"></svg>
+      </div>
+    </div>
+
+    <div class="r3">
+      <div class="card">
+        <div class="ct"><span><i class="ti ti-map-pin" aria-hidden="true" style="margin-right:3px"></i>지역별 분포</span><span style="font-size:9px;color:var(--color-text-info)">클릭→시군구</span></div>
+        <svg width="100%" height="110" viewBox="0 0 200 110">
+          <text x="50" y="13" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">서울</text><rect x="54" y="5" width="110" height="11" fill="#378ADD" rx="2"/><text x="167" y="13" font-size="8.5" fill="#0C447C">₩8.2억</text>
+          <text x="50" y="27" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">경기</text><rect x="54" y="19" width="82" height="11" fill="#378ADD" rx="2" opacity=".8"/><text x="139" y="27" font-size="8.5" fill="#0C447C">₩6.1억</text>
+          <text x="50" y="41" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">부산</text><rect x="54" y="33" width="56" height="11" fill="#378ADD" rx="2" opacity=".65"/><text x="113" y="41" font-size="8.5" fill="#0C447C">₩4.2억</text>
+          <text x="50" y="55" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">인천</text><rect x="54" y="47" width="40" height="11" fill="#E24B4A" rx="2" opacity=".7"/><text x="97" y="55" font-size="8.5" fill="#A32D2D">₩3.0억</text>
+          <text x="50" y="69" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">대구</text><rect x="54" y="61" width="34" height="11" fill="#378ADD" rx="2" opacity=".5"/><text x="91" y="69" font-size="8.5" fill="#0C447C">₩2.6억</text>
+          <text x="50" y="83" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">대전</text><rect x="54" y="75" width="25" height="11" fill="#378ADD" rx="2" opacity=".4"/><text x="83" y="83" font-size="8.5" fill="#0C447C">₩1.9억</text>
+          <text x="50" y="97" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">광주</text><rect x="54" y="89" width="18" height="11" fill="#378ADD" rx="2" opacity=".3"/><text x="75" y="97" font-size="8.5" fill="#0C447C">₩1.4억</text>
+          <text x="56" y="110" font-size="7.5" fill="#E24B4A">인천 ▼ 전월대비</text>
+        </svg>
+      </div>
+      <div class="card">
+        <div class="ct"><i class="ti ti-stethoscope" aria-hidden="true" style="margin-right:3px"></i>진료과별 (병의원)</div>
+        <svg width="100%" height="110" viewBox="0 0 200 110">
+          <text x="50" y="13" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">내과</text><rect x="54" y="5" width="95" height="11" fill="#1D9E75" rx="2"/><text x="152" y="13" font-size="8.5" fill="#085041">₩6.8억</text>
+          <text x="50" y="27" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">소아과</text><rect x="54" y="19" width="74" height="11" fill="#1D9E75" rx="2" opacity=".8"/><text x="131" y="27" font-size="8.5" fill="#085041">₩5.3억</text>
+          <text x="50" y="41" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">가정의학과</text><rect x="54" y="33" width="52" height="11" fill="#1D9E75" rx="2" opacity=".65"/><text x="109" y="41" font-size="8.5" fill="#085041">₩3.7억</text>
+          <text x="50" y="55" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">이비인후과</text><rect x="54" y="47" width="38" height="11" fill="#1D9E75" rx="2" opacity=".55"/><text x="95" y="55" font-size="8.5" fill="#085041">₩2.7억</text>
+          <text x="50" y="69" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">외과</text><rect x="54" y="61" width="26" height="11" fill="#1D9E75" rx="2" opacity=".45"/><text x="83" y="69" font-size="8.5" fill="#085041">₩1.9억</text>
+          <text x="50" y="83" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">피부과</text><rect x="54" y="75" width="20" height="11" fill="#1D9E75" rx="2" opacity=".35"/><text x="77" y="83" font-size="8.5" fill="#085041">₩1.4억</text>
+          <text x="56" y="110" font-size="8" fill="#1D9E75">▲ 소아과 +18.2% 성장</text>
+        </svg>
+      </div>
+      <div class="card">
+        <div class="ct"><i class="ti ti-user-plus" aria-hidden="true" style="margin-right:3px"></i>당월 신규 구매처</div>
+        <div style="text-align:center;padding:3px 0 5px">
+          <div style="font-size:22px;font-weight:500;color:#0C447C">142<span style="font-size:11px;font-weight:400;color:#1D9E75;margin-left:4px">▲22</span></div>
+          <div style="font-size:10px;color:var(--color-text-secondary)">전월 대비</div>
+        </div>
+        <svg width="100%" height="34" viewBox="0 0 180 34">
+          <rect x="5" y="16" width="22" height="16" fill="#B5D4F4" rx="2"/>
+          <rect x="32" y="11" width="22" height="21" fill="#85B7EB" rx="2"/>
+          <rect x="59" y="9" width="22" height="23" fill="#378ADD" rx="2"/>
+          <rect x="86" y="13" width="22" height="19" fill="#85B7EB" rx="2"/>
+          <rect x="113" y="7" width="22" height="25" fill="#378ADD" rx="2"/>
+          <rect x="140" y="1" width="22" height="31" fill="#1B4F8A" rx="2"/>
+          <text x="16" y="33" font-size="7" fill="var(--color-text-secondary)" text-anchor="middle">6월</text>
+          <text x="151" y="33" font-size="7" fill="#0C447C" text-anchor="middle" font-weight="500">이번달</text>
+        </svg>
+        <div style="margin-top:6px;border-top:0.5px solid var(--color-border-tertiary);padding-top:5px;font-size:10px">
+          <div style="color:var(--color-text-secondary);margin-bottom:3px">신규처 Top 3</div>
+          <div style="margin-bottom:2px">1. 서울성모의원 · 내과</div>
+          <div style="margin-bottom:2px">2. 행복소아과의원 · 소아</div>
+          <div>3. 연세가정의학과 · 가정의</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="r2b">
+      <div class="card">
+        <div class="ct"><i class="ti ti-trophy" aria-hidden="true" style="margin-right:3px"></i>Top 거래처 랭킹</div>
+        <table style="width:100%;table-layout:fixed;font-size:11px">
+          <tr style="border-bottom:0.5px solid var(--color-border-tertiary)"><td style="padding:4px 2px;color:var(--color-text-secondary);width:16px">#</td><td style="padding:4px 2px">기관명</td><td style="padding:4px 2px;text-align:right">매출</td><td style="padding:4px 2px;text-align:right;width:34px">변동</td></tr>
+          <tr style="border-bottom:0.5px solid var(--color-border-tertiary)"><td style="padding:3px 2px;color:#BA7517;font-weight:500">1</td><td style="padding:3px 2px">서울대병원약국</td><td style="padding:3px 2px;text-align:right">₩1.2억</td><td style="padding:3px 2px;text-align:right;color:#1D9E75">▲2</td></tr>
+          <tr style="border-bottom:0.5px solid var(--color-border-tertiary)"><td style="padding:3px 2px;color:#888780">2</td><td style="padding:3px 2px">연세세브란스</td><td style="padding:3px 2px;text-align:right">₩0.9억</td><td style="padding:3px 2px;text-align:right;color:#888780">―</td></tr>
+          <tr style="border-bottom:0.5px solid var(--color-border-tertiary)"><td style="padding:3px 2px;color:#888780">3</td><td style="padding:3px 2px">삼성서울병원</td><td style="padding:3px 2px;text-align:right">₩0.8억</td><td style="padding:3px 2px;text-align:right;color:#E24B4A">▼1</td></tr>
+          <tr><td style="padding:3px 2px;color:#888780">4</td><td style="padding:3px 2px">경희대병원</td><td style="padding:3px 2px;text-align:right">₩0.7억</td><td style="padding:3px 2px;text-align:right;color:#1D9E75">▲1</td></tr>
+        </table>
+      </div>
+      <div class="card" style="border-left:3px solid #378ADD;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0">
+        <div class="ct"><span style="display:flex;align-items:center;gap:4px"><i class="ti ti-sparkles" aria-hidden="true" style="color:#185FA5;font-size:14px"></i>대시보드 분석 요약 (AI)</span></div>
+        <div style="font-size:11px;line-height:1.6">
+          <div style="margin-bottom:5px;display:flex;gap:5px"><span style="color:#1D9E75;font-weight:500">↑</span>서울 지역 내과·소아과 중심 매출 <strong>+24.6%</strong> 급증 — 신규 거래처 유입 주도.</div>
+          <div style="margin-bottom:5px;display:flex;gap:5px"><span style="color:#E24B4A;font-weight:500">↓</span>경기·인천 기존 거래처 구매 감소 — 이탈 위험 <strong>142개처</strong> 즉시 대응 필요.</div>
+          <div style="display:flex;gap:5px"><span style="color:#BA7517;font-weight:500">→</span>도매 채널 비중 <strong>37%</strong> 유지 — 병의원 채널 방어 전략 지속 유효.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notebar"><i class="ti ti-clock" aria-hidden="true"></i>출고완료 기준 · 전일 기준 새벽 03:00 업데이트 · MSD · 2024.01~현재</div>
+</div>
+</section>
+
+<!-- ════════════════ 구매처 분석 ════════════════ -->
+<section id="panel-buyers" class="tabpanel">
+<h2 class="sr-only">블루팜코리아 탭2 구매처 분석 최종 — 이탈위험 거래처 리스트 제거, AI 인사이트 탭 링크 추가</h2>
+
+<div class="wrap">
+  <div class="topbar">
+    <span class="topbar-logo"><i class="ti ti-chart-dots-3" aria-hidden="true" style="font-size:15px;margin-right:4px"></i>블루팜코리아 SID</span>
+    <div style="display:flex;gap:2px;margin-left:10px">
+      <div class="ttab">매출 대시보드</div>
+      <div class="ttab on">구매처 분석</div>
+      <div class="ttab">캠페인 성과</div>
+      <div class="ttab">AI 인사이트</div>
+      <div class="ttab">파트너 히스토리</div>
+    </div>
+  </div>
+
+  <div class="fbar">
+    <div class="fsel"><i class="ti ti-calendar" aria-hidden="true"></i>2025.11</div>
+    <div class="fsel" style="border-color:#1B4F8A"><i class="ti ti-building-hospital" aria-hidden="true"></i>MSD</div>
+    <div class="fsel"><i class="ti ti-pill" aria-hidden="true"></i>전체 제품</div>
+    <div class="fsel"><i class="ti ti-map-pin" aria-hidden="true"></i>전체 지역</div>
+    <div class="fsel" style="border-color:#0F6E56"><i class="ti ti-truck-delivery" aria-hidden="true"></i>병의원+도매</div>
+    <div style="margin-left:auto;display:flex;gap:4px">
+      <button style="background:#fff;border:0.5px solid #B5D4F4;border-radius:6px;padding:3px 8px;font-size:11px;color:#0C447C"><i class="ti ti-refresh" aria-hidden="true" style="font-size:12px"></i></button>
+      <div style="background:#1B4F8A;color:#fff;border-radius:6px;padding:3px 9px;font-size:11px;display:flex;align-items:center;gap:3px"><i class="ti ti-download" aria-hidden="true" style="font-size:12px"></i>PDF/PPT</div>
+    </div>
+  </div>
+
+  <div class="kbar">
+    <div class="kc"><div class="kl">총 매출</div><div class="kv">₩24.1억</div><div class="kd ku">▲ 8.4%</div></div>
+    <div class="kc"><div class="kl">판매수량</div><div class="kv">12,480</div><div class="kd ku">▲ 5.2%</div></div>
+    <div class="kc"><div class="kl">구매처 수</div><div class="kv">1,204</div><div class="kd ku">▲ 3.1%</div></div>
+    <div class="kc"><div class="kl">신규 구매처</div><div class="kv">142</div><div class="kd ku">▲ 22</div></div>
+    <div class="kc"><div class="kl">재구매율</div><div class="kv">68.4%</div><div class="kd kdn">▼ 1.2%p</div></div>
+    <div class="kc"><div class="kl">휴면 전환율</div><div class="kv">11.7%</div><div class="kd kdn">▼ 0.8%p</div></div>
+    <div class="kc"><div class="kl">전월 성장률</div><div class="kv">+8.4%</div><div class="kd kn">MoM</div></div>
+  </div>
+
+  <div class="body">
+
+    <div class="sdiv"><i class="ti ti-users" aria-hidden="true" style="font-size:14px"></i>A. 구매처 분석</div>
+
+    <div class="r2">
+      <div class="card">
+        <div class="ct">
+          <span><i class="ti ti-chart-line" aria-hidden="true" style="margin-right:3px"></i>구매처 월별 추이 — 신규 / 재구매 / 휴면</span>
+          <div style="display:flex;gap:2px" id="trendTabs">
+            <div class="ptab on" onclick="swT(this,'6')">6개월</div>
+            <div class="ptab" onclick="swT(this,'12')">12개월</div>
+          </div>
+        </div>
+        <svg id="tSvg" width="100%" height="106" style="overflow:visible"></svg>
+        <div style="display:flex;gap:10px;margin-top:5px;font-size:10px;color:var(--color-text-secondary)">
+          <span style="display:flex;align-items:center;gap:3px"><span style="width:12px;height:2.5px;background:#378ADD;display:inline-block;border-radius:2px"></span>신규</span>
+          <span style="display:flex;align-items:center;gap:3px"><span style="width:12px;height:2.5px;background:#1D9E75;display:inline-block;border-radius:2px"></span>재구매</span>
+          <span style="display:flex;align-items:center;gap:3px"><span style="width:12px;height:2.5px;background:#888780;display:inline-block;border-radius:2px"></span>휴면</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ct"><span><i class="ti ti-filter" aria-hidden="true" style="margin-right:3px"></i>RFM 세그먼트</span><span style="font-size:9px;color:var(--color-text-secondary)">전월 대비 이동</span></div>
+        <div>
+          <div class="srow"><span style="font-size:10px;font-weight:500;color:#27500A;width:48px">충성</span><div class="swrap"><div class="sbar" style="width:85%;background:#639922">324명 (27%)</div></div><span style="font-size:10px;color:#888780;margin-left:4px">―</span></div>
+          <div class="srow"><span style="font-size:10px;font-weight:500;color:#0C447C;width:48px">일반</span><div class="swrap"><div class="sbar" style="width:72%;background:#85B7EB;color:#0C447C">382명 (32%)</div></div><span style="font-size:10px;color:#E24B4A;margin-left:4px">▼8</span></div>
+          <div class="srow"><span style="font-size:10px;font-weight:500;color:#412402;width:48px">단발</span><div class="swrap"><div class="sbar" style="width:52%;background:#FAC775;color:#412402">210명 (17%)</div></div><span style="font-size:10px;color:#1D9E75;margin-left:4px">▲5</span></div>
+          <div class="srow"><span style="font-size:10px;font-weight:500;color:#854F0B;width:48px">관심</span><div class="swrap"><div class="sbar" style="width:34%;background:#EF9F27;color:#412402">144명 (12%)</div></div><span style="font-size:10px;color:#1D9E75;margin-left:4px">▲3</span></div>
+          <div class="srow"><span style="font-size:10px;font-weight:500;color:#A32D2D;width:48px">이탈위험</span><div class="swrap"><div class="sbar" style="width:28%;background:#E24B4A">144명 (12%)</div></div><span style="font-size:10px;color:#E24B4A;font-weight:500;margin-left:4px">▲22</span></div>
+        </div>
+        <div style="margin-top:7px;padding:4px 8px;background:#FCEBEB;border-radius:5px;font-size:10px;color:#A32D2D;display:flex;align-items:center;gap:4px">
+          <i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:12px"></i>이탈위험 전월 대비 +22명 급증
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:8px">
+      <div class="ct">
+        <span><i class="ti ti-grid-dots" aria-hidden="true" style="margin-right:3px"></i>구매 패턴 히트맵 — 세그먼트별 월평균 구매 빈도 &amp; 평균 구매 주기</span>
+        <div style="display:flex;align-items:center;gap:5px">
+          <span style="font-size:9px;color:#A32D2D;background:#FCEBEB;padding:2px 7px;border-radius:4px">구매주기 TBD — 판매데이터 확인 후 확정</span>
+          <div style="display:flex;gap:2px" id="hmTabs">
+            <div class="ptab on" onclick="swH(this,'6')">6개월</div>
+            <div class="ptab" onclick="swH(this,'12')">12개월</div>
+          </div>
+        </div>
+      </div>
+      <div id="hmWrap" style="overflow-x:auto"></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:6px;flex-wrap:wrap;font-size:10px;color:var(--color-text-secondary)">
+        <span>구매 빈도</span>
+        <div style="display:flex;gap:2px">
+          <span style="width:12px;height:10px;background:#E6F1FB;border-radius:2px;display:inline-block"></span>
+          <span style="width:12px;height:10px;background:#85B7EB;border-radius:2px;display:inline-block"></span>
+          <span style="width:12px;height:10px;background:#378ADD;border-radius:2px;display:inline-block"></span>
+          <span style="width:12px;height:10px;background:#185FA5;border-radius:2px;display:inline-block"></span>
+          <span style="width:12px;height:10px;background:#0C447C;border-radius:2px;display:inline-block"></span>
+        </div>
+        <span>낮음 → 높음</span>
+        <span style="display:flex;align-items:center;gap:3px"><span style="width:12px;height:10px;background:#D3D1C7;border-radius:2px;display:inline-block"></span>미구매</span>
+        <span style="display:flex;align-items:center;gap:3px;color:#A32D2D"><span style="width:12px;height:10px;border:1.5px dashed #E24B4A;border-radius:2px;display:inline-block"></span>이탈 신호</span>
+      </div>
+    </div>
+
+    <div class="ai-link" style="margin-bottom:8px" data-goto="AI 인사이트">
+      <div style="display:flex;align-items:center;gap:8px">
+        <i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:16px;color:#E24B4A"></i>
+        <div>
+          <div style="font-size:11px;font-weight:500;color:#0C447C">이탈 위험 거래처 상세 리스트 &amp; CSV 다운로드</div>
+          <div style="font-size:10px;color:#185FA5;margin-top:2px">AI 인사이트 탭에서 RFM 근거 데이터, 위험 점수, AI 추천 액션과 함께 확인할 수 있어요</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+        <span style="background:#FCEBEB;color:#A32D2D;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:500">총 144개처 · H44 M58 L42</span>
+        <span style="font-size:11px;color:#185FA5;display:flex;align-items:center;gap:3px;font-weight:500">AI 인사이트 탭으로 이동 <i class="ti ti-arrow-right" aria-hidden="true" style="font-size:13px"></i></span>
+      </div>
+    </div>
+
+    <div class="sdiv">
+      <i class="ti ti-filter-cog" aria-hidden="true" style="font-size:14px"></i>B. 구매 퍼널 분석
+      <span style="font-size:10px;font-weight:400;color:#888780">로그 설계 완료 후 데이터 연동 예정</span>
+    </div>
+
+    <div class="card" style="margin-bottom:8px">
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px">
+        <div>
+          <div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:10px;display:flex;align-items:center;gap:5px">
+            <i class="ti ti-filter" aria-hidden="true" style="font-size:13px"></i>구매 퍼널 전환율 — A백신
+          </div>
+          <div class="fstep"><span class="flabel">검색</span><div class="fbwrap"><div class="fbar2" style="width:100%;background:#185FA5">8,420회</div></div></div>
+          <div class="farr"><span>↓</span><span class="cok">62.4%</span></div>
+          <div class="fstep"><span class="flabel">제품 조회</span><div class="fbwrap"><div class="fbar2" style="width:63%;background:#378ADD">5,254회</div></div></div>
+          <div class="farr"><span>↓</span><span class="cok">44.1%</span></div>
+          <div class="fstep"><span class="flabel">장바구니</span><div class="fbwrap"><div class="fbar2" style="width:28%;background:#85B7EB;color:#0C447C">2,317건</div></div></div>
+          <div class="farr"><span>↓</span><span class="cbad">36.8% <strong>▼7.3%p</strong></span></div>
+          <div class="fstep"><span class="flabel">결제 완료</span><div class="fbwrap"><div class="fbar2" style="width:10%;background:#1D9E75;min-width:32px"> </div></div></div>
+          <div class="wbox"><i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:13px;flex-shrink:0"></i>장바구니→결제 전환율 7.3%p 하락 병목 감지</div>
+          <div style="font-size:10px;color:var(--color-text-secondary);margin:9px 0 4px">전환율 시계열 추이</div>
+          <svg id="cvSvg" width="100%" height="52" style="overflow:visible"></svg>
+          <div style="display:flex;gap:10px;margin-top:4px;font-size:9.5px;color:var(--color-text-secondary)">
+            <span style="display:flex;align-items:center;gap:3px"><span style="width:12px;height:2px;background:#E24B4A;display:inline-block;border-radius:2px"></span>장바구니→결제</span>
+            <span style="display:flex;align-items:center;gap:3px"><span style="width:12px;height:2px;background:#B5D4F4;display:inline-block;border-radius:2px"></span>검색→조회</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="rcard">
+            <div class="rct">
+              <span style="display:flex;align-items:center;gap:4px"><i class="ti ti-alert-circle" aria-hidden="true" style="font-size:13px;color:#E24B4A"></i>병목 제품 리스트</span>
+              <span style="font-size:10px;color:var(--color-text-secondary)">조회 대비 전환율↓</span>
+            </div>
+            <table class="tbl">
+              <thead><tr><th>제품명</th><th style="text-align:right">조회</th><th style="text-align:right">전환율</th></tr></thead>
+              <tbody>
+                <tr><td>B백신</td><td style="text-align:right;color:var(--color-text-secondary)">5,254</td><td style="text-align:right"><span class="cn">5.9%</span></td></tr>
+                <tr><td>D수두백신</td><td style="text-align:right;color:var(--color-text-secondary)">1,840</td><td style="text-align:right"><span class="cn">5.3%</span></td></tr>
+                <tr><td>C독감백신</td><td style="text-align:right;color:var(--color-text-secondary)">3,100</td><td style="text-align:right"><span class="cp">9.4%</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="rcard">
+            <div class="rct"><span style="display:flex;align-items:center;gap:4px"><i class="ti ti-shopping-cart" aria-hidden="true" style="font-size:13px"></i>연관 구매 상품 Top 3</span></div>
+            <div class="arow"><span>A백신 + C독감백신</span><span style="color:#185FA5;font-weight:500">38.2%</span></div>
+            <div class="arow"><span>A백신 + 주사기SET</span><span style="color:#185FA5;font-weight:500">24.7%</span></div>
+            <div class="arow"><span>B백신 + 보관용기</span><span style="color:#185FA5;font-weight:500">18.1%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sdiv"><i class="ti ti-sparkles" aria-hidden="true" style="font-size:14px"></i>C. 구매처 분석 AI 요약</div>
+    <div class="card" style="border-left:3px solid #378ADD;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+        <div>
+          <div style="font-size:10px;font-weight:500;color:#A32D2D;margin-bottom:4px;display:flex;align-items:center;gap:4px"><i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:12px"></i>이탈 리스크</div>
+          <div style="font-size:11px;line-height:1.5">경기·인천 이탈위험 <strong>144개처</strong> (+22). 예상 방어 매출 <strong>₩38M</strong> — 즉시 CRM 실행 권장.</div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:500;color:#854F0B;margin-bottom:4px;display:flex;align-items:center;gap:4px"><i class="ti ti-trending-down" aria-hidden="true" style="font-size:12px"></i>퍼널 병목</div>
+          <div style="font-size:11px;line-height:1.5">B백신 장바구니→결제 <strong>–7.3%p</strong> 급락 — 번들 프로모션 검토 필요.</div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:500;color:#1D9E75;margin-bottom:4px;display:flex;align-items:center;gap:4px"><i class="ti ti-bulb" aria-hidden="true" style="font-size:12px"></i>추천 실행과제</div>
+          <div style="font-size:11px;line-height:1.5">2차 미구매 <strong>132개처</strong> 리마인더 발송 → 전환율 +18% 예측.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="nb"><i class="ti ti-clock" aria-hidden="true"></i>출고완료 기준 · 전일 기준 새벽 03:00 업데이트 · MSD · 2025.11</div>
+</div>
+</section>
+
+<!-- ════════════════ AI 인사이트 ════════════════ -->
+<section id="panel-ai" class="tabpanel">
+<h2 class="sr-only">블루팜코리아 AI 인사이트 탭 — 외부 데이터 연동 반영 최종 화면.</h2>
+
+<div class="col" style="gap:0">
+
+  <div style="background:#1B4F8A;padding:8px 14px;display:flex;align-items:center;gap:6px;border-radius:var(--border-radius-lg) var(--border-radius-lg) 0 0">
+    <span style="color:#fff;font-size:13px;font-weight:500;display:flex;align-items:center;gap:5px">
+      <i class="ti ti-chart-dots-3" aria-hidden="true" style="font-size:15px"></i>블루팜코리아 SID
+    </span>
+    <div style="display:flex;gap:2px;margin-left:10px">
+      <div class="ttab" style="color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px">매출 대시보드</div>
+      <div class="ttab" style="color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px">구매처 분석</div>
+      <div class="ttab" style="color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px">캠페인 성과</div>
+      <div class="ttab" style="background:rgba(255,255,255,.18);color:#fff;font-weight:500;font-size:11px;padding:5px 10px;border-radius:4px">AI 인사이트</div>
+      <div class="ttab" style="color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px">파트너 히스토리</div>
+    </div>
+  </div>
+
+  <div style="background:#FEF9E7;border-bottom:0.5px solid #FAC775;padding:6px 14px;display:flex;align-items:center;gap:6px">
+    <i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:13px;color:#854F0B"></i>
+    <span style="font-size:11px;color:#633806"><strong>MSD 파일럿 전용</strong> — AI 인사이트는 MSD 코리아 파일럿으로 운영 중입니다.</span>
+    <span style="margin-left:auto;font-size:10px;color:#854F0B">2025.11 ~ 2026.01</span>
+  </div>
+
+  <div style="background:#EBF3FB;border-bottom:0.5px solid #C5D9EC;padding:6px 14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+    <div class="fsel"><i class="ti ti-calendar" aria-hidden="true" style="font-size:12px;color:#185FA5"></i>2025.11</div>
+    <div class="fsel"><i class="ti ti-building-hospital" aria-hidden="true" style="font-size:12px;color:#185FA5"></i>MSD</div>
+    <div class="fsel"><i class="ti ti-pill" aria-hidden="true" style="font-size:12px;color:var(--color-text-secondary)"></i>엠엠알·박타</div>
+    <div class="fsel"><i class="ti ti-map-pin" aria-hidden="true" style="font-size:12px;color:var(--color-text-secondary)"></i>전체 지역</div>
+    <div class="fsel" style="border-color:#0F6E56"><i class="ti ti-truck-delivery" aria-hidden="true" style="font-size:12px;color:#0F6E56"></i>병의원+도매</div>
+    <div style="margin-left:auto;display:flex;gap:5px">
+      <button style="background:#fff;border:0.5px solid #B5D4F4;border-radius:6px;padding:3px 10px;font-size:11px;color:#0C447C;display:flex;align-items:center;gap:4px;cursor:pointer"><i class="ti ti-refresh" aria-hidden="true" style="font-size:12px"></i>재생성</button>
+      <div style="background:#1B4F8A;color:#fff;border-radius:6px;padding:3px 11px;font-size:11px;display:flex;align-items:center;gap:4px;font-weight:500"><i class="ti ti-download" aria-hidden="true" style="font-size:12px"></i>PDF/PPT</div>
+    </div>
+  </div>
+
+  <div style="padding:10px 14px;background:var(--color-background-tertiary);border-radius:0 0 var(--border-radius-lg) var(--border-radius-lg);display:flex;flex-direction:column;gap:10px">
+
+    <div style="background:#E6F1FB;border:0.5px solid #B5D4F4;border-radius:var(--border-radius-lg);padding:12px 14px">
+      <div class="row" style="justify-content:space-between;margin-bottom:8px">
+        <div class="row" style="gap:6px">
+          <i class="ti ti-sparkles" aria-hidden="true" style="font-size:15px;color:#185FA5"></i>
+          <span style="font-size:12px;font-weight:500;color:#0C447C">Executive Summary</span>
+        </div>
+        <span style="font-size:10px;color:#185FA5;display:flex;align-items:center;gap:4px"><i class="ti ti-clock" aria-hidden="true" style="font-size:12px"></i>2025.11.30 · 03:00 업데이트</span>
+      </div>
+      <div class="rowt" style="margin-bottom:5px;font-size:11px;line-height:1.55">
+        <span style="color:#1D9E75;font-weight:500;font-size:14px;flex-shrink:0;margin-top:1px">↑</span>
+        <span style="color:#0C447C">서울 지역 내과·소아과 신규 구매처 <strong>+22개처</strong> 유입, 전월 대비 매출 <strong>+24.6%</strong> 급성장. A백신 판매수량 전년 동기 대비 <strong>+31%</strong> 증가.</span>
+      </div>
+      <div class="rowt" style="margin-bottom:5px;font-size:11px;line-height:1.55">
+        <span style="color:#E24B4A;font-weight:500;font-size:14px;flex-shrink:0;margin-top:1px">↓</span>
+        <span style="color:#0C447C">경기·인천 권역 기존 거래처 <strong>144개처</strong> 90일 이상 미구매 이탈 신호. 예상 방어 매출 <strong>₩38M</strong> — 즉각 CRM 실행 권장.</span>
+      </div>
+      <div class="rowt" style="font-size:11px;line-height:1.55">
+        <span style="color:#BA7517;font-weight:500;font-size:14px;flex-shrink:0;margin-top:1px">→</span>
+        <span style="color:#0C447C">도매 채널 비중 <strong>3%p 상승</strong>(37%→40%). 병의원 직접 채널 방어를 위한 프로모션 전략 재설계 필요 시점.</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec-lbl"><i class="ti ti-cards" aria-hidden="true" style="font-size:14px;color:#185FA5"></i>AI 인사이트 카드<span class="s">중요도 순 자동 정렬</span></div>
+      <div class="ins-grid">
+        <div class="ins-card" style="border-left:3px solid #1D9E75;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0">
+          <span class="ins-type" style="background:#EAF3DE;color:#27500A"><i class="ti ti-trending-up" aria-hidden="true" style="font-size:11px"></i>Growth</span>
+          <div class="ins-body">서울 내과·소아과 매출 <strong>+31%</strong>. 신규 18개처 유입 주도. A백신 집중 노출 강화 권장.</div>
+          <div class="ins-action" style="color:#1D9E75"><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i>서울 확장 프로모션 기획</div>
+        </div>
+        <div class="ins-card" style="border-left:3px solid #E24B4A;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0">
+          <span class="ins-type" style="background:#FCEBEB;color:#791F1F"><i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:11px"></i>Risk</span>
+          <div class="ins-body">경기·인천 매출 <strong>–15.4%</strong>. 이탈위험 144개처 즉시 CRM 실행 시 방어 <strong>₩38M</strong>.</div>
+          <div class="ins-action" style="color:#E24B4A"><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i>이탈 위험 CRM 즉시 실행</div>
+        </div>
+        <div class="ins-card" style="border-left:3px solid #BA7517;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0">
+          <span class="ins-type" style="background:#FAEEDA;color:#633806"><i class="ti ti-pill" aria-hidden="true" style="font-size:11px"></i>Product</span>
+          <div class="ins-body">B백신 전환율 <strong>–7.3%p</strong>. 가격 저항 탐지. 번들 프로모션 검토 필요.</div>
+          <div class="ins-action" style="color:#BA7517"><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i>B백신 전환율 개선 방안</div>
+        </div>
+        <div class="ins-card" style="border-left:3px solid #378ADD;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0">
+          <span class="ins-type" style="background:#E6F1FB;color:#0C447C"><i class="ti ti-user-plus" aria-hidden="true" style="font-size:11px"></i>Customer</span>
+          <div class="ins-body">2차 미구매 <strong>132개처</strong>. 30일 이내 리마인더 발송 시 전환율 <strong>+18%</strong> 예측.</div>
+          <div class="ins-action" style="color:#378ADD"><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i>2차 구매 유도 캠페인</div>
+        </div>
+        <div class="ins-card" style="border-left:3px solid #7F77DD;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0">
+          <span class="ins-type" style="background:#EEEDFE;color:#3C3489"><i class="ti ti-truck-delivery" aria-hidden="true" style="font-size:11px"></i>Channel</span>
+          <div class="ins-body">도매 비중 <strong>40%</strong>로 상승. 병의원 전용 할인 패키지 및 MR 접촉 강화 필요.</div>
+          <div class="ins-action" style="color:#7F77DD"><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i>병의원 채널 방어 기획</div>
+        </div>
+
+        <div class="ins-card changed" style="border-left:3px solid #E24B4A;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;position:relative">
+          <div class="changed-lbl">외부 데이터 반영</div>
+          <div style="display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap">
+            <span class="src-tag src-iqvia"><i class="ti ti-file-spreadsheet" aria-hidden="true" style="font-size:10px"></i>IQVIA Q4</span>
+            <span class="src-tag src-gov"><i class="ti ti-building-government" aria-hidden="true" style="font-size:10px"></i>국가출하승인</span>
+            <span class="src-tag src-sims"><i class="ti ti-database" aria-hidden="true" style="font-size:10px"></i>출고 데이터</span>
+          </div>
+          <span class="ins-type" style="background:#FCEBEB;color:#791F1F"><i class="ti ti-replace" aria-hidden="true" style="font-size:11px"></i>경쟁품</span>
+          <div class="ins-body">
+            <strong>프리오릭스 26년 공급 재개</strong> — IQVIA Q4 데이터 기준 엠엠알 M/S <strong>–8.2%p</strong> 하락 감지. 25년 4Q 출고 <strong>33,640 Vial</strong>(1Q 대비 –63%). 국가출하승인 통과 시 추가 물량 유입 위험.
+          </div>
+          <div class="ins-action" style="color:#E24B4A"><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i>프리오릭스 대응 — 병의원 락인 전략 강화</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec-lbl"><i class="ti ti-list-check" aria-hidden="true" style="font-size:14px;color:#185FA5"></i>추천 실행과제</div>
+      <div class="card">
+        <div class="arow">
+          <div class="action-num">1</div>
+          <div style="flex:1"><div style="font-size:11px;line-height:1.5;margin-bottom:2px">경기·인천 이탈 위험 <strong>Top 10 거래처</strong> 즉시 접촉 — 재구매 쿠폰 발행</div><div style="font-size:10px;color:#1D9E75;display:flex;align-items:center;gap:3px"><i class="ti ti-trending-up" aria-hidden="true" style="font-size:11px"></i>예상 방어 매출 ₩12M · 즉시 실행</div></div>
+          <div style="display:flex;gap:4px;flex-shrink:0"><button style="font-size:10px;padding:3px 9px;border-radius:4px;border:0.5px solid #1D9E75;background:#EAF3DE;color:#27500A;cursor:pointer">실행</button><button style="font-size:10px;padding:3px 9px;border-radius:4px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);cursor:pointer">완료</button></div>
+        </div>
+        <div class="arow">
+          <div class="action-num">2</div>
+          <div style="flex:1"><div style="font-size:11px;line-height:1.5;margin-bottom:2px">2차 미구매 <strong>132개처</strong> 30일 리마인더 캠페인 발송</div><div style="font-size:10px;color:#1D9E75;display:flex;align-items:center;gap:3px"><i class="ti ti-trending-up" aria-hidden="true" style="font-size:11px"></i>전환율 +18% 예측</div></div>
+          <div style="display:flex;gap:4px;flex-shrink:0"><button style="font-size:10px;padding:3px 9px;border-radius:4px;border:0.5px solid #1D9E75;background:#EAF3DE;color:#27500A;cursor:pointer">실행</button><button style="font-size:10px;padding:3px 9px;border-radius:4px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);cursor:pointer">완료</button></div>
+        </div>
+        <div class="arow" style="background:var(--color-background-info);border-radius:var(--border-radius-md);padding:8px;margin-top:4px;border-bottom:none">
+          <div class="action-num" style="background:#E24B4A">3</div>
+          <div style="flex:1">
+            <div style="display:flex;align-items:center;gap:5px;margin-bottom:3px">
+              <div style="font-size:11px;line-height:1.5"><strong>프리오릭스 공급 재개 대응</strong> — 엠엠알 기존 구매처 병의원 전용 락인 프로모션 설계</div>
+              <span class="src-tag src-gov" style="flex-shrink:0"><i class="ti ti-building-government" aria-hidden="true" style="font-size:10px"></i>국검 데이터</span>
+              <span class="src-tag src-iqvia" style="flex-shrink:0"><i class="ti ti-file-spreadsheet" aria-hidden="true" style="font-size:10px"></i>IQVIA</span>
+            </div>
+            <div style="font-size:10px;color:#E24B4A;display:flex;align-items:center;gap:3px"><i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:11px"></i>25년 4Q 출고 –63% / 프리오릭스 국검 통과 모니터링 중</div>
+          </div>
+          <div style="display:flex;gap:4px;flex-shrink:0"><button style="font-size:10px;padding:3px 9px;border-radius:4px;border:0.5px solid #E24B4A;background:#FCEBEB;color:#A32D2D;cursor:pointer">실행</button><button style="font-size:10px;padding:3px 9px;border-radius:4px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);cursor:pointer">완료</button></div>
+        </div>
+        <div class="arow">
+          <div class="action-num">4</div>
+          <div style="flex:1"><div style="font-size:11px;line-height:1.5;margin-bottom:2px">병의원 전용 <strong>즉시할인 패키지</strong> 프로모션 설계 — 12월 적용</div><div style="font-size:10px;color:#185FA5;display:flex;align-items:center;gap:3px"><i class="ti ti-calendar" aria-hidden="true" style="font-size:11px"></i>채널 비중 방어</div></div>
+          <div style="display:flex;gap:4px;flex-shrink:0"><button style="font-size:10px;padding:3px 9px;border-radius:4px;border:0.5px solid #B5D4F4;background:#E6F1FB;color:#0C447C;cursor:pointer">검토</button><button style="font-size:10px;padding:3px 9px;border-radius:4px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);cursor:pointer">완료</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec-lbl" style="justify-content:space-between">
+        <span style="display:flex;align-items:center;gap:6px"><i class="ti ti-table" aria-hidden="true" style="font-size:14px;color:#185FA5"></i>이탈위험 거래처 상세 근거</span>
+        <button style="font-size:10px;padding:3px 9px;border-radius:4px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);cursor:pointer;display:flex;align-items:center;gap:3px"><i class="ti ti-download" aria-hidden="true" style="font-size:11px"></i>CSV</button>
+      </div>
+      <div class="card">
+        <table class="rt">
+          <thead><tr><th style="width:86px">기관명</th><th style="width:40px">지역</th><th>마지막 구매(R)</th><th>빈도 감소(F)</th><th>금액 감소(M)</th><th style="width:44px;text-align:center">점수</th><th style="width:38px;text-align:center">등급</th><th>AI 추천</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:500">강남연세의원</td><td class="s">서울</td><td style="color:#A32D2D">92일전</td><td style="color:#A32D2D">–62%</td><td style="color:#A32D2D">–71%</td><td style="text-align:center;font-weight:500;color:#A32D2D">92</td><td style="text-align:center"><span class="rh">H</span></td><td style="font-size:10px;color:#185FA5">쿠폰 즉시 발송</td></tr>
+            <tr><td style="font-weight:500">인천미래소아과</td><td class="s">인천</td><td style="color:#A32D2D">85일전</td><td style="color:#A32D2D">–58%</td><td style="color:#A32D2D">–64%</td><td style="text-align:center;font-weight:500;color:#A32D2D">87</td><td style="text-align:center"><span class="rh">H</span></td><td style="font-size:10px;color:#185FA5">MR 즉시 접촉</td></tr>
+            <tr><td style="font-weight:500">수원중앙의원</td><td class="s">경기</td><td style="color:#854F0B">74일전</td><td style="color:#854F0B">–38%</td><td style="color:#854F0B">–44%</td><td style="text-align:center;font-weight:500;color:#854F0B">68</td><td style="text-align:center"><span class="rm">M</span></td><td style="font-size:10px;color:#185FA5">번들 안내</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:7px;padding:5px 8px;background:#E6F1FB;border-radius:5px;font-size:10px;color:#185FA5;display:flex;align-items:center;gap:4px"><i class="ti ti-info-circle" aria-hidden="true" style="font-size:12px;flex-shrink:0"></i>위험 점수 = Recency 40% + Frequency 35% + Monetary 25% 가중 합산</div>
+      </div>
+    </div>
+
+    <div style="border-top:1.5px solid var(--color-border-tertiary);padding-top:10px">
+      <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:10px 12px;position:relative" class="changed">
+        <div class="changed-lbl">외부 데이터 칩 추가</div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px">
+          <div style="display:flex;align-items:center;gap:7px">
+            <i class="ti ti-message-bolt" aria-hidden="true" style="font-size:16px;color:#185FA5"></i>
+            <span style="font-size:12px;font-weight:500">추가 정보 입력</span>
+            <span class="s">— 시장 정보·프로모션·경쟁사 동향 또는 파일 첨부 시 인사이트 카드와 추천 실행과제에 반영</span>
+          </div>
+        </div>
+
+        <div style="margin-bottom:8px">
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:5px;align-items:center">
+            <span class="s" style="align-self:center;flex-shrink:0;min-width:60px">일반 정보:</span>
+            <div class="chip"><i class="ti ti-virus" aria-hidden="true" style="font-size:12px"></i>독감 시즌</div>
+            <div class="chip"><i class="ti ti-speakerphone" aria-hidden="true" style="font-size:12px"></i>신규 프로모션</div>
+            <div class="chip"><i class="ti ti-building-hospital" aria-hidden="true" style="font-size:12px"></i>신규 의원 오픈</div>
+            <div class="chip"><i class="ti ti-file-text" aria-hidden="true" style="font-size:12px"></i>정책 변화</div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;align-items:center">
+            <span class="s" style="align-self:center;flex-shrink:0;min-width:60px">외부 데이터:</span>
+            <div class="chip-ext"><i class="ti ti-building-government" aria-hidden="true" style="font-size:12px"></i>프리오릭스 국검 현황</div>
+            <div class="chip-ext"><i class="ti ti-currency-won" aria-hidden="true" style="font-size:12px"></i>NIP 가격 변경</div>
+            <div class="chip-ext"><i class="ti ti-file-spreadsheet" aria-hidden="true" style="font-size:12px"></i>IQVIA 데이터 업로드</div>
+            <div class="chip-ext"><i class="ti ti-heart-rate-monitor" aria-hidden="true" style="font-size:12px"></i>홍역 접종 추세</div>
+            <div class="chip-ext"><i class="ti ti-chart-bar" aria-hidden="true" style="font-size:12px"></i>경쟁품 M/S 조회</div>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:7px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);flex-wrap:wrap">
+          <button style="display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-info);background:var(--color-background-info);color:var(--color-text-info);font-size:11px;cursor:pointer;white-space:nowrap">
+            <i class="ti ti-paperclip" aria-hidden="true" style="font-size:13px"></i>파일 첨부
+          </button>
+          <span class="s">지원 파일:</span>
+          <span class="src-tag src-iqvia">IQVIA .xlsb</span>
+          <span class="src-tag src-sims">출고 데이터 .xlsx</span>
+          <span class="src-tag src-gov">시장조사 .pdf</span>
+          <span style="font-size:10px;color:var(--color-text-secondary)">.png · .jpg · .docx</span>
+          <span style="font-size:10px;color:var(--color-text-secondary);margin-left:auto">최대 10MB</span>
+        </div>
+
+        <div style="display:flex;gap:7px;align-items:flex-end">
+          <div style="flex:1;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:8px 11px;min-height:48px;font-size:11px;line-height:1.5;color:var(--color-text-secondary)">
+            예) 프리오릭스 국가출하승인 X월 통과 — 도매 채널 일부 공급 시작 예정...
+          </div>
+          <button style="background:#1B4F8A;color:#fff;border:none;border-radius:var(--border-radius-md);padding:8px 14px;font-size:11px;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;min-height:36px;align-self:flex-end">
+            <i class="ti ti-send" aria-hidden="true" style="font-size:13px"></i>인사이트에 반영
+          </button>
+        </div>
+
+        <div style="margin-top:7px;padding:5px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);font-size:10px;color:var(--color-text-secondary);display:flex;align-items:center;gap:4px">
+          <i class="ti ti-info-circle" aria-hidden="true" style="font-size:12px;flex-shrink:0"></i>
+          입력한 내용은 현재 필터(MSD · 2025.11)의 판매 데이터와 결합되어 위 인사이트 카드와 추천 실행과제를 업데이트합니다.
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div style="background:#E1F5EE;border-top:0.5px solid #9FE1CB;padding:5px 14px;font-size:10px;color:#085041;display:flex;align-items:center;gap:4px;font-weight:500;border-radius:0 0 var(--border-radius-lg) var(--border-radius-lg)"><i class="ti ti-clock" aria-hidden="true"></i>출고완료 기준 · 전일 기준 새벽 03:00 업데이트 · MSD 파일럿 전용</div>
+</div>
+</section>
+
+<!-- ════════════════ 캠페인 성과 (준비 중) ════════════════ -->
+<section id="panel-campaign" class="tabpanel">
+  <div class="stub-wrap">
+    <div class="shell-topbar">
+      <span class="topbar-logo"><i class="ti ti-chart-dots-3" aria-hidden="true" style="font-size:15px;margin-right:4px"></i>블루팜코리아 SID</span>
+      <div style="display:flex;gap:2px;margin-left:10px">
+        <div class="ttab">매출 대시보드</div>
+        <div class="ttab">구매처 분석</div>
+        <div class="ttab on">캠페인 성과</div>
+        <div class="ttab">AI 인사이트</div>
+        <div class="ttab">파트너 히스토리</div>
+      </div>
+    </div>
+    <div class="stub-body">
+      <i class="ti ti-speakerphone" aria-hidden="true"></i>
+      <div class="t">캠페인 성과</div>
+      <div class="d">준비 중입니다.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ 파트너 히스토리 (준비 중) ════════════════ -->
+<section id="panel-partner" class="tabpanel">
+  <div class="stub-wrap">
+    <div class="shell-topbar">
+      <span class="topbar-logo"><i class="ti ti-chart-dots-3" aria-hidden="true" style="font-size:15px;margin-right:4px"></i>블루팜코리아 SID</span>
+      <div style="display:flex;gap:2px;margin-left:10px">
+        <div class="ttab">매출 대시보드</div>
+        <div class="ttab">구매처 분석</div>
+        <div class="ttab">캠페인 성과</div>
+        <div class="ttab">AI 인사이트</div>
+        <div class="ttab on">파트너 히스토리</div>
+      </div>
+    </div>
+    <div class="stub-body">
+      <i class="ti ti-history" aria-hidden="true"></i>
+      <div class="t">파트너 히스토리</div>
+      <div class="d">준비 중입니다.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ 탭 네비게이션 ════════════════ -->
+<script>
+const TAB_MAP = {
+  '매출 대시보드':'panel-sales',
+  '구매처 분석':'panel-buyers',
+  '퍼널 분석':'panel-buyers',
+  'AI 인사이트':'panel-ai',
+  '캠페인 성과':'panel-campaign',
+  '파트너 히스토리':'panel-partner'
+};
+const REDRAW = {
+  'panel-sales': () => { drawKpi(); drawSalesType(); },
+  'panel-buyers': () => { drawTrend(); drawHm(); drawCv(); }
+};
+
+function activatePanel(id){
+  if(!id) return;
+  document.querySelectorAll('.tabpanel').forEach(p => p.classList.toggle('active', p.id === id));
+  if(REDRAW[id]) REDRAW[id]();
+  window.scrollTo(0,0);
+}
+
+document.addEventListener('click', e => {
+  const tab = e.target.closest('.ttab');
+  if(tab){ activatePanel(TAB_MAP[tab.textContent.trim()]); return; }
+  const goto = e.target.closest('[data-goto]');
+  if(goto){ activatePanel(TAB_MAP[goto.getAttribute('data-goto')]); }
+});
+
+// 활성 탭만 리사이즈에 반응
+window.addEventListener('resize', () => {
+  const active = document.querySelector('.tabpanel.active');
+  if(active && REDRAW[active.id]) REDRAW[active.id]();
+});
+</script>
+
+<!-- ════════════════ 매출 대시보드 차트 스크립트 ════════════════ -->
+<script>
+const kpiData = {
+  sales: {
+    curr: [16.2,17.8,18.5,19.9,19.4,21.1,20.6,22.2,21.8,23.5,24.1],
+    prev: [14.8,16.2,17.0,18.1,17.9,19.4,19.0,20.5,20.1,21.8,22.4,23.0],
+    fmt: v => v.toFixed(1)+'억', color:'#378ADD', max:30
+  },
+  qty: {
+    curr: [8200,8900,9300,9800,9600,10400,10100,11000,10800,11600,12480],
+    prev: [7400,8100,8500,9000,8800,9600,9400,10200,10000,10800,11200,11800],
+    fmt: v => Math.round(v).toLocaleString()+'건', color:'#1D9E75', max:14000
+  },
+  buyer: {
+    curr: [920,950,980,1020,1000,1060,1040,1100,1080,1150,1204],
+    prev: [860,890,910,940,920,980,960,1020,1000,1060,1100,1140],
+    fmt: v => Math.round(v).toLocaleString()+'개처', color:'#BA7517', max:1400
+  }
+};
+
+let activeKpi = 'sales';
+
+function switchKpi(el, key) {
+  document.querySelectorAll('#panel-sales .cb').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  activeKpi = key;
+  drawKpi();
+}
+
+function drawKpi() {
+  const svg = document.getElementById('kpiSvg');
+  const W = svg.parentElement.offsetWidth || 400;
+  const H = 140;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const d = kpiData[activeKpi];
+  const PL=42, PR=14, PT=22, PB=28;
+  const cw = W-PL-PR, ch = H-PT-PB;
+  const n = d.curr.length;
+  const step = cw / (n-1);
+  let html='';
+
+  [0,.33,.67,1].forEach(r => {
+    const v = d.max*r;
+    const y = PT+ch-r*ch;
+    html += `<line x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}" stroke="var(--color-border-tertiary)" stroke-width="0.5" ${r>0?'stroke-dasharray="3 3"':''}/>`;
+    if(r<1) html += `<text x="${PL-4}" y="${y+3}" font-size="8" fill="var(--color-text-secondary)" text-anchor="end">${r===0?'0':(d.max*r/10000>=1?(d.max*r/100000000).toFixed(0)+'억':(d.max*r).toLocaleString())}</text>`;
+  });
+
+  const prevPts = d.prev.map((v,i)=>`${PL+i*step},${PT+ch-(v/d.max)*ch}`).join(' ');
+  html += `<polyline points="${prevPts}" fill="none" stroke="#B5D4F4" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+
+  const currPts = d.curr.map((v,i)=>`${PL+i*step},${PT+ch-(v/d.max)*ch}`).join(' ');
+  html += `<polyline points="${currPts}" fill="none" stroke="${d.color}" stroke-width="2.5" stroke-linecap="round"/>`;
+
+  d.curr.forEach((v,i) => {
+    const x = PL+i*step;
+    const y = PT+ch-(v/d.max)*ch;
+    const isLast = i===n-1;
+
+    if(isLast) {
+      const lbl = d.fmt(v);
+      const bw = lbl.length*5.5+10;
+      html += `<rect x="${x-bw/2}" y="${y-PT+2}" width="${bw}" height="14" rx="4" fill="#1B4F8A"/>`;
+      html += `<text x="${x}" y="${y-PT+12}" font-size="9" fill="#fff" text-anchor="middle" font-weight="500">${lbl}</text>`;
+      html += `<line x1="${x}" y1="${y-PT+16}" x2="${x}" y2="${y-2}" stroke="#1B4F8A" stroke-width="1"/>`;
+      html += `<circle cx="${x}" cy="${y}" r="5" fill="#1B4F8A" stroke="#fff" stroke-width="1.5"/>`;
+    } else {
+      html += `<circle cx="${x}" cy="${y}" r="3" fill="${d.color}"/>`;
+      if(i%2===0 || n<=6) {
+        const lbl = d.fmt(v);
+        const ly = y < PT+14 ? y+12 : y-5;
+        html += `<text x="${x}" y="${ly}" font-size="8" fill="${d.color}" text-anchor="middle">${lbl}</text>`;
+      }
+    }
+    const mo = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월'];
+    html += `<text x="${x}" y="${H-2}" font-size="8" fill="${isLast?'#0C447C':'var(--color-text-secondary)'}" text-anchor="middle" font-weight="${isLast?'500':'400'}">${mo[i]}</text>`;
+  });
+
+  html += `<line x1="${W-PR-80}" y1="${H-10}" x2="${W-PR-68}" y2="${H-10}" stroke="${d.color}" stroke-width="2"/>`;
+  html += `<text x="${W-PR-66}" y="${H-7}" font-size="8" fill="var(--color-text-secondary)">올해</text>`;
+  html += `<line x1="${W-PR-42}" y1="${H-10}" x2="${W-PR-30}" y2="${H-10}" stroke="#B5D4F4" stroke-width="1.5" stroke-dasharray="4 3"/>`;
+  html += `<text x="${W-PR-28}" y="${H-7}" font-size="8" fill="var(--color-text-secondary)">전년</text>`;
+
+  svg.innerHTML = html;
+}
+
+const stData = [
+  { m:'8월',  clinic:22.8, wholesale:13.6 },
+  { m:'9월',  clinic:22.1, wholesale:13.2 },
+  { m:'10월', clinic:24.0, wholesale:13.8 },
+  { m:'11월', clinic:24.8, wholesale:14.5, current:true },
+];
+
+function drawSalesType() {
+  const svg = document.getElementById('salesTypeSvg');
+  const W = svg.parentElement.offsetWidth || 280;
+  const H = 140;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const PL=38, PR=10, PT=18, PB=28;
+  const cw=W-PL-PR, ch=H-PT-PB;
+  const n=stData.length;
+  const maxVal = Math.max(...stData.map(d=>d.clinic+d.wholesale))*1.18;
+  const bw = Math.min(cw/n*0.58, 52);
+  const bstep = cw/n;
+  let html='';
+
+  [0,.25,.5,.75,1].forEach(r => {
+    const v = maxVal*r;
+    const y = PT+ch-r*ch;
+    html += `<line x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}" stroke="var(--color-border-tertiary)" stroke-width="0.5" ${r>0?'stroke-dasharray="3 3"':''}/>`;
+    html += `<text x="${PL-4}" y="${y+3.5}" font-size="8" fill="var(--color-text-secondary)" text-anchor="end">${v.toFixed(1)}억</text>`;
+  });
+
+  stData.forEach((d, i) => {
+    const total = d.clinic+d.wholesale;
+    const cPct = Math.round(d.clinic/total*100);
+    const wPct = 100-cPct;
+    const x = PL + i*bstep + (bstep-bw)/2;
+    const wH = (d.wholesale/maxVal)*ch;
+    const cH = (d.clinic/maxVal)*ch;
+    const totalH = wH+cH;
+
+    if(d.current) {
+      html += `<rect x="${x-4}" y="${PT-6}" width="${bw+8}" height="${ch+6}" fill="#E6F1FB" rx="3" opacity="0.6"/>`;
+    }
+
+    html += `<rect x="${x}" y="${PT+ch-wH}" width="${bw}" height="${wH}" fill="#1D9E75" rx="0"/>`;
+    html += `<rect x="${x}" y="${PT+ch-totalH}" width="${bw}" height="${cH}" fill="#378ADD" rx="2 2 0 0"/>`;
+
+    if(wH>16) html += `<text x="${x+bw/2}" y="${PT+ch-wH/2+4}" font-size="9.5" fill="#fff" text-anchor="middle" font-weight="500">${wPct}%</text>`;
+    if(cH>16) html += `<text x="${x+bw/2}" y="${PT+ch-totalH+cH/2+4}" font-size="9.5" fill="#fff" text-anchor="middle" font-weight="500">${cPct}%</text>`;
+
+    html += `<text x="${x+bw/2}" y="${PT+ch-totalH-5}" font-size="${d.current?10:9}" fill="${d.current?'#0C447C':'var(--color-text-secondary)'}" text-anchor="middle" font-weight="${d.current?'500':'400'}">${total.toFixed(1)}억</text>`;
+
+    html += `<text x="${x+bw/2}" y="${H-4}" font-size="10" fill="${d.current?'#0C447C':'var(--color-text-secondary)'}" text-anchor="middle" font-weight="${d.current?'500':'400'}">${d.m}</text>`;
+    if(d.current) html += `<text x="${x+bw/2}" y="${H-14}" font-size="8" fill="#185FA5" text-anchor="middle">▲</text>`;
+  });
+
+  svg.innerHTML = html;
+}
+
+drawKpi();
+drawSalesType();
+</script>
+
+<!-- ════════════════ 구매처 분석 차트 스크립트 ════════════════ -->
+<script>
+const CC=['#D3D1C7','#E6F1FB','#B5D4F4','#378ADD','#185FA5','#0C447C'];
+const tD={
+  '6':{lb:['6월','7월','8월','9월','10월','11월'],n:[98,105,112,108,120,142],r:[720,740,760,755,790,824],d:[210,218,225,230,232,238]},
+  '12':{lb:['12월','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월'],n:[82,88,90,94,100,96,98,105,112,108,120,142],r:[680,690,705,718,728,732,720,740,760,755,790,824],d:[190,195,200,205,208,212,210,218,225,230,232,238]}
+};
+let tM='6',hM='6';
+
+const hS=[
+  {lb:'충성',    co:'#27500A',bg:'#EAF3DE',v12:[5,5,5,5,5,4,5,5,5,5,5,5],v6:[5,5,5,5,5,5]},
+  {lb:'일반',    co:'#0C447C',bg:'#E6F1FB',v12:[3,4,3,4,4,3,4,3,4,4,3,4],v6:[4,3,4,4,3,4]},
+  {lb:'단발',    co:'#412402',bg:'#FAEEDA',v12:[2,2,1,2,2,1,2,1,2,1,2,2],v6:[2,1,2,1,2,2]},
+  {lb:'관심',    co:'#633806',bg:'#FEF9E7',v12:[1,2,1,1,2,1,1,1,2,1,1,1],v6:[1,1,2,1,1,1]},
+  {lb:'이탈위험', co:'#791F1F',bg:'#FCEBEB',v12:[3,3,2,2,2,1,1,2,1,1,0,0],v6:[1,2,1,1,0,0]},
+];
+const hL={'6':['6월','7월','8월','9월','10월','11월'],'12':['12월','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월']};
+const hCnt={충성:324,일반:382,단발:210,관심:144,이탈위험:144};
+
+function drawTrend(){
+  const svg=document.getElementById('tSvg');
+  const W=svg.parentElement.offsetWidth||380,H=106;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  const d=tD[tM],n=d.lb.length;
+  const PL=36,PR=44,PT=10,PB=20,cw=W-PL-PR,ch=H-PT-PB;
+  const maxV=Math.max(...d.n,...d.r,...d.d)*1.15;
+  const px=i=>PL+i*(cw/(n-1)),py=v=>PT+ch-(v/maxV)*ch;
+  let h='';
+  [0,.33,.66,1].forEach(r=>{
+    const y=PT+ch*(1-r);
+    h+=`<line x1="${PL}" y1="${y.toFixed(1)}" x2="${W-PR}" y2="${y.toFixed(1)}" stroke="var(--color-border-tertiary)" stroke-width="0.5" ${r>0?'stroke-dasharray="3 3"':''}/>`;
+    h+=`<text x="${PL-3}" y="${(y+3.5).toFixed(1)}" font-size="7.5" fill="var(--color-text-secondary)" text-anchor="end">${Math.round(maxV*r)}</text>`;
+  });
+  const lx=px(n-1);
+  h+=`<rect x="${(lx-cw/(n-1)*0.45).toFixed(1)}" y="${PT}" width="${(cw/(n-1)*0.9).toFixed(1)}" height="${ch}" fill="#E6F1FB" rx="2" opacity="0.4"/>`;
+  [[d.n,'#378ADD',false],[d.r,'#1D9E75',false],[d.d,'#888780',true]].forEach(([data,col,dash])=>{
+    h+=`<polyline points="${data.map((v,i)=>`${px(i).toFixed(1)},${py(v).toFixed(1)}`).join(' ')}" fill="none" stroke="${col}" stroke-width="${dash?1.5:2}" stroke-linecap="round" ${dash?'stroke-dasharray="5 3"':''}/>`;
+    data.forEach((v,i)=>{
+      const isL=i===n-1;
+      h+=`<circle cx="${px(i).toFixed(1)}" cy="${py(v).toFixed(1)}" r="${isL?4:2.5}" fill="${col}" ${isL?'stroke="#fff" stroke-width="1.5"':''}/>`;
+      if(isL) h+=`<text x="${(px(i)+5).toFixed(1)}" y="${(py(v)+3.5).toFixed(1)}" font-size="9" fill="${col}" font-weight="500">${v}</text>`;
+    });
+  });
+  d.lb.forEach((mo,i)=>{
+    const isL=i===n-1;
+    if(n>6&&i%2!==0&&!isL) return;
+    h+=`<text x="${px(i).toFixed(1)}" y="${H-1}" font-size="${isL?9:8}" fill="${isL?'#0C447C':'var(--color-text-secondary)'}" text-anchor="middle" font-weight="${isL?'500':'400'}">${mo}</text>`;
+  });
+  svg.innerHTML=h;
+}
+
+function swT(el,m){document.querySelectorAll('#trendTabs .ptab').forEach(t=>t.classList.remove('on'));el.classList.add('on');tM=m;drawTrend();}
+
+function drawHm(){
+  const wrap=document.getElementById('hmWrap');
+  const W=Math.max(wrap.parentElement.offsetWidth-22,300);
+  const lbs=hL[hM],n=lbs.length;
+  const LC=58,CC2=44,CYC=88,CELL=Math.max(Math.floor((W-LC-CC2-CYC)/n),22);
+  const RH=38,HH=20,tW=LC+CC2+n*CELL+CYC,tH=HH+hS.length*RH+4;
+  let h=`<svg width="${tW}" height="${tH}" viewBox="0 0 ${tW} ${tH}" style="display:block">`;
+  h+=`<text x="${LC+CC2/2}" y="${HH-4}" font-size="8" fill="var(--color-text-secondary)" text-anchor="middle">거래처수</text>`;
+  lbs.forEach((mo,j)=>{
+    const x=LC+CC2+j*CELL+CELL/2,isL=j===n-1;
+    h+=`<text x="${x.toFixed(1)}" y="${HH-4}" font-size="8.5" fill="${isL?'#0C447C':'var(--color-text-secondary)'}" text-anchor="middle" font-weight="${isL?'500':'400'}">${mo}</text>`;
+    if(isL) h+=`<text x="${x.toFixed(1)}" y="${HH+1}" font-size="7" fill="#185FA5" text-anchor="middle">▼</text>`;
+  });
+  h+=`<text x="${LC+CC2+n*CELL+CYC/2}" y="${HH-4}" font-size="8.5" fill="#185FA5" text-anchor="middle" font-weight="500">평균 구매주기</text>`;
+  h+=`<line x1="0" y1="${HH+2}" x2="${tW}" y2="${HH+2}" stroke="var(--color-border-tertiary)" stroke-width="0.5"/>`;
+  hS.forEach((seg,i)=>{
+    const vals=hM==='6'?seg.v6:seg.v12,y=HH+4+i*RH,isR=seg.lb==='이탈위험';
+    if(i%2===0) h+=`<rect x="0" y="${y}" width="${tW}" height="${RH}" fill="var(--color-background-secondary)" opacity="0.4"/>`;
+    h+=`<rect x="2" y="${y+4}" width="${LC-5}" height="${RH-8}" fill="${seg.bg}" rx="3"/>`;
+    h+=`<text x="${LC/2}" y="${y+RH/2+4}" font-size="9" fill="${seg.co}" text-anchor="middle" font-weight="500">${seg.lb}</text>`;
+    h+=`<text x="${LC+CC2/2}" y="${y+RH/2+1}" font-size="11" fill="var(--color-text-primary)" text-anchor="middle" font-weight="500">${hCnt[seg.lb]}</text>`;
+    h+=`<text x="${LC+CC2/2}" y="${y+RH/2+11}" font-size="7.5" fill="var(--color-text-secondary)" text-anchor="middle">개처</text>`;
+    vals.forEach((v,j)=>{
+      const cx=LC+CC2+j*CELL,isL=j===n-1,isRR=isR&&j>=n-2;
+      h+=`<rect x="${cx+1}" y="${y+3}" width="${CELL-2}" height="${RH-6}" fill="${CC[v]}" rx="3"/>`;
+      if(isRR) h+=`<rect x="${cx+1}" y="${y+3}" width="${CELL-2}" height="${RH-6}" fill="none" stroke="#E24B4A" stroke-width="1.2" stroke-dasharray="3 2" rx="3"/>`;
+      if(isL&&!isRR) h+=`<rect x="${cx+1}" y="${y+3}" width="${CELL-2}" height="${RH-6}" fill="none" stroke="#185FA5" stroke-width="1" rx="3"/>`;
+      h+=v>0?`<text x="${(cx+CELL/2).toFixed(1)}" y="${y+RH/2+4}" font-size="9" fill="${v>=3?'#fff':'#185FA5'}" text-anchor="middle" font-weight="500">${v}회</text>`:`<text x="${(cx+CELL/2).toFixed(1)}" y="${y+RH/2+4}" font-size="9" fill="var(--color-text-secondary)" text-anchor="middle">–</text>`;
+    });
+    const cX=LC+CC2+n*CELL;
+    h+=`<rect x="${cX+2}" y="${y+3}" width="${CYC-6}" height="${RH-6}" fill="${seg.bg}" rx="4"/>`;
+    h+=`<text x="${(cX+CYC/2).toFixed(1)}" y="${y+RH/2+1}" font-size="12" fill="${seg.co}" text-anchor="middle" font-weight="500">TBD</text>`;
+    h+=`<text x="${(cX+CYC/2).toFixed(1)}" y="${y+RH/2+11}" font-size="7" fill="${seg.co}" text-anchor="middle" opacity="0.7">확인 후 확정</text>`;
+    h+=`<line x1="0" y1="${y+RH}" x2="${tW}" y2="${y+RH}" stroke="var(--color-border-tertiary)" stroke-width="0.5"/>`;
+  });
+  h+=`</svg>`;
+  wrap.innerHTML=h;
+}
+
+function swH(el,m){document.querySelectorAll('#hmTabs .ptab').forEach(t=>t.classList.remove('on'));el.classList.add('on');hM=m;drawHm();}
+
+function drawCv(){
+  const svg=document.getElementById('cvSvg');
+  const W=svg.parentElement.offsetWidth||240,H=52;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  const mos=['5월','6월','7월','8월','9월','10월','11월'];
+  const cart=[42,41,43,40,38,35,33],srch=[62,63,61,63,62,62,62];
+  const n=mos.length,PL=0,PR=0,PT=5,PB=15,cw=W-PL-PR,ch=H-PT-PB;
+  const minV=28,maxV=70,rng=maxV-minV;
+  const px=i=>PL+i*(cw/(n-1)),py=v=>PT+ch-(v-minV)/rng*ch;
+  let h='';
+  [30,40,50,60].forEach(v=>{
+    h+=`<line x1="0" y1="${py(v).toFixed(1)}" x2="${W}" y2="${py(v).toFixed(1)}" stroke="var(--color-border-tertiary)" stroke-width="0.5" stroke-dasharray="3 3"/>`;
+    h+=`<text x="0" y="${(py(v)-1).toFixed(1)}" font-size="6.5" fill="var(--color-text-secondary)">${v}%</text>`;
+  });
+  h+=`<polyline points="${srch.map((v,i)=>`${px(i).toFixed(1)},${py(v).toFixed(1)}`).join(' ')}" fill="none" stroke="#B5D4F4" stroke-width="1.5" stroke-dasharray="5 3"/>`;
+  h+=`<polyline points="${cart.map((v,i)=>`${px(i).toFixed(1)},${py(v).toFixed(1)}`).join(' ')}" fill="none" stroke="#E24B4A" stroke-width="2" stroke-linecap="round"/>`;
+  cart.forEach((v,i)=>{
+    const isL=i===n-1;
+    h+=`<circle cx="${px(i).toFixed(1)}" cy="${py(v).toFixed(1)}" r="${isL?3.5:2}" fill="#E24B4A" ${isL?'stroke="#fff" stroke-width="1.5"':''}/>`;
+    if(isL) h+=`<text x="${(px(i)+4).toFixed(1)}" y="${(py(v)+3.5).toFixed(1)}" font-size="8.5" fill="#A32D2D" font-weight="500">${v}%</text>`;
+  });
+  mos.forEach((mo,i)=>{
+    const isL=i===n-1;
+    h+=`<text x="${px(i).toFixed(1)}" y="${H}" font-size="8" fill="${isL?'#A32D2D':'var(--color-text-secondary)'}" text-anchor="middle" font-weight="${isL?'500':'400'}">${mo}</text>`;
+  });
+  svg.innerHTML=h;
+}
+
+drawTrend(); drawHm(); drawCv();
+</script>
+
+</body>
+</html>
