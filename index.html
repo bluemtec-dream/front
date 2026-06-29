@@ -33,7 +33,9 @@ body{font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary)
 .shell-topbar .topbar-logo{color:#fff;font-size:13px;font-weight:500}
 .shell-topbar .ttab{color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px}
 .shell-topbar .ttab.on{background:rgba(255,255,255,.18);color:#fff;font-weight:500}
-.stub-wrap{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;background:var(--color-background-primary)}
+/* 패널 상단 모서리는 공통 탑바와 이어지도록 각지게 */
+.tabpanel .wrap{border-top-left-radius:0;border-top-right-radius:0}
+.stub-wrap{border:0.5px solid var(--color-border-tertiary);border-radius:0 0 var(--border-radius-lg) var(--border-radius-lg);overflow:hidden;background:var(--color-background-primary)}
 .stub-body{padding:60px 20px;text-align:center;color:var(--color-text-secondary);background:var(--color-background-tertiary)}
 .stub-body i{font-size:34px;color:var(--color-border-info);display:block;margin-bottom:10px}
 .stub-body .t{font-size:15px;font-weight:500;color:#0C447C;margin-bottom:4px}
@@ -42,10 +44,6 @@ body{font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary)
 /* ===== 매출 대시보드 (scoped) ===== */
 #panel-sales{
   .wrap{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;background:var(--color-background-primary)}
-  .topbar{background:#1B4F8A;padding:8px 14px;display:flex;align-items:center;gap:6px}
-  .topbar-logo{color:#fff;font-size:13px;font-weight:500}
-  .ttab{color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px}
-  .ttab.on{background:rgba(255,255,255,.18);color:#fff;font-weight:500}
   .filter-bar{background:#EBF3FB;border-bottom:0.5px solid #C5D9EC;padding:6px 14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
   .f-sel{background:#fff;border:0.5px solid #B5D4F4;border-radius:6px;padding:3px 8px;font-size:11px;color:#0C447C;display:flex;align-items:center;gap:4px}
   .kpi-bar{background:#fff;border-bottom:0.5px solid var(--color-border-tertiary);padding:7px 14px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
@@ -73,10 +71,6 @@ body{font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary)
 /* ===== 구매처 분석 (scoped) ===== */
 #panel-buyers{
   .wrap{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
-  .topbar{background:#1B4F8A;padding:8px 14px;display:flex;align-items:center;gap:6px}
-  .topbar-logo{color:#fff;font-size:13px;font-weight:500}
-  .ttab{color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px}
-  .ttab.on{background:rgba(255,255,255,.18);color:#fff;font-weight:500}
   .fbar{background:#EBF3FB;border-bottom:0.5px solid #C5D9EC;padding:6px 14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
   .fsel{background:#fff;border:0.5px solid #B5D4F4;border-radius:6px;padding:3px 8px;font-size:11px;color:#0C447C;display:flex;align-items:center;gap:4px}
   .kbar{background:#fff;border-bottom:0.5px solid var(--color-border-tertiary);padding:7px 14px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
@@ -151,23 +145,23 @@ body{font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary)
 </head>
 <body>
 
+<!-- ════════════════ 공통 상단 탭바 ════════════════ -->
+<div class="shell-topbar">
+  <span class="topbar-logo"><i class="ti ti-chart-dots-3" aria-hidden="true" style="font-size:15px;margin-right:4px"></i>블루팜코리아 SID</span>
+  <div style="display:flex;gap:2px;margin-left:10px" id="navTabs">
+    <div class="ttab on">매출 대시보드</div>
+    <div class="ttab">구매처 분석</div>
+    <div class="ttab">캠페인 성과</div>
+    <div class="ttab">AI 인사이트</div>
+    <div class="ttab">파트너 히스토리</div>
+  </div>
+</div>
+
 <!-- ════════════════ 매출 대시보드 ════════════════ -->
 <section id="panel-sales" class="tabpanel active">
 <h2 class="sr-only">블루팜코리아 매출 대시보드 전체 — KPI 시계열(데이터 레이블), 매출유형 월별 누적 바 차트 포함</h2>
 
 <div class="wrap">
-  <div class="topbar">
-    <span class="topbar-logo"><i class="ti ti-chart-dots-3" aria-hidden="true" style="font-size:15px;margin-right:4px"></i>블루팜코리아 SID</span>
-    <div style="display:flex;gap:2px;margin-left:10px">
-      <div class="ttab on">매출 대시보드</div>
-      <div class="ttab">구매처 분석</div>
-      <div class="ttab">퍼널 분석</div>
-      <div class="ttab">캠페인 성과</div>
-      <div class="ttab">AI 인사이트</div>
-      <div class="ttab">파트너 히스토리</div>
-    </div>
-  </div>
-
   <div class="filter-bar">
     <div class="f-sel"><i class="ti ti-calendar" aria-hidden="true"></i>2024.01 ~ 현재</div>
     <div class="f-sel" style="border-color:#1B4F8A"><i class="ti ti-building-hospital" aria-hidden="true"></i>MSD <span style="background:#185FA5;color:#fff;border-radius:3px;padding:1px 5px;font-size:9px">필수1</span></div>
@@ -313,17 +307,6 @@ body{font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary)
 <h2 class="sr-only">블루팜코리아 탭2 구매처 분석 최종 — 이탈위험 거래처 리스트 제거, AI 인사이트 탭 링크 추가</h2>
 
 <div class="wrap">
-  <div class="topbar">
-    <span class="topbar-logo"><i class="ti ti-chart-dots-3" aria-hidden="true" style="font-size:15px;margin-right:4px"></i>블루팜코리아 SID</span>
-    <div style="display:flex;gap:2px;margin-left:10px">
-      <div class="ttab">매출 대시보드</div>
-      <div class="ttab on">구매처 분석</div>
-      <div class="ttab">캠페인 성과</div>
-      <div class="ttab">AI 인사이트</div>
-      <div class="ttab">파트너 히스토리</div>
-    </div>
-  </div>
-
   <div class="fbar">
     <div class="fsel"><i class="ti ti-calendar" aria-hidden="true"></i>2025.11</div>
     <div class="fsel" style="border-color:#1B4F8A"><i class="ti ti-building-hospital" aria-hidden="true"></i>MSD</div>
@@ -501,19 +484,6 @@ body{font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary)
 <h2 class="sr-only">블루팜코리아 AI 인사이트 탭 — 외부 데이터 연동 반영 최종 화면.</h2>
 
 <div class="col" style="gap:0">
-
-  <div style="background:#1B4F8A;padding:8px 14px;display:flex;align-items:center;gap:6px;border-radius:var(--border-radius-lg) var(--border-radius-lg) 0 0">
-    <span style="color:#fff;font-size:13px;font-weight:500;display:flex;align-items:center;gap:5px">
-      <i class="ti ti-chart-dots-3" aria-hidden="true" style="font-size:15px"></i>블루팜코리아 SID
-    </span>
-    <div style="display:flex;gap:2px;margin-left:10px">
-      <div class="ttab" style="color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px">매출 대시보드</div>
-      <div class="ttab" style="color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px">구매처 분석</div>
-      <div class="ttab" style="color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px">캠페인 성과</div>
-      <div class="ttab" style="background:rgba(255,255,255,.18);color:#fff;font-weight:500;font-size:11px;padding:5px 10px;border-radius:4px">AI 인사이트</div>
-      <div class="ttab" style="color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px">파트너 히스토리</div>
-    </div>
-  </div>
 
   <div style="background:#FEF9E7;border-bottom:0.5px solid #FAC775;padding:6px 14px;display:flex;align-items:center;gap:6px">
     <i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:13px;color:#854F0B"></i>
@@ -719,16 +689,6 @@ body{font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary)
 <!-- ════════════════ 캠페인 성과 (준비 중) ════════════════ -->
 <section id="panel-campaign" class="tabpanel">
   <div class="stub-wrap">
-    <div class="shell-topbar">
-      <span class="topbar-logo"><i class="ti ti-chart-dots-3" aria-hidden="true" style="font-size:15px;margin-right:4px"></i>블루팜코리아 SID</span>
-      <div style="display:flex;gap:2px;margin-left:10px">
-        <div class="ttab">매출 대시보드</div>
-        <div class="ttab">구매처 분석</div>
-        <div class="ttab on">캠페인 성과</div>
-        <div class="ttab">AI 인사이트</div>
-        <div class="ttab">파트너 히스토리</div>
-      </div>
-    </div>
     <div class="stub-body">
       <i class="ti ti-speakerphone" aria-hidden="true"></i>
       <div class="t">캠페인 성과</div>
@@ -740,16 +700,6 @@ body{font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary)
 <!-- ════════════════ 파트너 히스토리 (준비 중) ════════════════ -->
 <section id="panel-partner" class="tabpanel">
   <div class="stub-wrap">
-    <div class="shell-topbar">
-      <span class="topbar-logo"><i class="ti ti-chart-dots-3" aria-hidden="true" style="font-size:15px;margin-right:4px"></i>블루팜코리아 SID</span>
-      <div style="display:flex;gap:2px;margin-left:10px">
-        <div class="ttab">매출 대시보드</div>
-        <div class="ttab">구매처 분석</div>
-        <div class="ttab">캠페인 성과</div>
-        <div class="ttab">AI 인사이트</div>
-        <div class="ttab on">파트너 히스토리</div>
-      </div>
-    </div>
     <div class="stub-body">
       <i class="ti ti-history" aria-hidden="true"></i>
       <div class="t">파트너 히스토리</div>
@@ -776,6 +726,7 @@ const REDRAW = {
 function activatePanel(id){
   if(!id) return;
   document.querySelectorAll('.tabpanel').forEach(p => p.classList.toggle('active', p.id === id));
+  document.querySelectorAll('#navTabs .ttab').forEach(t => t.classList.toggle('on', TAB_MAP[t.textContent.trim()] === id));
   if(REDRAW[id]) REDRAW[id]();
   window.scrollTo(0,0);
 }
