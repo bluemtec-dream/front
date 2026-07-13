@@ -29,7 +29,7 @@ body{font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary)
 .ttab{cursor:pointer}
 .tabpanel{display:none}
 .tabpanel.active{display:block}
-.app{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;background:var(--color-background-primary)}
+.app{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;background:var(--color-background-primary);zoom:1.0}
 .shell-topbar{background:#1B4F8A;padding:8px 14px;display:flex;align-items:center;gap:6px}
 .shell-topbar .topbar-logo{color:#fff;font-size:13px;font-weight:500}
 .shell-topbar .ttab{color:rgba(255,255,255,.6);font-size:11px;padding:5px 10px;border-radius:4px}
@@ -87,6 +87,7 @@ body[data-tab="panel-partner"] #commonFilter{display:none}
   .body{padding:10px 14px;background:var(--color-background-tertiary)}
   .r2{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:8px;margin-bottom:8px}
   .r3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px}
+  .r3 > .card{height:250px;display:flex;flex-direction:column;overflow:hidden}
   .r2b{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
   .card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px}
   .ct{font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:4px;flex-wrap:wrap}
@@ -292,50 +293,26 @@ body[data-tab="panel-partner"] #commonFilter{display:none}
     <div class="r3">
       <div class="card">
         <div class="ct"><span><i class="ti ti-map-pin" aria-hidden="true" style="margin-right:3px"></i>지역별 분포</span><span style="font-size:9px;color:var(--color-text-info)">클릭→시군구</span></div>
-        <svg width="100%" height="110" viewBox="0 0 200 110">
-          <text x="50" y="13" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">서울</text><rect x="54" y="5" width="110" height="11" fill="#378ADD" rx="2"/><text x="167" y="13" font-size="8.5" fill="#0C447C">₩8.2억</text>
-          <text x="50" y="27" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">경기</text><rect x="54" y="19" width="82" height="11" fill="#378ADD" rx="2" opacity=".8"/><text x="139" y="27" font-size="8.5" fill="#0C447C">₩6.1억</text>
-          <text x="50" y="41" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">부산</text><rect x="54" y="33" width="56" height="11" fill="#378ADD" rx="2" opacity=".65"/><text x="113" y="41" font-size="8.5" fill="#0C447C">₩4.2억</text>
-          <text x="50" y="55" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">인천</text><rect x="54" y="47" width="40" height="11" fill="#E24B4A" rx="2" opacity=".7"/><text x="97" y="55" font-size="8.5" fill="#A32D2D">₩3.0억</text>
-          <text x="50" y="69" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">대구</text><rect x="54" y="61" width="34" height="11" fill="#378ADD" rx="2" opacity=".5"/><text x="91" y="69" font-size="8.5" fill="#0C447C">₩2.6억</text>
-          <text x="50" y="83" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">대전</text><rect x="54" y="75" width="25" height="11" fill="#378ADD" rx="2" opacity=".4"/><text x="83" y="83" font-size="8.5" fill="#0C447C">₩1.9억</text>
-          <text x="50" y="97" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">광주</text><rect x="54" y="89" width="18" height="11" fill="#378ADD" rx="2" opacity=".3"/><text x="75" y="97" font-size="8.5" fill="#0C447C">₩1.4억</text>
-          <text x="56" y="110" font-size="7.5" fill="#E24B4A">인천 ▼ 전월대비</text>
-        </svg>
+        <svg id="regionSvg" width="100%" viewBox="0 0 200 150" preserveAspectRatio="xMidYMid meet" style="display:block;flex:1;min-height:0;margin:auto"></svg>
       </div>
       <div class="card">
         <div class="ct"><i class="ti ti-stethoscope" aria-hidden="true" style="margin-right:3px"></i>진료과별 (병의원)</div>
-        <svg width="100%" height="110" viewBox="0 0 200 110">
-          <text x="50" y="13" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">내과</text><rect x="54" y="5" width="95" height="11" fill="#1D9E75" rx="2"/><text x="152" y="13" font-size="8.5" fill="#085041">₩6.8억</text>
-          <text x="50" y="27" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">소아과</text><rect x="54" y="19" width="74" height="11" fill="#1D9E75" rx="2" opacity=".8"/><text x="131" y="27" font-size="8.5" fill="#085041">₩5.3억</text>
-          <text x="50" y="41" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">가정의학과</text><rect x="54" y="33" width="52" height="11" fill="#1D9E75" rx="2" opacity=".65"/><text x="109" y="41" font-size="8.5" fill="#085041">₩3.7억</text>
-          <text x="50" y="55" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">이비인후과</text><rect x="54" y="47" width="38" height="11" fill="#1D9E75" rx="2" opacity=".55"/><text x="95" y="55" font-size="8.5" fill="#085041">₩2.7억</text>
-          <text x="50" y="69" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">외과</text><rect x="54" y="61" width="26" height="11" fill="#1D9E75" rx="2" opacity=".45"/><text x="83" y="69" font-size="8.5" fill="#085041">₩1.9억</text>
-          <text x="50" y="83" font-size="8.5" fill="var(--color-text-secondary)" text-anchor="end">피부과</text><rect x="54" y="75" width="20" height="11" fill="#1D9E75" rx="2" opacity=".35"/><text x="77" y="83" font-size="8.5" fill="#085041">₩1.4억</text>
-          <text x="56" y="110" font-size="8" fill="#1D9E75">▲ 소아과 +18.2% 성장</text>
-        </svg>
+        <svg id="deptSvg" width="100%" viewBox="0 0 200 150" preserveAspectRatio="xMidYMid meet" style="display:block;flex:1;min-height:0;margin:auto"></svg>
       </div>
       <div class="card">
         <div class="ct"><i class="ti ti-user-plus" aria-hidden="true" style="margin-right:3px"></i>당월 신규 구매처</div>
-        <div style="text-align:center;padding:3px 0 5px">
-          <div style="font-size:22px;font-weight:500;color:#0C447C">142<span style="font-size:11px;font-weight:400;color:#1D9E75;margin-left:4px">▲22</span></div>
-          <div style="font-size:10px;color:var(--color-text-secondary)">전월 대비</div>
-        </div>
-        <svg width="100%" height="34" viewBox="0 0 180 34">
-          <rect x="5" y="16" width="22" height="16" fill="#B5D4F4" rx="2"/>
-          <rect x="32" y="11" width="22" height="21" fill="#85B7EB" rx="2"/>
-          <rect x="59" y="9" width="22" height="23" fill="#378ADD" rx="2"/>
-          <rect x="86" y="13" width="22" height="19" fill="#85B7EB" rx="2"/>
-          <rect x="113" y="7" width="22" height="25" fill="#378ADD" rx="2"/>
-          <rect x="140" y="1" width="22" height="31" fill="#1B4F8A" rx="2"/>
-          <text x="16" y="33" font-size="7" fill="var(--color-text-secondary)" text-anchor="middle">6월</text>
-          <text x="151" y="33" font-size="7" fill="#0C447C" text-anchor="middle" font-weight="500">이번달</text>
-        </svg>
-        <div style="margin-top:6px;border-top:0.5px solid var(--color-border-tertiary);padding-top:5px;font-size:10px">
-          <div style="color:var(--color-text-secondary);margin-bottom:3px">신규처 Top 3</div>
-          <div style="margin-bottom:2px">1. 서울성모의원 · 내과</div>
-          <div style="margin-bottom:2px">2. 행복소아과의원 · 소아</div>
-          <div>3. 연세가정의학과 · 가정의</div>
+        <div style="display:flex;gap:12px;flex:1;min-height:0">
+          <div style="flex:2;display:flex;flex-direction:column;min-width:0">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;padding:3px 0 6px">
+              <span style="font-size:10px;color:var(--color-text-secondary)">전월 대비</span>
+              <span><span id="newBuyerTotal" style="font-size:22px;font-weight:500;color:#0C447C">142</span><span id="newBuyerDelta" style="font-size:11px;font-weight:400;color:#1D9E75;margin-left:4px">▲22</span></span>
+            </div>
+            <svg id="newBuyerSvg" width="100%" viewBox="0 0 200 44" preserveAspectRatio="xMidYMid meet" style="display:block;flex:1;min-height:0"></svg>
+          </div>
+          <div style="flex:1;border-left:0.5px solid var(--color-border-tertiary);padding-left:12px;font-size:10px;min-width:0">
+            <div style="color:var(--color-text-secondary);margin-bottom:5px">신규처 Top 5</div>
+            <div id="newBuyerTop5"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -394,15 +371,9 @@ body[data-tab="panel-partner"] #commonFilter{display:none}
       </div>
       <div class="card">
         <div class="ct"><span><i class="ti ti-filter" aria-hidden="true" style="margin-right:3px"></i>RFM 세그먼트</span><span style="font-size:9px;color:var(--color-text-secondary)">전월 대비 이동</span></div>
-        <div>
-          <div class="srow"><span style="font-size:10px;font-weight:500;color:#27500A;width:48px">충성</span><div class="swrap"><div class="sbar" style="width:85%;background:#639922">324명 (27%)</div></div><span style="font-size:10px;color:#888780;margin-left:4px">―</span></div>
-          <div class="srow"><span style="font-size:10px;font-weight:500;color:#0C447C;width:48px">일반</span><div class="swrap"><div class="sbar" style="width:72%;background:#85B7EB;color:#0C447C">382명 (32%)</div></div><span style="font-size:10px;color:#E24B4A;margin-left:4px">▼8</span></div>
-          <div class="srow"><span style="font-size:10px;font-weight:500;color:#412402;width:48px">단발</span><div class="swrap"><div class="sbar" style="width:52%;background:#FAC775;color:#412402">210명 (17%)</div></div><span style="font-size:10px;color:#1D9E75;margin-left:4px">▲5</span></div>
-          <div class="srow"><span style="font-size:10px;font-weight:500;color:#854F0B;width:48px">관심</span><div class="swrap"><div class="sbar" style="width:34%;background:#EF9F27;color:#412402">144명 (12%)</div></div><span style="font-size:10px;color:#1D9E75;margin-left:4px">▲3</span></div>
-          <div class="srow"><span style="font-size:10px;font-weight:500;color:#A32D2D;width:48px">이탈위험</span><div class="swrap"><div class="sbar" style="width:28%;background:#E24B4A">144명 (12%)</div></div><span style="font-size:10px;color:#E24B4A;font-weight:500;margin-left:4px">▲22</span></div>
-        </div>
+        <div id="rfmRows"></div>
         <div style="margin-top:7px;padding:4px 8px;background:#FCEBEB;border-radius:5px;font-size:10px;color:#A32D2D;display:flex;align-items:center;gap:4px">
-          <i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:12px"></i>이탈위험 전월 대비 +22명 급증
+          <i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:12px"></i><span id="rfmAlertText"></span>
         </div>
       </div>
     </div>
@@ -459,14 +430,8 @@ body[data-tab="panel-partner"] #commonFilter{display:none}
           <div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:10px;display:flex;align-items:center;gap:5px">
             <i class="ti ti-filter" aria-hidden="true" style="font-size:13px"></i>구매 퍼널 전환율 — A백신
           </div>
-          <div class="fstep"><span class="flabel">검색</span><div class="fbwrap"><div class="fbar2" style="width:100%;background:#185FA5">8,420회</div></div></div>
-          <div class="farr"><span>↓</span><span class="cok">62.4%</span></div>
-          <div class="fstep"><span class="flabel">제품 조회</span><div class="fbwrap"><div class="fbar2" style="width:63%;background:#378ADD">5,254회</div></div></div>
-          <div class="farr"><span>↓</span><span class="cok">44.1%</span></div>
-          <div class="fstep"><span class="flabel">장바구니</span><div class="fbwrap"><div class="fbar2" style="width:28%;background:#85B7EB;color:#0C447C">2,317건</div></div></div>
-          <div class="farr"><span>↓</span><span class="cbad">36.8% <strong>▼7.3%p</strong></span></div>
-          <div class="fstep"><span class="flabel">결제 완료</span><div class="fbwrap"><div class="fbar2" style="width:10%;background:#1D9E75;min-width:32px"> </div></div></div>
-          <div class="wbox"><i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:13px;flex-shrink:0"></i>장바구니→결제 전환율 7.3%p 하락 병목 감지</div>
+          <div id="funnelRows"></div>
+          <div class="wbox"><i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:13px;flex-shrink:0"></i><span id="funnelAlertText"></span></div>
           <div style="font-size:10px;color:var(--color-text-secondary);margin:9px 0 4px">전환율 시계열 추이</div>
           <svg id="cvSvg" width="100%" height="52" style="overflow:visible"></svg>
           <div style="display:flex;gap:10px;margin-top:4px;font-size:9.5px;color:var(--color-text-secondary)">
@@ -752,8 +717,8 @@ const TAB_MAP = {
   '파트너 히스토리':'panel-partner'
 };
 const REDRAW = {
-  'panel-sales': () => { drawKpi(); drawSalesType(); },
-  'panel-buyers': () => { drawTrend(); drawHm(); drawCv(); }
+  'panel-sales': () => { drawKpi(); drawSalesType(); drawRegion(); drawDept(); drawNewBuyer(); },
+  'panel-buyers': () => { drawTrend(); drawHm(); drawCv(); drawRfm(); drawFunnel(); }
 };
 
 function activatePanel(id){
@@ -847,7 +812,7 @@ function drawKpi() {
       html += `<circle cx="${x}" cy="${y}" r="5" fill="#1B4F8A" stroke="#fff" stroke-width="1.5"/>`;
     } else {
       html += `<circle cx="${x}" cy="${y}" r="3" fill="${d.color}"/>`;
-      if(i%2===0 || n<=6) {
+      if(i!==0 && (i%2===0 || n<=6)) {
         const lbl = d.fmt(v);
         const ly = y < PT+14 ? y+12 : y-5;
         html += `<text x="${x}" y="${ly}" font-size="8" fill="${d.color}" text-anchor="middle">${lbl}</text>`;
@@ -857,12 +822,96 @@ function drawKpi() {
     html += `<text x="${x}" y="${H-2}" font-size="8" fill="${isLast?'#0C447C':'var(--color-text-secondary)'}" text-anchor="middle" font-weight="${isLast?'500':'400'}">${mo[i]}</text>`;
   });
 
-  html += `<line x1="${W-PR-80}" y1="${H-10}" x2="${W-PR-68}" y2="${H-10}" stroke="${d.color}" stroke-width="2"/>`;
-  html += `<text x="${W-PR-66}" y="${H-7}" font-size="8" fill="var(--color-text-secondary)">올해</text>`;
-  html += `<line x1="${W-PR-42}" y1="${H-10}" x2="${W-PR-30}" y2="${H-10}" stroke="#B5D4F4" stroke-width="1.5" stroke-dasharray="4 3"/>`;
-  html += `<text x="${W-PR-28}" y="${H-7}" font-size="8" fill="var(--color-text-secondary)">전년</text>`;
+  const lgY = 10;
+  html += `<line x1="${PL}" y1="${lgY}" x2="${PL+12}" y2="${lgY}" stroke="${d.color}" stroke-width="2"/>`;
+  html += `<text x="${PL+15}" y="${lgY+3}" font-size="8" fill="var(--color-text-secondary)">올해</text>`;
+  html += `<line x1="${PL+38}" y1="${lgY}" x2="${PL+50}" y2="${lgY}" stroke="#B5D4F4" stroke-width="1.5" stroke-dasharray="4 3"/>`;
+  html += `<text x="${PL+53}" y="${lgY+3}" font-size="8" fill="var(--color-text-secondary)">전년</text>`;
 
   svg.innerHTML = html;
+}
+
+const regionData = [
+  { region:'서울', amount:'8.2', y:8,   width:110, opacity:1,   color:'#378ADD', textColor:'#0C447C' },
+  { region:'경기', amount:'6.1', y:25,  width:82,  opacity:.8,  color:'#378ADD', textColor:'#0C447C' },
+  { region:'부산', amount:'4.2', y:42,  width:56,  opacity:.65, color:'#378ADD', textColor:'#0C447C' },
+  { region:'인천', amount:'3.0', y:59,  width:40,  opacity:.7,  color:'#E24B4A', textColor:'#A32D2D' },
+  { region:'대구', amount:'2.6', y:76,  width:34,  opacity:.5,  color:'#378ADD', textColor:'#0C447C' },
+  { region:'대전', amount:'1.9', y:93,  width:25,  opacity:.4,  color:'#378ADD', textColor:'#0C447C' },
+  { region:'광주', amount:'1.4', y:110, width:18,  opacity:.3,  color:'#378ADD', textColor:'#0C447C' },
+];
+
+function drawRegion() {
+  const svg = document.getElementById('regionSvg');
+  let html = '';
+  regionData.forEach(r => {
+    const labelY = r.y+9, amtX = 54+r.width+3;
+    html += `<text x="50" y="${labelY}" font-size="9" fill="var(--color-text-secondary)" text-anchor="end">${r.region}</text><rect x="54" y="${r.y}" width="${r.width}" height="12" fill="${r.color}" rx="2"${r.opacity<1?` opacity="${r.opacity}"`:''}/><text x="${amtX}" y="${labelY}" font-size="9" fill="${r.textColor}">₩${r.amount}억</text>`;
+  });
+  const last = regionData[regionData.length-1];
+  html += `<text x="54" y="${last.y+32}" font-size="9" fill="#E24B4A">인천 ▼ 전월대비</text>`;
+  svg.innerHTML = html;
+}
+
+const deptData = [
+  { dept:'내과',      amount:'6.8', y:9,   width:95, opacity:1 },
+  { dept:'소아과',    amount:'5.3', y:29,  width:74, opacity:.8 },
+  { dept:'가정의학과', amount:'3.7', y:49,  width:52, opacity:.65 },
+  { dept:'이비인후과', amount:'2.7', y:69,  width:38, opacity:.55 },
+  { dept:'외과',      amount:'1.9', y:89,  width:26, opacity:.45 },
+  { dept:'피부과',    amount:'1.4', y:109, width:20, opacity:.35 },
+];
+
+function drawDept() {
+  const svg = document.getElementById('deptSvg');
+  let html = '';
+  deptData.forEach(r => {
+    const labelY = r.y+10, amtX = 54+r.width+3;
+    html += `<text x="50" y="${labelY}" font-size="9" fill="var(--color-text-secondary)" text-anchor="end">${r.dept}</text><rect x="54" y="${r.y}" width="${r.width}" height="13" fill="#1D9E75" rx="2"${r.opacity<1?` opacity="${r.opacity}"`:''}/><text x="${amtX}" y="${labelY}" font-size="9" fill="#085041">₩${r.amount}억</text>`;
+  });
+  const last = deptData[deptData.length-1];
+  html += `<text x="54" y="${last.y+33}" font-size="9" fill="#1D9E75">▲ 소아과 +18.2% 성장</text>`;
+  svg.innerHTML = html;
+}
+
+const newBuyerData = {
+  total: 142, delta: 22,
+  monthly: [
+    { h:16, color:'#B5D4F4' },
+    { h:21, color:'#85B7EB' },
+    { h:23, color:'#378ADD' },
+    { h:19, color:'#85B7EB' },
+    { h:25, color:'#378ADD' },
+    { h:31, color:'#1B4F8A' },
+  ],
+  top5: [
+    { name:'서울성모의원',   dept:'내과' },
+    { name:'행복소아과의원', dept:'소아' },
+    { name:'연세가정의학과', dept:'가정의' },
+    { name:'강남365의원',   dept:'가정의' },
+    { name:'미래내과의원',   dept:'내과' },
+  ]
+};
+
+function drawNewBuyer() {
+  document.getElementById('newBuyerTotal').textContent = newBuyerData.total;
+  document.getElementById('newBuyerDelta').textContent = '▲'+newBuyerData.delta;
+
+  const svg = document.getElementById('newBuyerSvg');
+  let html = '';
+  newBuyerData.monthly.forEach((m, i) => {
+    const x = 6+i*32, y = 32-m.h;
+    html += `<rect x="${x}" y="${y}" width="24" height="${m.h}" fill="${m.color}" rx="2"/>`;
+  });
+  html += `<text x="18" y="42" font-size="8" fill="var(--color-text-secondary)" text-anchor="middle">6월</text>`;
+  html += `<text x="178" y="42" font-size="8" fill="#0C447C" text-anchor="middle" font-weight="500">이번달</text>`;
+  svg.innerHTML = html;
+
+  const top5El = document.getElementById('newBuyerTop5');
+  top5El.innerHTML = newBuyerData.top5.map((b, i) => {
+    const last = i === newBuyerData.top5.length-1;
+    return `<div${last?'':' style="margin-bottom:4px"'}>${i+1}. ${b.name} · ${b.dept}</div>`;
+  }).join('');
 }
 
 const stData = [
@@ -922,7 +971,10 @@ function drawSalesType() {
 
 drawKpi();
 drawSalesType();
-document.getElementById('panel-sales').__refresh = () => { drawKpi(); drawSalesType(); };
+drawRegion();
+drawDept();
+drawNewBuyer();
+document.getElementById('panel-sales').__refresh = () => { drawKpi(); drawSalesType(); drawRegion(); drawDept(); drawNewBuyer(); };
 </script>
 
 <!-- ════════════════ 매출 대시보드 필터 ════════════════ -->
@@ -998,6 +1050,50 @@ const hS=[
 ];
 const hL={'6':['6월','7월','8월','9월','10월','11월'],'12':['12월','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월']};
 const hCnt={충성:324,일반:382,단발:210,관심:144,이탈위험:144};
+
+const cvData={mos:['5월','6월','7월','8월','9월','10월','11월'],cart:[42,41,43,40,38,35,33],srch:[62,63,61,63,62,62,62]};
+
+const rfmData = [
+  { seg:'충성',    textColor:'#27500A', width:85, barColor:'#639922', count:324, pct:27, trend:'―',  trendColor:'#888780' },
+  { seg:'일반',    textColor:'#0C447C', width:72, barColor:'#85B7EB', barTextColor:'#0C447C', count:382, pct:32, trend:'▼8', trendColor:'#E24B4A' },
+  { seg:'단발',    textColor:'#412402', width:52, barColor:'#FAC775', barTextColor:'#412402', count:210, pct:17, trend:'▲5', trendColor:'#1D9E75' },
+  { seg:'관심',    textColor:'#854F0B', width:34, barColor:'#EF9F27', barTextColor:'#412402', count:144, pct:12, trend:'▲3', trendColor:'#1D9E75' },
+  { seg:'이탈위험', textColor:'#A32D2D', width:28, barColor:'#E24B4A', count:144, pct:12, trend:'▲22', trendColor:'#E24B4A', trendBold:true },
+];
+
+function drawRfm() {
+  const rows = document.getElementById('rfmRows');
+  rows.innerHTML = rfmData.map(r => {
+    const barStyle = `width:${r.width}%;background:${r.barColor}${r.barTextColor?`;color:${r.barTextColor}`:''}`;
+    const trendStyle = `font-size:10px;color:${r.trendColor};${r.trendBold?'font-weight:500;':''}margin-left:4px`;
+    return `<div class="srow"><span style="font-size:10px;font-weight:500;color:${r.textColor};width:48px">${r.seg}</span><div class="swrap"><div class="sbar" style="${barStyle}">${r.count}명 (${r.pct}%)</div></div><span style="${trendStyle}">${r.trend}</span></div>`;
+  }).join('');
+  const churn = rfmData.find(r => r.seg==='이탈위험');
+  document.getElementById('rfmAlertText').textContent = `이탈위험 전월 대비 ${churn.trend.replace('▲','+')}명 급증`;
+}
+
+const funnelData = [
+  { step:'검색',      amountLabel:'8,420회', widthPct:100, color:'#185FA5', conv:{ rate:'62.4%', type:'ok' } },
+  { step:'제품 조회', amountLabel:'5,254회', widthPct:63,  color:'#378ADD', conv:{ rate:'44.1%', type:'ok' } },
+  { step:'장바구니',  amountLabel:'2,317건', widthPct:28,  color:'#85B7EB', textColor:'#0C447C', conv:{ rate:'36.8%', delta:'▼7.3%p', type:'bad' } },
+  { step:'결제 완료', amountLabel:'',        widthPct:10,  color:'#1D9E75', minWidth:32 },
+];
+
+function drawFunnel() {
+  let html = '';
+  funnelData.forEach(f => {
+    const barStyle = `width:${f.widthPct}%;background:${f.color}${f.textColor?`;color:${f.textColor}`:''}${f.minWidth?`;min-width:${f.minWidth}px`:''}`;
+    html += `<div class="fstep"><span class="flabel">${f.step}</span><div class="fbwrap"><div class="fbar2" style="${barStyle}">${f.amountLabel||' '}</div></div></div>`;
+    if(f.conv) {
+      html += f.conv.type==='ok'
+        ? `<div class="farr"><span>↓</span><span class="cok">${f.conv.rate}</span></div>`
+        : `<div class="farr"><span>↓</span><span class="cbad">${f.conv.rate} <strong>${f.conv.delta}</strong></span></div>`;
+    }
+  });
+  document.getElementById('funnelRows').innerHTML = html;
+  const bottleneck = funnelData.find(f => f.conv && f.conv.type==='bad');
+  document.getElementById('funnelAlertText').textContent = `장바구니→결제 전환율 ${bottleneck.conv.delta.replace('▼','')} 하락 병목 감지`;
+}
 
 function drawTrend(){
   const svg=document.getElementById('tSvg');
@@ -1078,8 +1174,7 @@ function drawCv(){
   const svg=document.getElementById('cvSvg');
   const W=svg.parentElement.offsetWidth||240,H=52;
   svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
-  const mos=['5월','6월','7월','8월','9월','10월','11월'];
-  const cart=[42,41,43,40,38,35,33],srch=[62,63,61,63,62,62,62];
+  const {mos,cart,srch}=cvData;
   const n=mos.length,PL=0,PR=0,PT=5,PB=15,cw=W-PL-PR,ch=H-PT-PB;
   const minV=28,maxV=70,rng=maxV-minV;
   const px=i=>PL+i*(cw/(n-1)),py=v=>PT+ch-(v-minV)/rng*ch;
@@ -1102,13 +1197,13 @@ function drawCv(){
   svg.innerHTML=h;
 }
 
-drawTrend(); drawHm(); drawCv();
+drawTrend(); drawHm(); drawCv(); drawRfm(); drawFunnel();
 
 // 새로고침: 토글 초기화(6개월) + 차트 재렌더
 document.getElementById('panel-buyers').__refresh = () => {
   tM='6'; hM='6';
   document.querySelectorAll('#panel-buyers .ptab').forEach(t => t.classList.toggle('on', t.textContent.trim()==='6개월'));
-  drawTrend(); drawHm(); drawCv();
+  drawTrend(); drawHm(); drawCv(); drawRfm(); drawFunnel();
 };
 </script>
 
@@ -1125,8 +1220,7 @@ document.getElementById('panel-buyers').__refresh = () => {
     });
   }
   async function ensurePptLibs(){
-    if(!window.html2canvas) await loadScript('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js');
-    if(!window.PptxGenJS)  await loadScript('https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js');
+    if(!window.PptxGenJS) await loadScript('https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js');
   }
   function stamp(){
     const d = new Date(), p = n => String(n).padStart(2,'0');
@@ -1136,23 +1230,351 @@ document.getElementById('panel-buyers').__refresh = () => {
     const on = document.querySelector('#navTabs .ttab.on');
     return on ? on.textContent.trim() : '대시보드';
   }
+
+  const FONT = 'Malgun Gothic';
+  const PC = {
+    navy:'0C447C', blue:'378ADD', paleBlue:'B5D4F4', lightBlue:'85B7EB', darkNavy:'1B4F8A', steel:'185FA5',
+    green:'1D9E75', darkGreen:'085041', red:'E24B4A', darkRed:'A32D2D', amber:'BA7517', darkAmber:'854F0B',
+    gray:'888780', purple:'7F77DD', text:'333333',
+  };
+
+  function getCurrentFilters(){
+    const val = id => { const el = document.getElementById(id); return el ? el.value : ''; };
+    const chanLabel = document.getElementById('chanLabel');
+    return {
+      period: val('fltPeriod'), company: val('fltCompany'), product: val('fltProduct'),
+      region: val('fltRegion'), dept: val('fltDept'),
+      channel: chanLabel ? chanLabel.textContent.trim() : '',
+    };
+  }
+  function filterSubtitle(){
+    const f = getCurrentFilters();
+    return `기간 ${f.period} · ${f.company} · ${f.product} · ${f.region} · ${f.dept} · ${f.channel}`;
+  }
+
+  function slideChrome(pptx, title, subtitle){
+    const slide = pptx.addSlide();
+    slide.addText(title, {x:0.4,y:0.22,w:11,h:0.5,fontSize:20,bold:true,color:PC.navy,fontFace:FONT});
+    if(subtitle) slide.addText(subtitle, {x:0.4,y:0.66,w:12.5,h:0.3,fontSize:9.5,color:PC.gray,fontFace:FONT});
+    slide.addText(`블루팜코리아 · ${stamp()}`, {x:10.53,y:7.15,w:2.4,h:0.25,fontSize:8,color:PC.gray,align:'right',fontFace:FONT});
+    return slide;
+  }
+  function tableHeaderCell(text, align){
+    return {text, options:{bold:true, fontSize:10, color:PC.gray, fill:{color:'F7F9FC'}, align:align||'left', fontFace:FONT}};
+  }
+  function addTextCardsRow(slide, items, y, h){
+    const n=items.length, gap=0.15, w=(12.53-gap*(n-1))/n, x0=0.4;
+    items.forEach((it,i)=>{
+      const x=x0+i*(w+gap);
+      slide.addShape('roundRect', {x,y,w,h, fill:{color:'E6F1FB'}, line:{color:'B5D4F4',width:0.75}});
+      slide.addText(it.t, {x:x+0.12,y:y+0.06,w:w-0.24,h:0.3, fontSize:9.5, bold:true, color:PC.navy, fontFace:FONT});
+      slide.addText(it.b, {x:x+0.12,y:y+0.38,w:w-0.24,h:h-0.44, fontSize:9, color:PC.steel, fontFace:FONT});
+    });
+  }
+  function addKpiTiles(slide, y){
+    const tiles = Array.from(document.querySelectorAll('#commonKpi .kc')).map(kc => ({
+      label: kc.querySelector('.kl').textContent.trim(),
+      value: kc.querySelector('.kv').textContent.trim(),
+      delta: kc.querySelector('.kd').textContent.trim(),
+      up: kc.querySelector('.kd').classList.contains('ku') ? true : kc.querySelector('.kd').classList.contains('kdn') ? false : null,
+    }));
+    const n=tiles.length, gap=0.12, w=(12.53-gap*(n-1))/n, x0=0.4, h=0.95;
+    tiles.forEach((t,i)=>{
+      const x=x0+i*(w+gap);
+      slide.addShape('roundRect', {x,y,w,h, fill:{color:'F7F9FC'}, line:{color:'E4E7EC',width:0.75}});
+      slide.addText(t.label, {x,y:y+0.08,w,h:0.24, fontSize:8.5, color:PC.gray, align:'center', fontFace:FONT});
+      slide.addText(t.value, {x,y:y+0.34,w,h:0.32, fontSize:14, bold:true, color:PC.navy, align:'center', fontFace:FONT});
+      slide.addText(t.delta, {x,y:y+0.68,w,h:0.22, fontSize:9, color:t.up===true?PC.green:t.up===false?PC.red:PC.gray, align:'center', fontFace:FONT});
+    });
+  }
+
+  function buildSalesSlides(pptx){
+    const subtitle = filterSubtitle();
+
+    let slide = slideChrome(pptx, '매출 대시보드', subtitle);
+    addKpiTiles(slide, 1.05);
+    addTextCardsRow(slide, [
+      { t:'이번 달 매출 변화', b:'서울 +24.6% 급성장 — 신규 거래처 유입 주도' },
+      { t:'이탈 위험 거래처', b:'High 위험 142개처 (+22) — 즉시 대응 필요' },
+      { t:'추천 실행과제', b:'경기 이탈 위험 Top10 즉시 접촉 → 예상 방어 ₩12M' },
+    ], 2.25, 1.15);
+
+    slide = slideChrome(pptx, 'KPI 시계열 — 라인 차트 (전년 비교)', subtitle);
+    const kd = kpiData[activeKpi];
+    const mo = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월'];
+    const n = kd.curr.length;
+    const prevAligned = kd.prev.slice(kd.prev.length-n);
+    slide.addChart(pptx.ChartType.line, [
+      { name:'올해', labels:mo.slice(0,n), values:kd.curr },
+      { name:'전년', labels:mo.slice(0,n), values:prevAligned },
+    ], {
+      x:0.4,y:1.1,w:12.5,h:5.9,
+      chartColors:[PC.blue, PC.paleBlue], lineSize:[2.5,1.5], lineDataSymbol:'circle',
+      showLegend:true, legendPos:'t', catAxisLabelColor:PC.gray, valAxisLabelColor:PC.gray, fontFace:FONT,
+    });
+
+    slide = slideChrome(pptx, '매출유형 비중 — 월별 병의원 / 도매', subtitle);
+    slide.addChart(pptx.ChartType.bar, [
+      { name:'병의원', labels:stData.map(d=>d.m), values:stData.map(d=>d.clinic) },
+      { name:'도매', labels:stData.map(d=>d.m), values:stData.map(d=>d.wholesale) },
+    ], {
+      x:0.4,y:1.1,w:12.5,h:5.9, barGrouping:'stacked',
+      chartColors:[PC.blue, PC.green], showLegend:true, legendPos:'t', fontFace:FONT,
+    });
+
+    slide = slideChrome(pptx, '지역별 분포 · 진료과별 (병의원)', subtitle);
+    slide.addChart(pptx.ChartType.bar, [
+      { name:'지역별 매출(억)', labels:regionData.map(r=>r.region), values:regionData.map(r=>parseFloat(r.amount)) },
+    ], { x:0.4,y:1.1,w:6.0,h:5.9, barDir:'bar', chartColors:[PC.blue], showLegend:false, showTitle:true, title:'지역별 분포', fontFace:FONT });
+    slide.addChart(pptx.ChartType.bar, [
+      { name:'진료과별 매출(억)', labels:deptData.map(d=>d.dept), values:deptData.map(d=>parseFloat(d.amount)) },
+    ], { x:6.7,y:1.1,w:6.0,h:5.9, barDir:'bar', chartColors:[PC.green], showLegend:false, showTitle:true, title:'진료과별 (병의원)', fontFace:FONT });
+
+    slide = slideChrome(pptx, '당월 신규 구매처', subtitle);
+    slide.addText([
+      { text:String(newBuyerData.total), options:{ fontSize:36, bold:true, color:PC.navy } },
+      { text:' ▲'+newBuyerData.delta, options:{ fontSize:16, color:PC.green } },
+    ], { x:0.4,y:1.1,w:5,h:0.9, fontFace:FONT });
+    slide.addText('전월 대비', { x:0.4,y:1.95,w:4,h:0.3, fontSize:10, color:PC.gray, fontFace:FONT });
+    slide.addChart(pptx.ChartType.bar, [
+      { name:'신규 구매처', labels:['6월','','','','','이번달'], values:newBuyerData.monthly.map(m=>m.h) },
+    ], { x:0.4,y:2.4,w:5.6,h:4.3, chartColors:[PC.blue], showLegend:false, fontFace:FONT });
+    slide.addText('신규처 Top 5', { x:6.6,y:1.1,w:6,h:0.3, fontSize:12, bold:true, color:PC.navy, fontFace:FONT });
+    slide.addText(newBuyerData.top5.map((b,i)=>`${i+1}. ${b.name} · ${b.dept}`).join('\n'),
+      { x:6.6,y:1.6,w:6.3,h:3, fontSize:12, color:PC.text, fontFace:FONT, lineSpacing:26 });
+
+    slide = slideChrome(pptx, 'Top 거래처 랭킹 · 대시보드 분석 요약', subtitle);
+    const rankData = [
+      { rank:1, name:'서울대병원약국', amt:'₩1.2억', delta:'▲2', color:PC.green },
+      { rank:2, name:'연세세브란스', amt:'₩0.9억', delta:'―', color:PC.gray },
+      { rank:3, name:'삼성서울병원', amt:'₩0.8억', delta:'▼1', color:PC.red },
+      { rank:4, name:'경희대병원', amt:'₩0.7억', delta:'▲1', color:PC.green },
+    ];
+    slide.addTable([
+      [tableHeaderCell('#','center'), tableHeaderCell('기관명'), tableHeaderCell('매출','right'), tableHeaderCell('변동','right')],
+      ...rankData.map(r => [
+        { text:String(r.rank), options:{ fontSize:10, align:'center', fontFace:FONT, color:r.rank===1?PC.amber:PC.gray, bold:r.rank===1 } },
+        { text:r.name, options:{ fontSize:10, fontFace:FONT } },
+        { text:r.amt, options:{ fontSize:10, align:'right', fontFace:FONT } },
+        { text:r.delta, options:{ fontSize:10, align:'right', color:r.color, fontFace:FONT } },
+      ]),
+    ], { x:0.4,y:1.1,w:6.2,h:2.5, border:{type:'solid',color:'E4E7EC',pt:0.5} });
+
+    slide.addText('대시보드 분석 요약 (AI)', { x:7,y:1.1,w:5.9,h:0.3, fontSize:12, bold:true, color:PC.navy, fontFace:FONT });
+    [
+      { arrow:'↑', color:PC.green, text:'서울 지역 내과·소아과 중심 매출 +24.6% 급증 — 신규 거래처 유입 주도.' },
+      { arrow:'↓', color:PC.red, text:'경기·인천 기존 거래처 구매 감소 — 이탈 위험 142개처 즉시 대응 필요.' },
+      { arrow:'→', color:PC.amber, text:'도매 채널 비중 37% 유지 — 병의원 채널 방어 전략 지속 유효.' },
+    ].forEach((s,i)=>{
+      slide.addText([
+        { text:s.arrow+' ', options:{ color:s.color, bold:true } },
+        { text:s.text, options:{ color:PC.text } },
+      ], { x:7,y:1.5+i*0.9,w:5.9,h:0.85, fontSize:10.5, fontFace:FONT, valign:'top' });
+    });
+  }
+
+  function buildBuyersSlides(pptx){
+    const subtitle = filterSubtitle();
+
+    let slide = slideChrome(pptx, '구매처 월별 추이 — 신규 / 재구매 / 휴면', subtitle);
+    const td = tD[tM];
+    slide.addChart(pptx.ChartType.line, [
+      { name:'신규', labels:td.lb, values:td.n },
+      { name:'재구매', labels:td.lb, values:td.r },
+      { name:'휴면', labels:td.lb, values:td.d },
+    ], {
+      x:0.4,y:1.1,w:12.5,h:5.9,
+      chartColors:[PC.blue, PC.green, PC.gray], lineSize:[2,2,1.5],
+      showLegend:true, legendPos:'t', catAxisLabelColor:PC.gray, valAxisLabelColor:PC.gray, fontFace:FONT,
+    });
+
+    slide = slideChrome(pptx, 'RFM 세그먼트', subtitle);
+    const y0=1.3, rh=0.72, gap=0.14, barX=2.1, barMaxW=8.3;
+    rfmData.forEach((r,i)=>{
+      const y=y0+i*(rh+gap);
+      slide.addText(r.seg, { x:0.4,y,w:1.6,h:rh, fontSize:12, bold:true, color:r.textColor, fontFace:FONT, valign:'middle' });
+      const w = Math.max(barMaxW*(r.width/100), 0.6);
+      slide.addShape('roundRect', { x:barX,y:y+0.1,w,h:rh-0.2, fill:{color:r.barColor}, line:{type:'none'} });
+      slide.addText(`${r.count}명 (${r.pct}%)`, { x:barX+0.15,y:y+0.1,w:w-0.3,h:rh-0.2, fontSize:11, bold:true, color:r.barTextColor||'FFFFFF', fontFace:FONT, valign:'middle' });
+      slide.addText(r.trend, { x:barX+barMaxW+0.15,y,w:1,h:rh, fontSize:11, bold:!!r.trendBold, color:r.trendColor, fontFace:FONT, valign:'middle' });
+    });
+    const churn = rfmData.find(r=>r.seg==='이탈위험');
+    const alertY = y0+rfmData.length*(rh+gap)+0.1;
+    slide.addShape('roundRect', { x:0.4,y:alertY,w:10.8,h:0.5, fill:{color:'FCEBEB'}, line:{type:'none'} });
+    slide.addText(`이탈위험 전월 대비 ${churn.trend.replace('▲','+')}명 급증`, { x:0.6,y:alertY,w:10.4,h:0.5, fontSize:11, color:PC.darkRed, fontFace:FONT, valign:'middle' });
+
+    slide = slideChrome(pptx, '구매 패턴 히트맵 — 세그먼트별 월평균 구매 빈도', subtitle);
+    const lbs = hL[hM];
+    const heatRows = [
+      [tableHeaderCell('세그먼트','center'), tableHeaderCell('거래처수','center'), ...lbs.map(l=>tableHeaderCell(l,'center'))],
+      ...hS.map(seg => {
+        const vals = hM==='6' ? seg.v6 : seg.v12;
+        return [
+          { text:seg.lb, options:{ bold:true, fontSize:10, color:seg.co, fill:{color:seg.bg}, align:'center', fontFace:FONT } },
+          { text:String(hCnt[seg.lb]), options:{ fontSize:10, align:'center', fontFace:FONT } },
+          ...vals.map(v => ({
+            text: v>0 ? v+'회' : '–',
+            options: { fontSize:9.5, align:'center', fontFace:FONT, fill:{color:CC[v]}, color: v>=3?'FFFFFF':PC.steel },
+          })),
+        ];
+      }),
+    ];
+    slide.addTable(heatRows, { x:0.4,y:1.15,w:12.5,h:4.3, border:{type:'solid',color:'E4E7EC',pt:0.5} });
+    slide.addText('구매 빈도: 옅은 색(미구매/낮음) → 진한 색(높음), 점선 테두리는 이탈 신호',
+      { x:0.4,y:5.7,w:12.5,h:0.3, fontSize:9, color:PC.gray, fontFace:FONT });
+
+    slide = slideChrome(pptx, 'B. 구매 퍼널 분석 — A백신', subtitle);
+    const fx0=0.4, fBarMaxW=4.6, fy0=1.2, frh=0.55, fgap=0.3;
+    funnelData.forEach((f,i)=>{
+      const y=fy0+i*(frh+fgap);
+      slide.addText(f.step, { x:fx0,y,w:1.3,h:frh, fontSize:10, color:PC.gray, align:'right', fontFace:FONT, valign:'middle' });
+      const w = Math.max(fBarMaxW*(f.widthPct/100), 0.35);
+      slide.addShape('roundRect', { x:fx0+1.4,y:y+0.04,w,h:frh-0.08, fill:{color:f.color}, line:{type:'none'} });
+      if(f.amountLabel) slide.addText(f.amountLabel, { x:fx0+1.5,y:y+0.04,w:Math.max(w-0.2,0.4),h:frh-0.08, fontSize:9, color:f.textColor||'FFFFFF', fontFace:FONT, valign:'middle' });
+      if(f.conv){
+        const convText = f.conv.type==='ok' ? `↓ ${f.conv.rate}` : `↓ ${f.conv.rate}  ${f.conv.delta}`;
+        slide.addText(convText, { x:fx0+1.4,y:y+frh,w:2.6,h:fgap, fontSize:9, bold:f.conv.type!=='ok', color:f.conv.type==='ok'?PC.steel:PC.red, fontFace:FONT });
+      }
+    });
+    const bottleneck = funnelData.find(f=>f.conv && f.conv.type==='bad');
+    const botY = fy0+funnelData.length*(frh+fgap)+0.05;
+    slide.addShape('roundRect', { x:fx0,y:botY,w:6.2,h:0.42, fill:{color:'FCEBEB'}, line:{type:'none'} });
+    slide.addText(`장바구니→결제 전환율 ${bottleneck.conv.delta.replace('▼','')} 하락 병목 감지`,
+      { x:fx0+0.15,y:botY,w:5.9,h:0.42, fontSize:9.5, color:PC.darkRed, fontFace:FONT, valign:'middle' });
+
+    slide.addText('전환율 시계열 추이', { x:7.3,y:1.1,w:5,h:0.3, fontSize:10, color:PC.gray, fontFace:FONT });
+    slide.addChart(pptx.ChartType.line, [
+      { name:'장바구니→결제', labels:cvData.mos, values:cvData.cart },
+      { name:'검색→조회', labels:cvData.mos, values:cvData.srch },
+    ], { x:7.2,y:1.4,w:5.6,h:4.6, chartColors:[PC.red, PC.paleBlue], lineSize:[2,1.5], showLegend:true, legendPos:'b', fontFace:FONT });
+
+    slide = slideChrome(pptx, '병목 제품 · 연관 구매 · AI 요약', subtitle);
+    slide.addTable([
+      [tableHeaderCell('제품명'), tableHeaderCell('조회','right'), tableHeaderCell('전환율','right')],
+      ['B백신','5,254',{ text:'5.9%', options:{ fontSize:10, align:'right', color:PC.red, fontFace:FONT } }],
+      ['D수두백신','1,840',{ text:'5.3%', options:{ fontSize:10, align:'right', color:PC.red, fontFace:FONT } }],
+      ['C독감백신','3,100',{ text:'9.4%', options:{ fontSize:10, align:'right', color:PC.green, fontFace:FONT } }],
+    ].map((row,i)=> i===0 ? row : row.map((c,j)=> typeof c==='string' ? { text:c, options:{ fontSize:10, align:j===1?'right':'left', color:j===1?PC.gray:PC.text, fontFace:FONT } } : c),
+    ), { x:0.4,y:1.1,w:6,h:1.8, border:{type:'solid',color:'E4E7EC',pt:0.5} });
+
+    slide.addText('연관 구매 상품 Top 3', { x:0.4,y:3.2,w:6,h:0.3, fontSize:11, bold:true, color:PC.navy, fontFace:FONT });
+    [
+      ['A백신 + C독감백신','38.2%'], ['A백신 + 주사기SET','24.7%'], ['B백신 + 보관용기','18.1%'],
+    ].forEach((t,i)=>{
+      slide.addText([
+        { text:t[0], options:{ color:PC.text } },
+        { text:'   '+t[1], options:{ color:PC.steel, bold:true } },
+      ], { x:0.4,y:3.6+i*0.4,w:6,h:0.35, fontSize:10, fontFace:FONT });
+    });
+
+    slide.addText('C. 구매처 분석 AI 요약', { x:7,y:1.1,w:5.9,h:0.3, fontSize:11, bold:true, color:PC.navy, fontFace:FONT });
+    [
+      { arrow:'↑', color:PC.green, text:'경기·인천 이탈위험 144개처 (+22). 예상 방어 매출 ₩38M — 즉시 CRM 실행 권장.' },
+      { arrow:'↓', color:PC.amber, text:'B백신 장바구니→결제 –7.3%p 급락 — 번들 프로모션 검토 필요.' },
+      { arrow:'→', color:PC.green, text:'2차 미구매 132개처 리마인더 발송 → 전환율 +18% 예측.' },
+    ].forEach((s,i)=>{
+      slide.addText([
+        { text:s.arrow+' ', options:{ color:s.color, bold:true } },
+        { text:s.text, options:{ color:PC.text } },
+      ], { x:7,y:1.5+i*1.2,w:5.9,h:1.1, fontSize:10, fontFace:FONT, valign:'top' });
+    });
+  }
+
+  function buildAiSlides(pptx){
+    const subtitle = filterSubtitle();
+
+    let slide = slideChrome(pptx, 'AI 인사이트 — Executive Summary', subtitle);
+    [
+      { arrow:'↑', color:PC.green, text:'서울 지역 내과·소아과 신규 구매처 +22개처 유입, 전월 대비 매출 +24.6% 급성장. A백신 판매수량 전년 동기 대비 +31% 증가.' },
+      { arrow:'↓', color:PC.red, text:'경기·인천 권역 기존 거래처 144개처 90일 이상 미구매 이탈 신호. 예상 방어 매출 ₩38M — 즉각 CRM 실행 권장.' },
+      { arrow:'→', color:PC.amber, text:'도매 채널 비중 3%p 상승(37%→40%). 병의원 직접 채널 방어를 위한 프로모션 전략 재설계 필요 시점.' },
+    ].forEach((e,i)=>{
+      slide.addText([
+        { text:e.arrow+'  ', options:{ color:e.color, bold:true, fontSize:16 } },
+        { text:e.text, options:{ color:PC.navy, fontSize:13 } },
+      ], { x:0.4,y:1.2+i*1.6,w:12.5,h:1.5, fontFace:FONT, valign:'top' });
+    });
+
+    const insights = [
+      { type:'Growth', color:PC.green, bg:'EAF3DE', textColor:'27500A', body:'서울 내과·소아과 매출 +31%. 신규 18개처 유입 주도. A백신 집중 노출 강화 권장.', action:'서울 확장 프로모션 기획' },
+      { type:'Risk', color:PC.red, bg:'FCEBEB', textColor:'791F1F', body:'경기·인천 매출 –15.4%. 이탈위험 144개처 즉시 CRM 실행 시 방어 ₩38M.', action:'이탈 위험 CRM 즉시 실행' },
+      { type:'Product', color:PC.amber, bg:'FAEEDA', textColor:'633806', body:'B백신 전환율 –7.3%p. 가격 저항 탐지. 번들 프로모션 검토 필요.', action:'B백신 전환율 개선 방안' },
+      { type:'Customer', color:PC.blue, bg:'E6F1FB', textColor:PC.navy, body:'2차 미구매 132개처. 30일 이내 리마인더 발송 시 전환율 +18% 예측.', action:'2차 구매 유도 캠페인' },
+      { type:'Channel', color:PC.purple, bg:'EEEDFE', textColor:'3C3489', body:'도매 비중 40%로 상승. 병의원 전용 할인 패키지 및 MR 접촉 강화 필요.', action:'병의원 채널 방어 기획' },
+      { type:'경쟁품 (외부 데이터 반영)', color:PC.red, bg:'FCEBEB', textColor:'791F1F', body:'프리오릭스 26년 공급 재개 — IQVIA Q4 데이터 기준 엠엠알 M/S –8.2%p 하락 감지. 25년 4Q 출고 33,640 Vial(1Q 대비 –63%). 국가출하승인 통과 시 추가 물량 유입 위험.', action:'프리오릭스 대응 — 병의원 락인 전략 강화' },
+    ];
+    slide = slideChrome(pptx, 'AI 인사이트 카드', subtitle);
+    const cardW=4.05, cardH=2.85, gapX=0.15, gapY=0.2, gx0=0.4, gy0=1.15;
+    insights.forEach((c,i)=>{
+      const col=i%3, row=Math.floor(i/3);
+      const x=gx0+col*(cardW+gapX), y=gy0+row*(cardH+gapY);
+      slide.addShape('rect', { x,y,w:0.05,h:cardH, fill:{color:c.color}, line:{type:'none'} });
+      slide.addShape('roundRect', { x:x+0.05,y,w:cardW-0.05,h:cardH, fill:{color:'FFFFFF'}, line:{color:'E4E7EC',width:0.75} });
+      slide.addShape('roundRect', { x:x+0.2,y:y+0.15,w:2.0,h:0.3, fill:{color:c.bg}, line:{type:'none'} });
+      slide.addText(c.type, { x:x+0.2,y:y+0.15,w:2.0,h:0.3, fontSize:8, bold:true, color:c.textColor, align:'center', valign:'middle', fontFace:FONT });
+      slide.addText(c.body, { x:x+0.2,y:y+0.55,w:cardW-0.4,h:cardH-1.05, fontSize:c.body.length>60?8:9, color:PC.text, fontFace:FONT, valign:'top' });
+      slide.addText('→ '+c.action, { x:x+0.2,y:y+cardH-0.45,w:cardW-0.4,h:0.4, fontSize:8, bold:true, color:c.color, fontFace:FONT });
+    });
+
+    slide = slideChrome(pptx, '추천 실행과제', subtitle);
+    [
+      { n:1, color:PC.green, title:'경기·인천 이탈 위험 Top 10 거래처 즉시 접촉 — 재구매 쿠폰 발행', sub:'예상 방어 매출 ₩12M · 즉시 실행' },
+      { n:2, color:PC.green, title:'2차 미구매 132개처 30일 리마인더 캠페인 발송', sub:'전환율 +18% 예측' },
+      { n:3, color:PC.red, title:'프리오릭스 공급 재개 대응 — 엠엠알 기존 구매처 병의원 전용 락인 프로모션 설계', sub:'25년 4Q 출고 –63% / 프리오릭스 국검 통과 모니터링 중' },
+      { n:4, color:PC.steel, title:'병의원 전용 즉시할인 패키지 프로모션 설계 — 12월 적용', sub:'채널 비중 방어' },
+    ].forEach((a,i)=>{
+      const y=1.2+i*1.35;
+      slide.addShape('ellipse', { x:0.4,y,w:0.5,h:0.5, fill:{color:a.color}, line:{type:'none'} });
+      slide.addText(String(a.n), { x:0.4,y,w:0.5,h:0.5, fontSize:14, bold:true, color:'FFFFFF', align:'center', valign:'middle', fontFace:FONT });
+      slide.addText(a.title, { x:1.1,y,w:11.6,h:0.6, fontSize:12, color:'222222', fontFace:FONT, valign:'top' });
+      slide.addText(a.sub, { x:1.1,y:y+0.55,w:11.6,h:0.4, fontSize:10, color:a.color, fontFace:FONT });
+    });
+
+    slide = slideChrome(pptx, '이탈위험 거래처 상세 근거', subtitle);
+    const churnHeader = ['기관명','지역','마지막 구매(R)','빈도 감소(F)','금액 감소(M)','점수','등급','AI 추천'].map(h=>tableHeaderCell(h,'center'));
+    const churnRows = [
+      ['강남연세의원','서울','92일전','–62%','–71%','92','H','쿠폰 즉시 발송'],
+      ['인천미래소아과','인천','85일전','–58%','–64%','87','H','MR 즉시 접촉'],
+      ['수원중앙의원','경기','74일전','–38%','–44%','68','M','번들 안내'],
+    ].map(r => {
+      const risky = r[6]==='H';
+      const dc = risky ? PC.darkRed : PC.darkAmber;
+      return [
+        { text:r[0], options:{ fontSize:9.5, bold:true, fontFace:FONT } },
+        { text:r[1], options:{ fontSize:9.5, align:'center', fontFace:FONT } },
+        { text:r[2], options:{ fontSize:9.5, align:'center', color:dc, fontFace:FONT } },
+        { text:r[3], options:{ fontSize:9.5, align:'center', color:dc, fontFace:FONT } },
+        { text:r[4], options:{ fontSize:9.5, align:'center', color:dc, fontFace:FONT } },
+        { text:r[5], options:{ fontSize:9.5, align:'center', bold:true, color:dc, fontFace:FONT } },
+        { text:r[6], options:{ fontSize:9.5, align:'center', bold:true, color:'FFFFFF', fill:{color:risky?PC.red:'EF9F27'}, fontFace:FONT } },
+        { text:r[7], options:{ fontSize:9.5, color:PC.steel, fontFace:FONT } },
+      ];
+    });
+    slide.addTable([churnHeader, ...churnRows], { x:0.4,y:1.1,w:12.5,h:2.2, border:{type:'solid',color:'E4E7EC',pt:0.5} });
+    slide.addText('위험 점수 = Recency 40% + Frequency 35% + Monetary 25% 가중 합산',
+      { x:0.4,y:3.5,w:12.5,h:0.4, fontSize:9.5, color:PC.steel, fontFace:FONT });
+  }
+
   async function exportPptx(panel){
     if(!panel) return;
     try{
       await ensurePptLibs();
-      const canvas = await html2canvas(panel, {scale:2, backgroundColor:'#F7F9FC'});
-      const img = canvas.toDataURL('image/png');
       const pptx = new PptxGenJS();
       pptx.defineLayout({name:'W', width:13.33, height:7.5}); pptx.layout = 'W';
-      const slide = pptx.addSlide();
-      const ratio = canvas.height / canvas.width;
-      let w = 12.33, h = w * ratio;
-      if(h > 6.9){ h = 6.9; w = h / ratio; }
-      slide.addImage({data:img, x:(13.33 - w)/2, y:(7.5 - h)/2, w, h});
+
+      const builders = {
+        'panel-sales':  buildSalesSlides,
+        'panel-buyers': buildBuyersSlides,
+        'panel-ai':     buildAiSlides,
+      };
+      const build = builders[panel.id];
+      if(!build){ alert('현재 화면은 PPT로 저장할 수 없습니다.'); return; }
+      build(pptx);
+
       await pptx.writeFile({fileName:`블루팜코리아_${tabName()}_${stamp()}.pptx`});
     }catch(err){
       console.error(err);
-      alert('PPT 생성에 실패했습니다. 인터넷 연결(CDN)을 확인해주세요.');
+      alert('PPT 생성에 실패했습니다.');
     }
   }
 
